@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505" id="theme-color-meta">
+    
+    <meta name="description" content="Read expert insights on FMCG Print Production, Brand Strategy, AI in Design, and Global Freelancing by Muhammad Mahad Ikram.">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <link rel="canonical" href="https://mahadikram.com/blog.html">
+    
+    <meta property="og:title" content="Design Insights & Articles | Mahad Ikram">
+    <meta property="og:description" content="Thoughts on print production, branding strategies, and navigating the global freelance market.">
+    <meta property="og:type" content="blog">
+    <meta property="og:url" content="https://mahadikram.com/blog.html">
+    <meta property="og:image" content="https://mahadikram.com/mahad-photo.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Design Insights | Mahad Ikram">
+    <meta name="twitter:description" content="Thoughts on print production, branding strategies, and navigating the global freelance market.">
+    
+    <title>Insights & Articles | Mahad Ikram</title>
+
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "Design Insights by Mahad Ikram",
+      "description": "Expert articles on FMCG Print Production, Brand Strategy, AI in Design, and Global Freelancing.",
+      "url": "https://mahadikram.com/blog.html",
+      "author": {
+        "@type": "Person",
+        "name": "Muhammad Mahad Ikram"
+      }
+    }
+    </script>
+
+    <script>
+        (function() {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const currentTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+            if (currentTheme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+
+    <style>
+        /* --- 1. DYNAMIC THEME ENGINE --- */
+        :root {
+            --bg: #050505; --card-bg: #111111; --text: #ffffff; --sub-text: #888888;
+            --accent: #d4ff00; --border: #1a1a1a; --card-border: #222222;
+            --nav-bg: rgba(5, 5, 5, 0.85);
+            --font-display: 'Arial Black', sans-serif; --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        [data-theme="light"] {
+            --bg: #f7f7f7; --card-bg: #ffffff; --text: #050505; --sub-text: #555555;
+            --accent: #9abd00; --border: #e0e0e0; --card-border: #d5d5d5;
+            --nav-bg: rgba(247, 247, 247, 0.85);
+        }
+
+        /* --- 2. CORE AESTHETICS --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body { background-color: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; transition: background-color 0.4s ease, color 0.4s ease; }
+        strong { color: var(--accent); font-weight: 800; transition: color 0.4s ease; }
+
+        /* --- 3. GPU ACCELERATED CURSOR --- */
+        .cursor {
+            position: fixed; top: 0; left: 0; width: 20px; height: 20px; background: white; border-radius: 50%; pointer-events: none;
+            mix-blend-mode: difference; z-index: 999999; transition: width 0.3s, height 0.3s, background 0.3s, opacity 0.3s; 
+            opacity: 0; will-change: transform; 
+        }
+        .cursor.hovered { width: 80px; height: 80px; opacity: 0.9; background: var(--accent); }
+
+        /* --- 4. FROSTED GLASS NAV --- */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; padding: 25px 5%; display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; background: transparent; border-bottom: 1px solid transparent; transition: background 0.4s ease, backdrop-filter 0.4s ease, border-bottom 0.4s ease;
+        }
+        nav.scrolled { background: var(--nav-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+        .nav-link { color: var(--text); text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; transition: color 0.4s ease, border-color 0.3s ease; border-bottom: 1px solid transparent; padding-bottom: 2px; }
+        .nav-link:hover { border-bottom: 1px solid var(--accent); color: var(--accent); }
+        .nav-link.active-link { border-bottom: 1px solid var(--accent); }
+
+        /* --- 5. HEADER & CATEGORY FILTERS --- */
+        .blog-header { padding: 10rem 5% 2rem; border-bottom: 1px solid var(--border); transition: border-color 0.4s ease; }
+        h1 { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 6rem); text-transform: uppercase; line-height: 0.9; margin-bottom: 1rem; animation: slideDown 1s ease forwards; }
+        .blog-header p { font-size: 1.2rem; color: var(--sub-text); max-width: 600px; animation: fadeIn 1s ease forwards 0.3s; opacity: 0; margin-bottom: 3rem; }
+
+        .filter-menu { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeIn 1s ease forwards 0.5s; opacity: 0; }
+        .filter-btn { background: transparent; border: 1px solid var(--card-border); color: var(--sub-text); padding: 0.6rem 1.5rem; font-family: var(--font-body); text-transform: uppercase; font-weight: bold; cursor: none; transition: 0.3s ease; border-radius: 50px; font-size: 0.85rem; }
+        .filter-btn:hover, .filter-btn.active { border-color: var(--accent); color: #000; background: var(--accent); }
+
+        /* --- 6. ARTICLE GRID (DYNAMIC) --- */
+        .blog-container { padding: 4rem 5%; display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 3rem; min-height: 50vh; }
+        .article-card { background: var(--card-bg); border: 1px solid var(--card-border); padding: 3rem; transition: 0.4s ease, border-color 0.4s ease; display: flex; flex-direction: column; animation: fadeIn 0.5s ease forwards; display: block; }
+        .article-card:hover { border-color: var(--accent); transform: translateY(-10px); }
+
+        .article-meta { display: flex; justify-content: space-between; color: var(--sub-text); font-size: 0.9rem; text-transform: uppercase; margin-bottom: 1.5rem; font-weight: bold; }
+        .cat-tag { color: var(--accent); }
+        .article-card h3 { font-size: 2rem; margin-bottom: 1rem; line-height: 1.2; }
+        .article-card p { color: var(--sub-text); line-height: 1.6; margin-bottom: 2rem; flex-grow: 1; }
+
+        .read-more { display: inline-block; color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid transparent; transition: 0.3s; align-self: flex-start; }
+        .article-card:hover .read-more { border-bottom: 1px solid var(--accent); letter-spacing: 3px; }
+
+        /* THEME TOGGLE BUTTON */
+        .theme-toggle-btn { background: none; border: none; outline: none; margin-left: 1rem; color: var(--text); display: inline-flex; align-items: center; justify-content: center; width: 35px; height: 35px; border-radius: 50%; transition: 0.3s ease, color 0.4s ease; }
+        .theme-toggle-btn:hover { transform: scale(1.1); background: rgba(128,128,128,0.2); }
+        .theme-toggle-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+        /* --- 7. ARTICLE READER MODAL --- */
+        .article-modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: var(--bg); z-index: 99990; overflow-y: auto; overflow-x: hidden; opacity: 0; pointer-events: none; transition: opacity 0.4s ease, background-color 0.4s ease; }
+        .article-modal.active { opacity: 1; pointer-events: auto; }
+        .modal-close-btn { position: fixed; top: 2rem; right: 3rem; background: none; border: none; color: var(--text); font-size: 3rem; font-family: var(--font-display); z-index: 99995; transition: color 0.3s ease; }
+        .modal-close-btn:hover { color: var(--accent); }
+
+        .reader-content { width: 100%; max-width: 800px; margin: 0 auto; padding: 8rem 2rem 4rem 2rem; }
+        .reader-header { margin-bottom: 4rem; text-align: center; }
+        .reader-header h2 { font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 4.5rem); text-transform: uppercase; line-height: 1; margin-bottom: 1.5rem; }
+        .reader-meta { color: var(--accent); font-weight: bold; text-transform: uppercase; font-size: 1rem; }
+
+        .reader-body { font-size: 1.25rem; line-height: 1.8; color: var(--text); }
+        .reader-body p { margin-bottom: 2rem; }
+        .reader-body h3 { font-family: var(--font-display); font-size: 2rem; margin: 3rem 0 1rem 0; text-transform: uppercase; }
+        
+        .reader-cover { width: 100%; height: 400px; object-fit: cover; border-radius: 8px; margin-bottom: 3rem; filter: grayscale(100%); transition: 0.5s; }
+        .reader-cover:hover { filter: grayscale(0%); }
+
+        .modal-footer { margin-top: 5rem; padding-top: 4rem; border-top: 1px solid var(--border); text-align: center; transition: border-color 0.4s ease; }
+        .modal-footer h3 { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.5rem); text-transform: uppercase; margin-bottom: 2rem; }
+        .social-row { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; }
+        .social-link { color: var(--text); text-decoration: none; font-size: 1.2rem; border-bottom: 1px solid transparent; transition: 0.3s; font-weight: bold; }
+        .social-link:hover { color: var(--accent); border-bottom: 1px solid var(--accent); letter-spacing: 2px; }
+
+        /* ANIMATIONS */
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-50px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        /* RESPONSIVE */
+        @media(max-width: 768px) {
+            .blog-container { grid-template-columns: 1fr; }
+            h1 { font-size: 3rem; }
+            .cursor { display: none !important; } * { cursor: auto !important; }
+            .modal-close-btn { top: 1rem; right: 1.5rem; font-size: 2.5rem; }
+            .reader-content { padding-top: 6rem; }
+            .mobile-hide { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor"></div>
+
+    <nav id="main-nav">
+        <div style="font-weight: bold; font-size: 1.2rem; color: var(--text); transition: color 0.4s ease;">
+            <a href="index.html" style="color: inherit; text-decoration: none;"><span style="color: var(--accent);">M</span>I.</a>
+        </div>
+        
+        <div style="display: flex; align-items: center; gap: 1.5rem; color: var(--text); transition: color 0.4s ease;">
+            <a href="about.html" class="nav-link mobile-hide" aria-label="About Mahad">About</a>
+            <a href="work.html" class="nav-link mobile-hide" aria-label="View Portfolio">Works</a>
+            <a href="blog.html" class="nav-link active-link mobile-hide" aria-label="Read Blog">Blog</a>
+            
+            <a href="https://vaguers.com" target="_blank" rel="noopener noreferrer" class="nav-link mobile-hide" aria-label="Visit Vaguers Apparel" style="color: var(--accent);">Shop ↗</a>
+            
+            <a href="mailto:Mahadikram@outlook.com" class="nav-link" aria-label="Contact Mahad Ikram">Contact</a>
+            
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Dark/Light Mode">
+                <svg id="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg id="icon-sun" style="display: none;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <header class="blog-header">
+            <h1><span style="color: var(--accent);">Design</span> Insights</h1>
+            <p>Thoughts on print production, branding strategies, and navigating the global freelance market. Written by Mahad Ikram.</p>
+            
+            <div class="filter-menu">
+                <button class="filter-btn active" data-filter="all" onclick="filterSelection('all')" aria-label="Show all articles">All Topics</button>
+                <button class="filter-btn" data-filter="prepress" onclick="filterSelection('prepress')" aria-label="Show Print Production">Print Production</button>
+                <button class="filter-btn" data-filter="ai" onclick="filterSelection('ai')" aria-label="Show AI & Tech">AI & Tech</button>
+                <button class="filter-btn" data-filter="strategy" onclick="filterSelection('strategy')" aria-label="Show Brand Strategy">Brand Strategy</button>
+                <button class="filter-btn" data-filter="freelance" onclick="filterSelection('freelance')" aria-label="Show Freelancing">Freelancing</button>
+            </div>
+        </header>
+
+        <section class="blog-container" id="blog-container">
+            <p style="grid-column: 1 / -1; text-align: center; color: var(--sub-text); font-size: 1.2rem;">Connecting to database...</p>
+        </section>
+    </main>
+
+    <div id="articleModal" class="article-modal">
+        <button id="closeModalBtn" class="modal-close-btn" aria-label="Close Article">&times;</button>
+        
+        <div class="reader-content">
+            <div class="reader-header">
+                <div class="reader-meta" id="modalMeta">Category • Date</div>
+                <h2 id="modalTitle">Article Title</h2>
+            </div>
+            
+            <img id="modalCover" class="reader-cover" src="" alt="Article Cover" style="display: none;" loading="lazy">
+
+            <div id="modalBody" class="reader-body">
+                </div>
+
+            <div id="relatedArticlesSection" style="margin-top: 60px; border-top: 1px solid var(--border); padding-top: 40px; display: none;">
+                <h3 style="font-family: var(--font-display); font-size: 2rem; text-transform: uppercase; margin-bottom: 20px;">Keep <span style="color: var(--accent);">Reading</span></h3>
+                <div id="related-articles-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px;">
+                    </div>
+            </div>
+
+            <div class="modal-footer">
+                <h3>Share Your <span style="color: var(--accent);">Thoughts.</span></h3>
+                <div class="social-row">
+                    <a href="https://www.linkedin.com/in/mahad-ikram" class="social-link" target="_blank" rel="noopener noreferrer">Discuss on LinkedIn</a>
+                    <a href="mailto:Mahadikram@outlook.com" class="social-link">Email Me</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, orderBy, query, where, limit } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        // Your Exact Firebase Keys
+        const firebaseConfig = {
+            apiKey: "AIzaSyDaIpU-wdduZiSiy1-58vtpd7UvfmjbORE",
+            authDomain: "mahad-portfolio.firebaseapp.com",
+            projectId: "mahad-portfolio",
+            storageBucket: "mahad-portfolio.firebasestorage.app",
+            messagingSenderId: "388087517533",
+            appId: "1:388087517533:web:b106912f7eda1dcd7d58b4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const blogContainer = document.getElementById('blog-container');
+        const modal = document.getElementById('articleModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMeta = document.getElementById('modalMeta');
+        const modalCover = document.getElementById('modalCover');
+        const modalBody = document.getElementById('modalBody');
+
+        // Global Filter Logic
+        window.filterSelection = function(c) {
+            let x = document.getElementsByClassName("filter-item");
+            let btns = document.getElementsByClassName("filter-btn");
+
+            for (let b = 0; b < btns.length; b++) {
+                btns[b].classList.remove("active");
+                if (btns[b].getAttribute('data-filter') === c) {
+                   btns[b].classList.add("active");
+                }
+            }
+
+            let filterClass = c === "all" ? "" : c;
+            
+            for (let i = 0; i < x.length; i++) {
+                x[i].style.display = "none"; 
+                if (x[i].className.indexOf(filterClass) > -1) {
+                    x[i].style.display = "flex"; 
+                    x[i].style.animation = 'none';
+                    x[i].offsetHeight;
+                    x[i].style.animation = 'fadeIn 0.5s ease forwards';
+                }
+            }
+        };
+
+        // Helper function to extract snippet
+        function extractSnippet(htmlStr) {
+            const tmp = document.createElement("DIV");
+            tmp.innerHTML = htmlStr;
+            const text = tmp.textContent || tmp.innerText || "";
+            return text.substring(0, 120) + "...";
+        }
+
+        // --- RELATED ARTICLES ENGINE FOR THE MODAL ---
+        async function loadRelatedArticles(currentCategory, currentArticleId) {
+            const relatedSection = document.getElementById('relatedArticlesSection');
+            const relatedContainer = document.getElementById('related-articles-grid');
+            
+            relatedSection.style.display = 'block';
+            relatedContainer.innerHTML = '<p style="color: var(--sub-text);">Loading related insights...</p>';
+
+            try {
+                // Fetch 4 articles from the same category
+                const qRelated = query(
+                    collection(db, "blogs"),
+                    where("category", "==", currentCategory),
+                    limit(4)
+                );
+                const querySnapshot = await getDocs(qRelated);
+                
+                relatedContainer.innerHTML = '';
+                let count = 0;
+
+                querySnapshot.forEach((relatedDoc) => {
+                    if (relatedDoc.id !== currentArticleId && count < 3) {
+                        const relData = relatedDoc.data();
+                        
+                        let relDateStr = "Recently";
+                        if(relData.createdAt) {
+                            const dateObj = relData.createdAt.toDate();
+                            relDateStr = dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                        }
+
+                        const relCard = document.createElement('div');
+                        relCard.style.cssText = "background: var(--card-bg); padding: 15px; border: 1px solid var(--card-border); border-radius: 8px; cursor: none; transition: 0.3s; display: flex; flex-direction: column;";
+                        relCard.onmouseover = () => relCard.style.borderColor = "var(--accent)";
+                        relCard.onmouseout = () => relCard.style.borderColor = "var(--card-border)";
+                        
+                        relCard.innerHTML = `
+                            ${relData.image ? `<img src="${relData.image}" alt="Cover image for ${relData.title}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 4px; margin-bottom: 15px;">` : ''}
+                            <h4 style="font-size: 1.1rem; margin-bottom: 10px; line-height: 1.3; color: var(--text); font-family: var(--font-body);">${relData.title}</h4>
+                            <div style="margin-top: auto; color: var(--accent); font-size: 0.85rem; font-weight: bold; text-transform: uppercase;">Read Article →</div>
+                        `;
+
+                        relCard.addEventListener('click', () => {
+                            document.getElementById('articleModal').scrollTo({ top: 0, behavior: 'smooth' });
+                            
+                            modalTitle.innerText = relData.title;
+                            modalMeta.innerText = `${relData.category.toUpperCase()} • ${relDateStr}`;
+                            modalBody.innerHTML = relData.content;
+                            
+                            if(relData.image && relData.image !== "") {
+                                modalCover.src = relData.image;
+                                modalCover.style.display = 'block';
+                            } else {
+                                modalCover.style.display = 'none';
+                            }
+
+                            loadRelatedArticles(relData.category, relatedDoc.id);
+                        });
+
+                        relCard.addEventListener('mouseenter', () => {
+                            const cursor = document.querySelector('.cursor');
+                            if(cursor) cursor.classList.add('hovered');
+                        });
+                        relCard.addEventListener('mouseleave', () => {
+                            const cursor = document.querySelector('.cursor');
+                            if(cursor) cursor.classList.remove('hovered');
+                        });
+
+                        relatedContainer.appendChild(relCard);
+                        count++;
+                    }
+                });
+
+                if (count === 0) {
+                    relatedContainer.innerHTML = '<p style="color: var(--sub-text);">More articles in this category coming soon!</p>';
+                }
+
+            } catch (error) {
+                console.error("Error loading related articles:", error);
+                relatedContainer.innerHTML = '<p style="color: #ff4444;">Failed to load related articles.</p>';
+            }
+        }
+
+        // Fetch Main Articles
+        async function loadBlogs() {
+            try {
+                const q = query(collection(db, "blogs"), orderBy("createdAt", "desc"));
+                const querySnapshot = await getDocs(q);
+                
+                blogContainer.innerHTML = ''; 
+
+                if(querySnapshot.empty) {
+                    blogContainer.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: var(--sub-text);">No articles published yet. Check back soon!</p>';
+                    return;
+                }
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const article = document.createElement('article');
+                    
+                    let dateStr = "Recently";
+                    if(data.createdAt) {
+                        const dateObj = data.createdAt.toDate();
+                        dateStr = dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                    }
+
+                    article.className = `article-card filter-item ${data.category}`;
+                    const snippet = extractSnippet(data.content);
+                    
+                    article.innerHTML = `
+                        <div class="article-meta">
+                            <span class="cat-tag">${data.category.toUpperCase()}</span>
+                            <span>${dateStr}</span>
+                        </div>
+                        <h3>${data.title}</h3>
+                        <p>${snippet}</p>
+                        <span class="read-more" aria-label="Read ${data.title}">Read Article ↗</span>
+                    `;
+                    
+                    article.addEventListener('click', () => {
+                        modalTitle.innerText = data.title;
+                        modalMeta.innerText = `${data.category.toUpperCase()} • ${dateStr}`;
+                        modalBody.innerHTML = data.content; 
+                        
+                        if(data.image && data.image !== "") {
+                            modalCover.src = data.image;
+                            modalCover.style.display = 'block';
+                        } else {
+                            modalCover.style.display = 'none';
+                        }
+
+                        loadRelatedArticles(data.category, doc.id);
+
+                        modal.classList.add('active');
+                        document.body.style.overflow = 'hidden'; 
+                        document.getElementById('articleModal').scrollTop = 0;
+                    });
+
+                    article.addEventListener('mouseenter', () => {
+                        const cursor = document.querySelector('.cursor');
+                        if(cursor) cursor.classList.add('hovered');
+                    });
+                    article.addEventListener('mouseleave', () => {
+                        const cursor = document.querySelector('.cursor');
+                        if(cursor) cursor.classList.remove('hovered');
+                    });
+
+                    blogContainer.appendChild(article);
+                });
+
+                window.filterSelection('all');
+
+            } catch(error) {
+                console.error("Error fetching articles:", error);
+                blogContainer.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #ff4444;">Error loading articles. Please refresh.</p>';
+            }
+        }
+
+        loadBlogs();
+
+        // ----------------------------------------
+        // UI & FRONTEND LOGIC (Nav, Theme, Modal)
+        // ----------------------------------------
+        const mainNav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) mainNav.classList.add('scrolled');
+            else mainNav.classList.remove('scrolled');
+        });
+
+        const closeBtn = document.getElementById('closeModalBtn');
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto'; 
+        });
+        modal.addEventListener('click', (e) => {
+            if(e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const iconMoon = document.getElementById('icon-moon');
+        const iconSun = document.getElementById('icon-sun');
+        const metaThemeColor = document.getElementById('theme-color-meta');
+        
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        if (currentTheme === 'light') {
+            iconMoon.style.display = 'none'; 
+            iconSun.style.display = 'block';
+            metaThemeColor.setAttribute('content', '#f7f7f7');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme') || 'dark';
+            let newTheme = theme === 'light' ? 'dark' : 'light';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+
+            if (newTheme === 'light') {
+                iconMoon.style.display = 'none'; iconSun.style.display = 'block';
+                metaThemeColor.setAttribute('content', '#f7f7f7');
+            } else {
+                iconMoon.style.display = 'block'; iconSun.style.display = 'none';
+                metaThemeColor.setAttribute('content', '#050505');
+            }
+        });
+
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        if (!isTouchDevice) {
+            const cursor = document.querySelector('.cursor');
+            document.addEventListener('mousemove', (e) => {
+                if(cursor) {
+                    cursor.style.opacity = '1'; 
+                    cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+                }
+            });
+            document.querySelectorAll('a, button, .modal-close-btn').forEach(item => {
+                item.addEventListener('mouseenter', () => { if(cursor) cursor.classList.add('hovered'); });
+                item.addEventListener('mouseleave', () => { if(cursor) cursor.classList.remove('hovered'); });
+            });
+        } else {
+            const cursorElement = document.querySelector('.cursor');
+            if(cursorElement) cursorElement.remove();
+        }
+    </script>
+</body>
+</html>

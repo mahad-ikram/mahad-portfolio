@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505" id="theme-color-meta">
+    
+    <meta name="description" content="Portfolio of Muhammad Mahad Ikram. Explore selected works in Logos, Campaigns, FMCG Packaging, and Photography.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://mahadikram.com/work.html">
+    
+    <meta property="og:title" content="Selected Works | Mahad Ikram">
+    <meta property="og:description" content="Explore selected works in Logos, Campaigns, FMCG Packaging, and Photography.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mahadikram.com/work.html">
+    <meta property="og:image" content="https://mahadikram.com/mahad-photo.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Selected Works | Mahad Ikram">
+    <meta name="twitter:description" content="Explore selected works in Logos, Campaigns, FMCG Packaging, and Photography.">
+    
+    <title>Selected Works | Mahad Ikram</title>
+
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Mahad Ikram Portfolio",
+      "description": "A collection of creative works including FMCG packaging, 360 campaigns, and prepress graphics.",
+      "url": "https://mahadikram.com/work.html",
+      "author": {
+        "@type": "Person",
+        "name": "Muhammad Mahad Ikram"
+      }
+    }
+    </script>
+
+    <script>
+        (function() {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const currentTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+            if (currentTheme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+
+    <style>
+        /* --- DYNAMIC THEME ENGINE --- */
+        :root {
+            --bg: #050505; --card-bg: #111111; --text: #ffffff; --sub-text: #888888;
+            --accent: #d4ff00; --border: #1a1a1a; --card-border: #222222;
+            --nav-bg: rgba(5, 5, 5, 0.85);
+            --font-display: 'Arial Black', sans-serif; --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        [data-theme="light"] {
+            --bg: #f7f7f7; --card-bg: #ffffff; --text: #050505; --sub-text: #555555;
+            --accent: #9abd00; --border: #e0e0e0; --card-border: #d5d5d5;
+            --nav-bg: rgba(247, 247, 247, 0.85);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body { background-color: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; transition: background-color 0.4s ease, color 0.4s ease; }
+
+        .cursor { position: fixed; top: 0; left: 0; width: 20px; height: 20px; background: white; border-radius: 50%; pointer-events: none; mix-blend-mode: difference; z-index: 999999; transition: width 0.3s, height 0.3s, background 0.3s, opacity 0.3s; opacity: 0; will-change: transform; }
+        .cursor.hovered { width: 80px; height: 80px; opacity: 0.9; background: var(--accent); }
+
+        nav { position: fixed; top: 0; left: 0; width: 100%; padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: transparent; border-bottom: 1px solid transparent; transition: background 0.4s ease, backdrop-filter 0.4s ease, border-bottom 0.4s ease; }
+        nav.scrolled { background: var(--nav-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+        .nav-link { color: var(--text); text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; transition: color 0.4s ease, border-color 0.3s ease; border-bottom: 1px solid transparent; padding-bottom: 2px; }
+        .nav-link:hover { border-bottom: 1px solid var(--accent); color: var(--accent); }
+        .nav-link.active-link { border-bottom: 1px solid var(--accent); }
+
+        .work-header { padding: 10rem 5% 2rem; border-bottom: 1px solid var(--border); transition: border-color 0.4s ease; }
+        h1 { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 6rem); text-transform: uppercase; line-height: 0.9; margin-bottom: 2rem; animation: slideDown 1s ease forwards; }
+
+        .filter-menu { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 2rem; }
+        .filter-btn { background: transparent; border: 1px solid var(--card-border); color: var(--sub-text); padding: 0.8rem 2rem; font-family: var(--font-body); text-transform: uppercase; font-weight: bold; cursor: none; transition: 0.3s ease; border-radius: 50px; }
+        .filter-btn:hover, .filter-btn.active { border-color: var(--accent); color: #000; background: var(--accent); }
+
+        .gallery-container { padding: 4rem 5%; display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 2rem; min-height: 50vh; }
+        .project-card { position: relative; height: 400px; overflow: hidden; border: 1px solid var(--card-border); transition: 0.5s ease, border-color 0.4s ease; display: block; animation: fadeIn 0.5s ease forwards; }
+        .project-card img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.6s transform, 0.6s filter; }
+        .project-card:hover img { transform: scale(1.1); filter: grayscale(0%); border-color: var(--accent); }
+        
+        .card-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 2rem; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); transform: translateY(100%); transition: 0.4s ease-in-out; color: white; opacity: 0; }
+        .project-card:hover .card-overlay { transform: translateY(0); opacity: 1; }
+        
+        .card-title { font-family: var(--font-display); font-size: 1.5rem; text-transform: uppercase; }
+        .card-cat { color: var(--accent); font-size: 0.9rem; margin-top: 0.5rem; display: block; font-weight: bold; }
+
+        .theme-toggle-btn { background: none; border: none; outline: none; margin-left: 1rem; color: var(--text); display: inline-flex; align-items: center; justify-content: center; width: 35px; height: 35px; border-radius: 50%; transition: 0.3s ease, color 0.4s ease; }
+        .theme-toggle-btn:hover { transform: scale(1.1); background: rgba(128,128,128,0.2); }
+        .theme-toggle-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+        /* --- PROJECT MODAL --- */
+        .project-modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: var(--bg); z-index: 99990; overflow-y: auto; overflow-x: hidden; opacity: 0; pointer-events: none; transition: opacity 0.4s ease, background-color 0.4s ease; }
+        .project-modal.active { opacity: 1; pointer-events: auto; }
+        .modal-close-btn { position: fixed; top: 2rem; right: 3rem; background: none; border: none; color: var(--text); font-size: 3rem; font-family: var(--font-display); z-index: 99995; transition: color 0.3s ease; }
+        .modal-close-btn:hover { color: var(--accent); }
+        
+        .modal-content { width: 100%; max-width: 1000px; margin: 0 auto; padding: 8rem 2rem 4rem 2rem; display: flex; flex-direction: column; gap: 2rem; align-items: center; text-align: center; }
+        .modal-header { width: 100%; }
+        .modal-header h2 { font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 4rem); text-transform: uppercase; margin-bottom: 0.5rem; line-height: 1; }
+        .modal-header h4 { color: var(--accent); font-size: 1.2rem; text-transform: uppercase; margin-bottom: 2rem; }
+        
+        /* THIS IS THE CONTAINER FOR YOUR LONG PRESENTATION IMAGES */
+        .modal-gallery { width: 100%; }
+        .modal-gallery img { width: 100%; height: auto; display: block; margin-bottom: 2rem; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+
+        /* IFRAME RESPONSIVE FIXES */
+        .modal-embed { display: none; width: 100%; justify-content: center; margin-bottom: 2rem; }
+        .modal-embed iframe { width: 100% !important; height: 75vh !important; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--card-border); }
+
+        /* --- MODAL FOOTER CTA --- */
+        .modal-footer { margin-top: 4rem; padding-top: 4rem; border-top: 1px solid var(--border); text-align: center; display: flex; flex-direction: column; align-items: center; transition: border-color 0.4s ease; width: 100%; }
+        .modal-footer h3 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); text-transform: uppercase; line-height: 1; margin-bottom: 2rem; }
+        .social-row { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; }
+        .social-link { color: var(--text); text-decoration: none; font-size: 1.2rem; border-bottom: 1px solid transparent; transition: 0.3s; font-weight: bold; }
+        .social-link:hover { color: var(--accent); border-bottom: 1px solid var(--accent); letter-spacing: 2px; }
+
+        .btn-primary { display: inline-block; padding: 1rem 2.5rem; border: 2px solid var(--accent); border-radius: 50px; color: var(--accent); font-weight: bold; text-transform: uppercase; text-decoration: none; letter-spacing: 1px; transition: 0.3s ease; margin-bottom: 3rem; }
+        .btn-primary:hover { background: var(--accent); color: #000; transform: scale(1.05); }
+
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-50px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        @media(max-width: 768px) {
+            .gallery-container { grid-template-columns: 1fr; }
+            h1 { font-size: 3rem; }
+            .filter-menu { gap: 1rem; }
+            .filter-btn { padding: 0.5rem 1rem; font-size: 0.8rem; }
+            .cursor { display: none !important; } * { cursor: auto !important; }
+            .modal-close-btn { top: 1rem; right: 1.5rem; font-size: 2.5rem; }
+            .modal-content { padding-top: 6rem; width: 100%; }
+            .modal-embed iframe { height: 50vh !important; } 
+            .mobile-hide { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor"></div>
+
+    <nav id="main-nav">
+        <div style="font-weight: bold; font-size: 1.2rem; color: var(--text); transition: color 0.4s ease;">
+            <a href="index.html" style="color: inherit; text-decoration: none;"><span style="color: var(--accent);">M</span>I.</a>
+        </div>
+        
+        <div style="display: flex; align-items: center; gap: 1.5rem; color: var(--text); transition: color 0.4s ease;">
+            <a href="about.html" class="nav-link mobile-hide" aria-label="About Mahad">About</a>
+            <a href="work.html" class="nav-link active-link mobile-hide" aria-label="View Portfolio">Works</a>
+            <a href="blog.html" class="nav-link mobile-hide" aria-label="Read Blog">Blog</a>
+            
+            <a href="https://vaguers.com" target="_blank" rel="noopener noreferrer" class="nav-link mobile-hide" aria-label="Visit Vaguers Apparel" style="color: var(--accent);">Shop ↗</a>
+            
+            <a href="mailto:Mahadikram@outlook.com" class="nav-link" aria-label="Contact Mahad Ikram">Contact</a>
+            
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Dark/Light Mode">
+                <svg id="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg id="icon-sun" style="display: none;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <header class="work-header">
+            <h1>Selected Projects</h1>
+            <div class="filter-menu">
+                <button class="filter-btn active" data-filter="all" onclick="filterSelection('all')" aria-label="Show all works">All Works</button>
+                <button class="filter-btn" data-filter="logos" onclick="filterSelection('logos')" aria-label="Show logo designs">Logos</button>
+                <button class="filter-btn" data-filter="campaigns" onclick="filterSelection('campaigns')" aria-label="Show campaigns">Campaigns</button>
+                <button class="filter-btn" data-filter="packaging" onclick="filterSelection('packaging')" aria-label="Show packaging designs">Packaging</button>
+                <button class="filter-btn" data-filter="photography" onclick="filterSelection('photography')" aria-label="Show photography">Photography</button>
+            </div>
+        </header>
+
+        <section class="gallery-container" id="gallery-container">
+            <p style="grid-column: 1 / -1; text-align: center; color: var(--sub-text); font-size: 1.2rem;">Connecting to database...</p>
+        </section>
+    </main>
+
+    <div id="projectModal" class="project-modal">
+        <button id="closeModalBtn" class="modal-close-btn" aria-label="Close Project">&times;</button>
+        
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Project Title</h2>
+                <h4 id="modalCat">Category</h4>
+                
+                <a href="#" id="viewProjectBtn" class="btn-primary" target="_blank" rel="noopener noreferrer" style="margin-bottom: 2rem; display: none;">View Full Project on Behance</a>
+            </div>
+            
+            <div id="modalGallery" class="modal-gallery"></div>
+            
+            <div id="modalEmbed" class="modal-embed"></div>
+
+            <div class="modal-footer">
+                <h3>Impressed? Let's Build Something <span style="color: var(--accent);">Epic.</span></h3>
+                <a href="mailto:Mahadikram@outlook.com" class="btn-primary">Start a Project</a>
+                
+                <div class="social-row">
+                    <a href="https://www.linkedin.com/in/mahad-ikram" class="social-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <a href="https://www.behance.net/mahadikram" class="social-link" target="_blank" rel="noopener noreferrer">Behance</a>
+                    <a href="https://www.instagram.com/mahad._.ikramm" class="social-link" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a href="https://x.com/mahadikramm" class="social-link" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDaIpU-wdduZiSiy1-58vtpd7UvfmjbORE",
+            authDomain: "mahad-portfolio.firebaseapp.com",
+            projectId: "mahad-portfolio",
+            storageBucket: "mahad-portfolio.firebasestorage.app",
+            messagingSenderId: "388087517533",
+            appId: "1:388087517533:web:b106912f7eda1dcd7d58b4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const gallery = document.getElementById('gallery-container');
+        const modal = document.getElementById('projectModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalCat = document.getElementById('modalCat');
+        const modalGallery = document.getElementById('modalGallery');
+        const viewProjectBtn = document.getElementById('viewProjectBtn');
+        const modalEmbed = document.getElementById('modalEmbed');
+
+        window.filterSelection = function(c) {
+            let x = document.getElementsByClassName("filter-item");
+            let btns = document.getElementsByClassName("filter-btn");
+
+            for (let b = 0; b < btns.length; b++) {
+                btns[b].classList.remove("active");
+                if (btns[b].getAttribute('data-filter') === c) {
+                   btns[b].classList.add("active");
+                }
+            }
+
+            let filterClass = c === "all" ? "" : c;
+            
+            for (let i = 0; i < x.length; i++) {
+                x[i].style.display = "none"; 
+                if (x[i].className.indexOf(filterClass) > -1) {
+                    x[i].style.display = "block"; 
+                    x[i].style.animation = 'none';
+                    x[i].offsetHeight;
+                    x[i].style.animation = 'fadeIn 0.5s ease forwards';
+                }
+            }
+        };
+
+        async function loadProjects() {
+            try {
+                const q = query(collection(db, "projects"), orderBy("createdAt", "desc"));
+                const querySnapshot = await getDocs(q);
+                
+                gallery.innerHTML = ''; 
+
+                if(querySnapshot.empty) {
+                    gallery.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: var(--sub-text);">No projects uploaded yet. Go to your Admin portal to publish your first work!</p>';
+                    return;
+                }
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const article = document.createElement('article');
+                    article.className = `project-card filter-item ${data.category}`;
+                    
+                    article.innerHTML = `
+                        <img src="${data.image}" alt="${data.title}" loading="lazy">
+                        <div class="card-overlay">
+                            <div class="card-title">${data.title}</div>
+                            <span class="card-cat">${data.category.toUpperCase()}</span>
+                        </div>
+                    `;
+                    
+                    article.addEventListener('click', () => {
+                        modalTitle.innerText = data.title;
+                        modalCat.innerText = data.category.toUpperCase();
+                        
+                        // 1. HANDLE EMBEDS / LINKS
+                        if(data.link && data.link !== "") {
+                            if(data.link.trim().startsWith("<iframe")) {
+                                modalEmbed.innerHTML = data.link;
+                                modalEmbed.style.display = 'flex';
+                                viewProjectBtn.style.display = 'none';
+                            } else {
+                                modalEmbed.style.display = 'none';
+                                modalEmbed.innerHTML = '';
+                                viewProjectBtn.style.display = 'inline-block';
+                                viewProjectBtn.href = data.link;
+                            }
+                        } else {
+                            viewProjectBtn.style.display = 'none';
+                            modalEmbed.style.display = 'none';
+                            modalEmbed.innerHTML = '';
+                        }
+
+                        // 2. HANDLE PRESENTATION IMAGE SCROLL
+                        if(data.presentationImage && data.presentationImage !== "") {
+                            // If user uploaded a long presentation image, show it!
+                            modalGallery.innerHTML = `<img src="${data.presentationImage}" alt="${data.title} Full Case Study">`;
+                            modalGallery.style.display = 'block'; 
+                        } else {
+                            // Fallback logic
+                            if(data.link && data.link.trim().startsWith("<iframe")) {
+                                // If no presentation image, but has iframe -> hide gallery
+                                modalGallery.style.display = 'none';
+                            } else {
+                                // If absolutely no presentation image and no iframe -> show cover image so modal isn't empty
+                                modalGallery.innerHTML = `<img src="${data.image}" alt="${data.title}">`;
+                                modalGallery.style.display = 'block'; 
+                            }
+                        }
+
+                        modal.classList.add('active');
+                        document.body.style.overflow = 'hidden'; 
+                        document.getElementById('projectModal').scrollTop = 0; // Reset scroll to top
+                    });
+
+                    article.addEventListener('mouseenter', () => {
+                        const cursor = document.querySelector('.cursor');
+                        if (cursor) cursor.classList.add('hovered');
+                    });
+                    article.addEventListener('mouseleave', () => {
+                        const cursor = document.querySelector('.cursor');
+                        if (cursor) cursor.classList.remove('hovered');
+                    });
+
+                    gallery.appendChild(article);
+                });
+
+                window.filterSelection('all');
+
+            } catch(error) {
+                console.error("Error fetching projects:", error);
+                gallery.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #ff4444;">Error loading projects. Please refresh.</p>';
+            }
+        }
+
+        loadProjects();
+
+        // UI & ANIMATION LOGIC
+        const mainNav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) mainNav.classList.add('scrolled');
+            else mainNav.classList.remove('scrolled');
+        });
+
+        const closeBtn = document.getElementById('closeModalBtn');
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto'; 
+            modalEmbed.innerHTML = ''; // Stop video playback on close
+        });
+        modal.addEventListener('click', (e) => {
+            if(e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                modalEmbed.innerHTML = '';
+            }
+        });
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const iconMoon = document.getElementById('icon-moon');
+        const iconSun = document.getElementById('icon-sun');
+        const metaThemeColor = document.getElementById('theme-color-meta');
+        
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        if (currentTheme === 'light') {
+            iconMoon.style.display = 'none'; 
+            iconSun.style.display = 'block';
+            metaThemeColor.setAttribute('content', '#f7f7f7');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme') || 'dark';
+            let newTheme = theme === 'light' ? 'dark' : 'light';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+
+            if (newTheme === 'light') {
+                iconMoon.style.display = 'none'; iconSun.style.display = 'block';
+                metaThemeColor.setAttribute('content', '#f7f7f7');
+            } else {
+                iconMoon.style.display = 'block'; iconSun.style.display = 'none';
+                metaThemeColor.setAttribute('content', '#050505');
+            }
+        });
+
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        if (!isTouchDevice) {
+            const cursor = document.querySelector('.cursor');
+            document.addEventListener('mousemove', (e) => {
+                if(cursor) {
+                    cursor.style.opacity = '1'; 
+                    cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+                }
+            });
+            document.querySelectorAll('a, button, .modal-close-btn').forEach(item => {
+                item.addEventListener('mouseenter', () => { if (cursor) cursor.classList.add('hovered'); });
+                item.addEventListener('mouseleave', () => { if (cursor) cursor.classList.remove('hovered'); });
+            });
+        } else {
+            const cursorElement = document.querySelector('.cursor');
+            if(cursorElement) cursorElement.remove();
+        }
+    </script>
+</body>
+</html>

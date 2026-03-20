@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505" id="theme-color-meta">
+    
+    <meta name="description" content="Muhammad Mahad Ikram is a Communication Designer & Prepress Executive in Karachi, Pakistan. Specializing in FMCG Packaging, Esko ArtPro, and 360° Brand Campaigns.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://mahadikram.com/">
+    
+    <meta property="og:title" content="Mahad Ikram | Design & Prepress Executive">
+    <meta property="og:description" content="Specializing in FMCG Packaging, Esko ArtPro, and 360° Brand Campaigns.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mahadikram.com/">
+    <meta property="og:image" content="https://mahadikram.com/mahad-photo.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mahad Ikram | Design & Prepress Executive">
+    <meta name="twitter:description" content="Specializing in FMCG Packaging, Esko ArtPro, and 360° Brand Campaigns.">
+    
+    <title>Mahad Ikram | Design & Prepress Executive</title>
+
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Muhammad Mahad Ikram",
+      "jobTitle": "Communication Designer & Prepress Executive",
+      "url": "https://mahadikram.com",
+      "sameAs": [
+        "https://www.linkedin.com/in/mahad-ikram",
+        "https://www.behance.net/mahadikram"
+      ]
+    }
+    </script>
+
+    <script>
+        (function() {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const currentTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+            if (currentTheme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+
+    <style>
+        /* --- 1. DYNAMIC THEME ENGINE --- */
+        :root {
+            --bg: #050505; --card-bg: #111111; --text: #ffffff; --sub-text: #888888;
+            --accent: #d4ff00; --border: #1a1a1a; --card-border: #222222;
+            --logo-bg: rgba(255, 255, 255, 0.05); --logo-bg-hover: rgba(255, 255, 255, 0.9);
+            --nav-bg: rgba(5, 5, 5, 0.95); 
+            --font-display: 'Arial Black', sans-serif; --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        [data-theme="light"] {
+            --bg: #f7f7f7; --card-bg: #ffffff; --text: #050505; --sub-text: #555555;
+            --accent: #9abd00; --border: #e0e0e0; --card-border: #d5d5d5;
+            --logo-bg: rgba(0, 0, 0, 0.03); --logo-bg-hover: rgba(0, 0, 0, 0.1);
+            --nav-bg: rgba(247, 247, 247, 0.95); 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body { background-color: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; scroll-behavior: smooth; transition: background-color 0.4s ease, color 0.4s ease; }
+        strong { color: var(--accent); font-weight: 800; transition: color 0.4s ease; }
+
+        /* --- GPU ACCELERATED CURSOR --- */
+        .cursor { position: fixed; top: 0; left: 0; width: 20px; height: 20px; background: white; border-radius: 50%; pointer-events: none; mix-blend-mode: difference; z-index: 99999; transition: width 0.3s, height 0.3s, background 0.3s, opacity 0.3s; opacity: 0; will-change: transform; }
+        .cursor.hovered { width: 80px; height: 80px; opacity: 0.9; background: var(--accent); }
+
+        /* --- DYNAMIC BLURRED NAVIGATION --- */
+        nav { position: fixed; top: 0; left: 0; width: 100%; padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: transparent; border-bottom: 1px solid transparent; transition: background 0.4s ease, backdrop-filter 0.4s ease, border-bottom 0.4s ease; }
+        nav.scrolled { background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); } 
+        
+        .nav-link { color: var(--text); text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; transition: color 0.4s ease, border-color 0.3s ease; border-bottom: 1px solid transparent; padding-bottom: 2px; }
+        .nav-link:hover { border-bottom: 1px solid var(--accent); color: var(--accent); }
+        .nav-link.active-link { border-bottom: 1px solid var(--accent); }
+
+        /* --- TYPOGRAPHY & LAYOUT --- */
+        section { padding: 8rem 10%; border-bottom: 1px solid var(--border); position: relative; transition: border-color 0.4s ease; }
+        #hero { height: 95vh; display: flex; flex-direction: column; justify-content: center; perspective: 1000px; }
+        h1.hero-title { font-family: var(--font-display); font-size: clamp(3rem, 8vw, 7rem); text-transform: uppercase; line-height: 0.9; letter-spacing: -2px; margin-bottom: 2rem; transform-style: preserve-3d; transition: transform 0.1s ease-out; margin-top: 0; font-weight: normal; }
+        h2 { font-size: 1.5rem; margin-bottom: 3rem; color: var(--sub-text); text-transform: uppercase; letter-spacing: 3px; border-left: 3px solid var(--accent); padding-left: 1rem; transition: color 0.4s ease, border-color 0.4s ease; }
+        h3 { font-size: 2rem; margin-bottom: 0.5rem; max-width: 85%; line-height: 1.2; }
+        h4 { color: var(--sub-text); margin-bottom: 1.5rem; text-transform: uppercase; font-size: 0.9rem; transition: color 0.4s ease; }
+        p { font-size: 1.2rem; line-height: 1.8; color: var(--sub-text); margin-bottom: 1.5rem; max-width: 700px; transition: color 0.4s ease; }
+
+        /* --- VAGUERS CUSTOM BANNER --- */
+        .vaguers-banner { margin: 6rem 10%; padding: 6rem 3rem; background: linear-gradient(135deg, var(--card-bg), #000000); border: 1px solid var(--border); border-radius: 12px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; position: relative; overflow: hidden; transition: border-color 0.4s ease; }
+        .vaguers-banner:hover { border-color: var(--accent); }
+        .vaguers-banner::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(212, 255, 0, 0.05) 0%, transparent 60%); z-index: 0; pointer-events: none; }
+        .vaguers-content { position: relative; z-index: 1; max-width: 700px; }
+        .vaguers-subtitle { color: var(--accent); font-weight: bold; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 1rem; }
+        .vaguers-banner h2.banner-title { border-left: none; padding-left: 0; font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 4.5rem); text-transform: uppercase; line-height: 1; margin-bottom: 1.5rem; color: var(--text); justify-content: center; display: flex; }
+        .vaguers-banner p { color: var(--sub-text); font-size: 1.2rem; line-height: 1.6; margin: 0 auto 2.5rem auto; text-align: center; }
+
+        /* --- GPU ACCELERATED MARQUEE --- */
+        .marquee-container { background: var(--accent); color: #000; padding: 1rem 0; overflow: hidden; white-space: nowrap; pointer-events: none; transition: background-color 0.4s ease; }
+        .marquee-content { display: inline-block; animation: scrollText 30s linear infinite; font-family: var(--font-display); font-size: 1.5rem; will-change: transform; }
+        @keyframes scrollText { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
+
+        /* --- BUTTONS --- */
+        .btn-primary { display: inline-block; padding: 1rem 2.5rem; border: 2px solid var(--accent); border-radius: 50px; color: var(--accent); font-weight: bold; text-transform: uppercase; text-decoration: none; letter-spacing: 1px; transition: 0.3s ease; margin-top: 1rem; }
+        .btn-primary:hover { background: var(--accent); color: #000; transform: scale(1.05); }
+
+        /* --- 3D SCROLL ANIMATIONS --- */
+        .reveal-3d { opacity: 0; transform: perspective(1000px) rotateX(20deg) translateY(40px) scale(0.95); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); will-change: transform, opacity; }
+        .reveal-3d.active { opacity: 1; transform: perspective(1000px) rotateX(0) translateY(0) scale(1); }
+        .stagger-1 { transition-delay: 0.1s; } .stagger-2 { transition-delay: 0.2s; }
+
+        /* --- GRIDS & CARDS --- */
+        .about-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem; align-items: center; }
+        .profile-frame { position: relative; overflow: hidden; filter: grayscale(100%) contrast(1.2); transition: 0.6s ease; line-height: 0; }
+        .profile-frame:hover { filter: grayscale(0%); transform: scale(1.03) rotate(1deg); }
+        .profile-img { width: 100%; height: auto; display: block; vertical-align: bottom; }
+
+        .xp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
+        .xp-card { background: var(--card-bg); padding: 3rem; border: 1px solid var(--card-border); transition: 0.4s; position: relative; overflow: hidden; transform-origin: center top; display: flex; flex-direction: column; }
+        .xp-card:hover { border-color: var(--accent); transform: translateY(-10px) scale(1.02); }
+        .xp-card ul { list-style: none; margin-bottom: 2rem; flex-grow: 1; }
+        .xp-card li { margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative; color: var(--sub-text); transition: color 0.4s ease;}
+        .xp-card li::before { content: '•'; position: absolute; left: 0; color: var(--accent); transition: color 0.4s ease; }
+        .card-company-logo { position: absolute; top: 2.5rem; right: 2.5rem; width: 60px; height: 60px; object-fit: contain; opacity: 0.7; transition: 0.4s ease; background: var(--logo-bg); padding: 5px; border-radius: 8px; }
+        .xp-card:hover .card-company-logo { opacity: 1; transform: scale(1.1); background: var(--logo-bg-hover); }
+
+        .card-link { display: inline-block; color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid transparent; transition: 0.3s; align-self: flex-start; }
+        .card-link:hover { border-bottom: 1px solid var(--accent); letter-spacing: 3px; }
+
+        .brand-grid { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+        .brand-tag { padding: 0.8rem 1.5rem; border: 1px solid var(--card-border); border-radius: 50px; color: var(--sub-text); font-weight: bold; text-transform: uppercase; transition: 0.3s; }
+        .brand-tag:hover { border-color: var(--accent); color: #000; background: var(--accent); transform: scale(1.1); }
+
+        .social-row { display: flex; gap: 2rem; margin-top: 3rem; flex-wrap: wrap; }
+        .social-link { color: var(--text); text-decoration: none; font-size: 1.2rem; border-bottom: 1px solid transparent; transition: 0.3s; }
+        .social-link:hover { color: var(--accent); border-bottom: 1px solid var(--accent); letter-spacing: 2px; }
+
+        .theme-toggle-btn { background: none; border: none; outline: none; color: var(--text); display: inline-flex; align-items: center; justify-content: center; width: 35px; height: 35px; border-radius: 50%; transition: 0.3s ease, color 0.4s ease; }
+        .theme-toggle-btn:hover { transform: scale(1.1); background: rgba(128,128,128,0.2); }
+        .theme-toggle-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+        @media(max-width: 768px) {
+            .about-grid, .xp-grid { grid-template-columns: 1fr; }
+            section { padding: 4rem 5%; }
+            .vaguers-banner { padding: 4rem 2rem; margin: 3rem 5%; }
+            h1.hero-title { font-size: 3.5rem; }
+            .cursor { display: none !important; } * { cursor: auto !important; }
+            .card-company-logo { top: 2rem; right: 2rem; width: 45px; height: 45px; }
+            .mobile-hide { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor"></div>
+
+    <nav id="main-nav">
+        <div style="font-weight: bold; font-size: 1.2rem; color: var(--text); transition: color 0.4s ease;">
+            <a href="index.html" style="color: inherit; text-decoration: none;"><span style="color: var(--accent);">M</span>I.</a>
+        </div>
+        
+        <div style="display: flex; align-items: center; gap: 1.5rem; color: var(--text); transition: color 0.4s ease;">
+            <a href="about.html" class="nav-link mobile-hide" aria-label="About Mahad">About</a>
+            <a href="work.html" class="nav-link mobile-hide" aria-label="View Portfolio">Works</a>
+            <a href="blog.html" class="nav-link mobile-hide" aria-label="Read Blog">Blog</a>
+            
+            <a href="https://vaguers.com" target="_blank" rel="noopener noreferrer" class="nav-link mobile-hide" aria-label="Visit Vaguers Apparel" style="color: var(--accent);">Shop ↗</a>
+            
+            <a href="mailto:Mahadikram@outlook.com" class="nav-link" aria-label="Contact Mahad Ikram">Contact</a>
+            
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Dark/Light Mode">
+                <svg id="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg id="icon-sun" style="display: none;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        
+        <section id="hero">
+            <h1 class="hero-title" id="tilt-text">
+                <span style="color: var(--accent);">Creative</span> Soul.<br>
+                With <span style="color: var(--accent);">Technical</span> Mind.
+            </h1>
+            <p class="reveal-3d stagger-1" style="color: var(--text);">
+                Muhammad Mahad Ikram. <br>
+                Bridging the gap between <strong>Artistic Campaigns</strong> and <strong>Multinational Print Production</strong>.
+            </p>
+        </section>
+
+        <div class="marquee-container" aria-hidden="true">
+            <div class="marquee-content">
+                PACKAGING DESIGN — 360° CAMPAIGNS — PREPRESS GRAPHIC DESIGNER — PHOTOGRAPHER — FREELANCER — FMCG EXPERT — SOCIAL MEDIA VISUAL DESIGNER — COMMUNICATION DESIGNER —
+            </div>
+        </div>
+
+        <section id="about">
+            <div class="about-grid">
+                <div class="profile-frame reveal-3d" style="line-height: 0; font-size: 0; display: block;">
+                    <img src="mahad-photo.jpg" alt="Muhammad Mahad Ikram - Communication Designer" class="profile-img" fetchpriority="high">
+                </div>
+                <div class="about-text reveal-3d stagger-1">
+                    <h2>The Dual Expertise</h2>
+                    <p>
+                        I operate at the intersection of creativity and engineering. My career is defined by two distinct yet complementary roles.
+                    </p>
+                    <p>
+                        On one hand, I am a <strong>Creative Lead</strong>, crafting emotional campaigns for festivals and brands. On the other, I am a <strong>Prepress Specialist</strong>, trusted by multinational giants to ensure their packaging prints perfectly on the production line.
+                    </p>
+                    <div style="margin-top: 2rem;">
+                        <a href="work.html" class="btn-primary" aria-label="View Design Portfolio">View My Works</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="reveal-3d">Professional Journey</h2>
+            <div class="xp-grid">
+                <article class="xp-card reveal-3d stagger-1">
+                    <img src="https://blackandbrownbakers.com/wp-content/uploads/2020/08/latest-final.jpg" alt="Black & Brown Bakers Logo" class="card-company-logo" loading="lazy">
+                    <h3>Black & Brown Bakers</h3>
+                    <h4>Creative & Visual Lead</h4>
+                    <p>Where I bring brands to life visually.</p>
+                    <ul>
+                        <li><strong>360° Campaigns:</strong> Designed end-to-end visuals for Father's Day, Eid, Diwali, and Charity drives.</li>
+                        <li><strong>Packaging Art:</strong> Created structural and visual designs for Premium Cakes, Nimko Pouches, Sweet Boxes, and Kulfi.</li>
+                        <li><strong>Marketing Collateral:</strong> Billboards, Flyers, and Social Media content that hooks the viewer.</li>
+                    </ul>
+                    <a href="https://blackandbrownbakers.com/" target="_blank" rel="noopener noreferrer" class="card-link" aria-label="Visit Black and Brown Bakers Website">Visit Website ↗</a>
+                </article>
+
+                <article class="xp-card reveal-3d stagger-2">
+                    <img src="https://packagesconvertors.com.pk/wp-content/uploads/2021/09/pcl-logo.png" alt="Packages Convertors Logo" class="card-company-logo" loading="lazy">
+                    <h3>Packages Convertors</h3>
+                    <h4>Prepress Graphic Designer</h4>
+                    <p>Where I ensure perfection for global giants.</p>
+                    <ul>
+                        <li><strong>Multinational Portfolio:</strong> working on print-ready files for brands like Nestle, Unilever, and KFC.</li>
+                        <li><strong>Technical Precision:</strong> Mastering Dielines, Colour Separations, and Bleeds for offset printing.</li>
+                        <li><strong>Quality Control:</strong> Ensuring zero-error output for mass industrial printing.</li>
+                    </ul>
+                    <a href="https://packagesconvertors.com.pk/" target="_blank" rel="noopener noreferrer" class="card-link" aria-label="Visit Packages Convertors Website">Visit Website ↗</a>
+                </article>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="reveal-3d">Trusted By Global Brands</h2>
+            <p class="reveal-3d">I have handled packaging and prepress requirements for some of the world's biggest names.</p>
+            <div class="brand-grid reveal-3d stagger-1">
+                <span class="brand-tag">Nestlé</span>
+                <span class="brand-tag">Unilever</span>
+                <span class="brand-tag">KFC</span>
+                <span class="brand-tag">McDonald's</span>
+                <span class="brand-tag">Cadbury</span>
+                <span class="brand-tag">Wall's</span>
+                <span class="brand-tag">Colgate</span>
+                <span class="brand-tag">National Foods</span>
+                <span class="brand-tag">Getz Pharma</span>
+                <span class="brand-tag">Hoechst</span>
+            </div>
+        </section>
+
+        <div class="vaguers-banner reveal-3d">
+            <div class="vaguers-content">
+                <span class="vaguers-subtitle">Beyond Client Work</span>
+                <h2 class="banner-title">Vaguers Apparel</h2>
+                <p>I don't just build brands for others, I build my own. Explore my premium streetwear and apparel collection, engineered from the ground up to reflect modern design aesthetics.</p>
+                <a href="https://vaguers.com" target="_blank" rel="noopener noreferrer" class="btn-primary" style="background: var(--accent); color: #000;" aria-label="Explore Vaguers Apparel Collection">Explore The Collection ↗</a>
+            </div>
+        </div>
+
+        <section id="insights">
+            <h2 class="reveal-3d">Design Insights & Blog</h2>
+            <p class="reveal-3d">Thoughts on print production, branding strategies, and navigating the global freelance market.</p>
+            
+            <div class="xp-grid" id="recent-blogs-container">
+                <p style="grid-column: 1 / -1; color: var(--sub-text);">Fetching latest insights...</p>
+            </div>
+
+            <div style="margin-top: 4rem; text-align: center;" class="reveal-3d">
+                <a href="blog.html" class="btn-primary" aria-label="Read all blog posts">View All Articles</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <section id="contact" style="border-bottom: none; padding-top: 4rem;">
+            <h2 class="reveal-3d">Let's Connect</h2>
+            <div class="reveal-3d stagger-1" style="font-family: var(--font-display); font-size: clamp(2rem, 5vw, 4rem); text-transform: uppercase;">
+                Ready to Create?
+            </div>
+            <div class="social-row reveal-3d stagger-2">
+                <a href="https://www.linkedin.com/in/mahad-ikram" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+                <a href="https://www.behance.net/mahadikram" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Behance">Behance</a>
+                <a href="https://www.instagram.com/mahad._.ikramm" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
+                <a href="https://www.facebook.com/share/1PiYfBGwAm/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">Facebook</a>
+                <a href="https://x.com/mahadikramm" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Twitter">X (Twitter)</a>
+            </div>
+            <p style="margin-top: 4rem; color: var(--sub-text); font-size: 0.9rem;">
+                &copy; <script>document.write(new Date().getFullYear())</script> Muhammad Mahad Ikram. All Rights Reserved. Designed for Performance.
+            </p>
+        </section>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, orderBy, query, limit } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        // Your Exact Firebase Keys
+        const firebaseConfig = {
+            apiKey: "AIzaSyDaIpU-wdduZiSiy1-58vtpd7UvfmjbORE",
+            authDomain: "mahad-portfolio.firebaseapp.com",
+            projectId: "mahad-portfolio",
+            storageBucket: "mahad-portfolio.firebasestorage.app",
+            messagingSenderId: "388087517533",
+            appId: "1:388087517533:web:b106912f7eda1dcd7d58b4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Fetch Recent Blogs (Limit to 2 for the Homepage)
+        async function loadRecentBlogs() {
+            const container = document.getElementById('recent-blogs-container');
+            if(!container) return;
+
+            try {
+                const q = query(collection(db, "blogs"), orderBy("createdAt", "desc"), limit(2));
+                const querySnapshot = await getDocs(q);
+                
+                container.innerHTML = ''; 
+
+                if(querySnapshot.empty) {
+                    container.innerHTML = '<p style="color: var(--sub-text);">No articles published yet.</p>';
+                    return;
+                }
+
+                let delay = 1;
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    
+                    // Generate a clean text snippet by stripping HTML
+                    const tmp = document.createElement("DIV");
+                    tmp.innerHTML = data.content;
+                    const textSnippet = (tmp.textContent || tmp.innerText || "").substring(0, 110) + "...";
+
+                    const article = document.createElement('article');
+                    article.className = `xp-card reveal-3d stagger-${delay} active`; 
+                    
+                    article.innerHTML = `
+                        <h4 style="color: var(--accent);">${data.category.toUpperCase()}</h4>
+                        <h3 style="margin-bottom: 1rem;">${data.title}</h3>
+                        <p style="margin-bottom: 2rem;">${textSnippet}</p>
+                        <a href="blog.html" class="card-link" style="margin-top: auto;" aria-label="Read ${data.title}">Read Article ↗</a>
+                    `;
+
+                    // Ensure cursor effect works on dynamically generated cards
+                    article.addEventListener('mouseenter', () => {
+                        const cursor = document.querySelector('.cursor');
+                        if(cursor) cursor.classList.add('hovered');
+                    });
+                    article.addEventListener('mouseleave', () => {
+                        const cursor = document.querySelector('.cursor');
+                        if(cursor) cursor.classList.remove('hovered');
+                    });
+
+                    container.appendChild(article);
+                    delay++;
+                });
+            } catch(error) {
+                console.error("Error fetching recent blogs:", error);
+                container.innerHTML = '<p style="color: #ff4444;">Error loading articles. Please check database connection.</p>';
+            }
+        }
+
+        loadRecentBlogs();
+    </script>
+
+    <script>
+        // 1. Theme Engine (Controls the toggle button logic)
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const iconMoon = document.getElementById('icon-moon');
+        const iconSun = document.getElementById('icon-sun');
+        const metaThemeColor = document.getElementById('theme-color-meta');
+
+        // Note: Initial theme check was moved to <head> to prevent flashing
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        if (currentTheme === 'light') {
+            iconMoon.style.display = 'none';
+            iconSun.style.display = 'block';
+            metaThemeColor.setAttribute('content', '#f7f7f7');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme') || 'dark';
+            let newTheme = theme === 'light' ? 'dark' : 'light';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+
+            if (newTheme === 'light') {
+                iconMoon.style.display = 'none'; iconSun.style.display = 'block';
+                metaThemeColor.setAttribute('content', '#f7f7f7');
+            } else {
+                iconMoon.style.display = 'block'; iconSun.style.display = 'none';
+                metaThemeColor.setAttribute('content', '#050505');
+            }
+        });
+
+        // 2. Frosted Glass Nav Scroll
+        const mainNav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) mainNav.classList.add('scrolled');
+            else mainNav.classList.remove('scrolled');
+        });
+
+        // 3. Desktop Cursor & Mobile Gyroscope
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        const heroText = document.getElementById('tilt-text');
+        const heroSection = document.getElementById('hero');
+        
+        if (!isTouchDevice) {
+            const cursor = document.querySelector('.cursor');
+            document.addEventListener('mousemove', (e) => {
+                if(cursor) {
+                    cursor.style.opacity = '1'; 
+                    cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+                }
+            });
+            
+            document.querySelectorAll('a, button, .brand-tag, .xp-card, .profile-frame, .btn-primary, .nav-link').forEach(item => {
+                item.addEventListener('mouseenter', () => { if(cursor) cursor.classList.add('hovered'); });
+                item.addEventListener('mouseleave', () => { if(cursor) cursor.classList.remove('hovered'); });
+            });
+
+            if(heroSection && heroText) {
+                heroSection.addEventListener('mousemove', (e) => {
+                    const x = (window.innerWidth / 2 - e.pageX) / 25; 
+                    const y = (window.innerHeight / 2 - e.pageY) / 25;
+                    heroText.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+                });
+                heroSection.addEventListener('mouseleave', () => {
+                    heroText.style.transform = `rotateY(0deg) rotateX(0deg)`;
+                });
+            }
+        } else {
+            const cursorElement = document.querySelector('.cursor');
+            if(cursorElement) cursorElement.remove();
+
+            if (window.DeviceOrientationEvent && heroText) {
+                window.addEventListener("deviceorientation", (e) => {
+                    if (e.gamma !== null && e.beta !== null) {
+                        let tiltX = Math.min(Math.max(e.gamma / 1.5, -20), 20); 
+                        let tiltY = Math.min(Math.max((e.beta - 45) / 1.5, -20), 20); 
+                        heroText.style.transform = `rotateY(${tiltX}deg) rotateX(${-tiltY}deg)`;
+                    }
+                }, true);
+            }
+        }
+
+        // 4. Scroll Reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.05, rootMargin: '0px 0px 50px 0px' }); 
+
+        document.querySelectorAll('.reveal-3d').forEach((el) => observer.observe(el));
+
+        setTimeout(() => {
+            document.querySelectorAll('.reveal-3d').forEach((el) => {
+                if(!el.classList.contains('active')) el.classList.add('active');
+            });
+        }, 2000);
+    </script>
+</body>
+</html>

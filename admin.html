@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <title>Admin Portal | Mahad Ikram</title>
+    <style>
+        :root {
+            --bg: #050505; --card-bg: #111111; --text: #ffffff; 
+            --accent: #d4ff00; --border: #222222;
+            --font-display: 'Arial Black', sans-serif; 
+            --font-body: 'Helvetica Neue', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg); color: var(--text); font-family: var(--font-body); }
+        
+        #login-screen { display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .login-box { background: var(--card-bg); padding: 4rem; border: 1px solid var(--border); border-radius: 8px; text-align: center; width: 100%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .login-box h2 { font-family: var(--font-display); font-size: 2rem; text-transform: uppercase; margin-bottom: 2rem; }
+        .login-box span { color: var(--accent); }
+        
+        input, select, textarea { width: 100%; padding: 1rem; margin-bottom: 1.5rem; background: #000; border: 1px solid #333; color: white; border-radius: 4px; font-size: 1rem; font-family: var(--font-body); }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); }
+        
+        button.action-btn { width: 100%; padding: 1rem; background: transparent; border: 2px solid var(--accent); color: var(--accent); font-weight: bold; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.3s; border-radius: 50px; }
+        button.action-btn:hover { background: var(--accent); color: #000; }
+        
+        #error-msg { color: #ff4444; margin-top: 1rem; font-size: 0.9rem; display: none; }
+        
+        #dashboard { display: none; padding: 4rem 5%; max-width: 1200px; margin: 0 auto; }
+        .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4rem; border-bottom: 1px solid var(--border); padding-bottom: 2rem; }
+        .header-row h1 { font-family: var(--font-display); font-size: 2.5rem; text-transform: uppercase; }
+        
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+        @media(max-width: 768px) { .dashboard-grid { grid-template-columns: 1fr; } }
+        
+        .upload-card { background: var(--card-bg); padding: 3rem; border: 1px solid var(--border); border-radius: 8px; }
+        .upload-card h3 { font-size: 1.5rem; margin-bottom: 2rem; color: var(--accent); text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 1rem;}
+        label { display: block; margin-bottom: 0.5rem; color: #888; font-size: 0.9rem; text-transform: uppercase; font-weight: bold; }
+        .hint { display: block; color: #555; font-size: 0.8rem; margin-top: -0.5rem; margin-bottom: 1rem; text-transform: none; font-weight: normal; }
+
+        .manage-section { margin-top: 4rem; padding-top: 4rem; border-top: 1px solid var(--border); }
+        .manage-section h2 { font-family: var(--font-display); font-size: 2rem; text-transform: uppercase; margin-bottom: 2rem; }
+        
+        .list-container { background: var(--card-bg); padding: 2rem; border-radius: 8px; border: 1px solid var(--border); }
+        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid #333; }
+        .list-item:last-child { border-bottom: none; }
+        .item-info strong { display: block; color: white; margin-bottom: 0.3rem; }
+        .item-info span { font-size: 0.85rem; color: var(--sub-text); text-transform: uppercase; }
+        
+        .delete-btn { background: #ff4444; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 4px; font-size: 0.8rem; font-weight: bold; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
+        .delete-btn:hover { background: #cc0000; transform: scale(1.05); }
+    </style>
+</head>
+<body>
+
+    <div id="login-screen">
+        <div class="login-box">
+            <h2><span>M</span>I. Admin</h2>
+            <input type="email" id="email" placeholder="Email Address" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button id="login-btn" class="action-btn">Secure Login</button>
+            <p id="error-msg">Incorrect email or password.</p>
+        </div>
+    </div>
+
+    <div id="dashboard">
+        <div class="header-row">
+            <h1>Welcome, <span style="color: var(--accent);">Mahad</span>.</h1>
+            <button id="logout-btn" class="action-btn" style="width: auto; padding: 0.8rem 2rem;">Logout</button>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="upload-card">
+                <h3>Publish New Project</h3>
+                <label>Project Title</label>
+                <input type="text" id="proj-title" placeholder="e.g., Nestle Packaging Redesign">
+                
+                <label>Category</label>
+                <select id="proj-category">
+                    <option value="logos">Logos</option>
+                    <option value="campaigns">Campaigns</option>
+                    <option value="packaging">Packaging</option>
+                    <option value="photography">Photography</option>
+                </select>
+                
+                <label>Cover Thumbnail Image URL</label>
+                <span class="hint">This is the small, square image for the main grid.</span>
+                <input type="text" id="proj-image" placeholder="https://your-image-link.jpg">
+                
+                <label>Full Case Study Image URL (Optional)</label>
+                <span class="hint">Upload a long, tall image for the scrolling Behance-style effect. Direct image link (.jpg/.png).</span>
+                <input type="text" id="proj-presentation" placeholder="https://your-long-image.jpg">
+
+                <label>Behance Link OR Embed Code (&lt;iframe&gt;)</label>
+                <span class="hint">Will appear below your Case Study Image.</span>
+                <input type="text" id="proj-link" placeholder="Paste URL or <iframe> code here...">
+                
+                <button id="publish-proj-btn" class="action-btn">Publish to Portfolio</button>
+            </div>
+
+            <div class="upload-card">
+                <h3>Publish New Article</h3>
+                <label>Article Title</label>
+                <input type="text" id="blog-title" placeholder="e.g., The Future of Prepress">
+                <label>Category</label>
+                <select id="blog-category">
+                    <option value="prepress">Print Production</option>
+                    <option value="strategy">Brand Strategy</option>
+                    <option value="freelance">Freelancing</option>
+                    <option value="ai">AI & Tech</option>
+                </select>
+                <label>Cover Image URL (Optional)</label>
+                <input type="text" id="blog-image" placeholder="https://your-image-link.jpg">
+                <label>Article Content (HTML allowed)</label>
+                <textarea id="blog-content" rows="6" placeholder="<p>Write your article here...</p>"></textarea>
+                <button id="publish-blog-btn" class="action-btn">Publish to Blog</button>
+            </div>
+        </div>
+
+        <div class="manage-section">
+            <h2>Manage Live Content</h2>
+            <div class="dashboard-grid">
+                <div class="list-container">
+                    <h3 style="color: var(--accent); margin-bottom: 1rem; border-bottom: 1px solid #333; padding-bottom: 1rem;">Portfolio Projects</h3>
+                    <div id="manage-projects-list"><p style="color: #888;">Loading projects...</p></div>
+                </div>
+                
+                <div class="list-container">
+                    <h3 style="color: var(--accent); margin-bottom: 1rem; border-bottom: 1px solid #333; padding-bottom: 1rem;">Blog Articles</h3>
+                    <div id="manage-blogs-list"><p style="color: #888;">Loading articles...</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, serverTimestamp, getDocs, deleteDoc, doc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDaIpU-wdduZiSiy1-58vtpd7UvfmjbORE",
+            authDomain: "mahad-portfolio.firebaseapp.com",
+            projectId: "mahad-portfolio",
+            storageBucket: "mahad-portfolio.firebasestorage.app",
+            messagingSenderId: "388087517533",
+            appId: "1:388087517533:web:b106912f7eda1dcd7d58b4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const loginScreen = document.getElementById('login-screen');
+        const dashboard = document.getElementById('dashboard');
+        const errorMsg = document.getElementById('error-msg');
+        const projectsListContainer = document.getElementById('manage-projects-list');
+        const blogsListContainer = document.getElementById('manage-blogs-list');
+
+        async function loadManagementLists() {
+            const projQuery = query(collection(db, "projects"), orderBy("createdAt", "desc"));
+            const projSnap = await getDocs(projQuery);
+            projectsListContainer.innerHTML = '';
+            if (projSnap.empty) projectsListContainer.innerHTML = '<p style="color: #888;">No projects found.</p>';
+            projSnap.forEach(documentSnap => {
+                const data = documentSnap.data();
+                projectsListContainer.innerHTML += `
+                    <div class="list-item">
+                        <div class="item-info">
+                            <strong>${data.title}</strong>
+                            <span>${data.category}</span>
+                        </div>
+                        <button class="delete-btn" data-col="projects" data-id="${documentSnap.id}">Delete</button>
+                    </div>`;
+            });
+
+            const blogQuery = query(collection(db, "blogs"), orderBy("createdAt", "desc"));
+            const blogSnap = await getDocs(blogQuery);
+            blogsListContainer.innerHTML = '';
+            if (blogSnap.empty) blogsListContainer.innerHTML = '<p style="color: #888;">No articles found.</p>';
+            blogSnap.forEach(documentSnap => {
+                const data = documentSnap.data();
+                blogsListContainer.innerHTML += `
+                    <div class="list-item">
+                        <div class="item-info">
+                            <strong>${data.title}</strong>
+                            <span>${data.category}</span>
+                        </div>
+                        <button class="delete-btn" data-col="blogs" data-id="${documentSnap.id}">Delete</button>
+                    </div>`;
+            });
+        }
+
+        document.addEventListener('click', async (e) => {
+            if (e.target.classList.contains('delete-btn')) {
+                const col = e.target.getAttribute('data-col');
+                const id = e.target.getAttribute('data-id');
+                if (confirm("Are you sure you want to completely delete this? This cannot be undone.")) {
+                    e.target.innerText = "Deleting...";
+                    try {
+                        await deleteDoc(doc(db, col, id));
+                        loadManagementLists();
+                    } catch (error) {
+                        alert("Error deleting item.");
+                    }
+                }
+            }
+        });
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                loginScreen.style.display = 'none';
+                dashboard.style.display = 'block';
+                document.body.style.display = 'block';
+                loadManagementLists();
+            } else {
+                loginScreen.style.display = 'flex';
+                dashboard.style.display = 'none';
+            }
+        });
+
+        document.getElementById('login-btn').addEventListener('click', () => {
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
+            signInWithEmailAndPassword(auth, email, pass)
+                .then(() => { errorMsg.style.display = 'none'; })
+                .catch(() => { errorMsg.style.display = 'block'; });
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
+
+        const publishProjBtn = document.getElementById('publish-proj-btn');
+        publishProjBtn.addEventListener('click', async () => {
+            const title = document.getElementById('proj-title').value;
+            const category = document.getElementById('proj-category').value;
+            const image = document.getElementById('proj-image').value;
+            const presentationImage = document.getElementById('proj-presentation').value; // NEW FIELD
+            const link = document.getElementById('proj-link').value;
+
+            if (!title || !image) return alert("Please provide a Title and a Thumbnail Image URL.");
+            publishProjBtn.innerText = "Publishing...";
+
+            try {
+                // Now uploading the presentationImage as well
+                await addDoc(collection(db, "projects"), { 
+                    title, 
+                    category, 
+                    image, 
+                    presentationImage: presentationImage || "", 
+                    link, 
+                    createdAt: serverTimestamp() 
+                });
+                alert("✨ Project Published!");
+                document.getElementById('proj-title').value = '';
+                document.getElementById('proj-image').value = '';
+                document.getElementById('proj-presentation').value = '';
+                document.getElementById('proj-link').value = '';
+                publishProjBtn.innerText = "Publish to Portfolio";
+                loadManagementLists();
+            } catch (error) { alert("Error publishing."); publishProjBtn.innerText = "Publish to Portfolio"; }
+        });
+
+        const publishBlogBtn = document.getElementById('publish-blog-btn');
+        publishBlogBtn.addEventListener('click', async () => {
+            const title = document.getElementById('blog-title').value;
+            const category = document.getElementById('blog-category').value;
+            const image = document.getElementById('blog-image').value;
+            const content = document.getElementById('blog-content').value;
+
+            if (!title || !content) return alert("Please provide a Title and Content.");
+            publishBlogBtn.innerText = "Publishing...";
+
+            try {
+                await addDoc(collection(db, "blogs"), { title, category, image, content, createdAt: serverTimestamp() });
+                alert("📖 Article Published!");
+                document.getElementById('blog-title').value = '';
+                document.getElementById('blog-image').value = '';
+                document.getElementById('blog-content').value = '';
+                publishBlogBtn.innerText = "Publish to Blog";
+                loadManagementLists();
+            } catch (error) { alert("Error publishing."); publishBlogBtn.innerText = "Publish to Blog"; }
+        });
+    </script>
+</body>
+</html>
