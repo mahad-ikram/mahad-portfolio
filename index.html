@@ -21,30 +21,51 @@
     
     <title>Mahad Ikram | Design & Prepress Executive</title>
 
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-R9FW8DM3ZV"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-R9FW8DM3ZV');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R9FW8DM3ZV"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-R9FW8DM3ZV');
+    </script>
 
     <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
 
     <script type="application/ld+json">
-    {
+    [{
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Muhammad Mahad Ikram",
       "jobTitle": "Communication Designer & Prepress Executive",
       "url": "https://mahadikram.com",
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "University of Sindh"
+      },
       "sameAs": [
         "https://www.linkedin.com/in/mahad-ikram",
         "https://www.behance.net/mahadikram"
       ]
-    }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What does a Prepress Executive do for FMCG packaging?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A prepress executive ensures that digital packaging designs are technically flawless before mass production. This includes managing dielines, color separations, and bleeds for offset printing."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Do you offer freelance communication design services globally?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. While based in Karachi, Pakistan, I work with clients worldwide, leveraging platforms like Fiverr to deliver 360-degree brand campaigns and premium structural packaging designs."
+        }
+      }]
+    }]
     </script>
 
     <script>
@@ -82,13 +103,17 @@
         .cursor { position: fixed; top: 0; left: 0; width: 20px; height: 20px; background: white; border-radius: 50%; pointer-events: none; mix-blend-mode: difference; z-index: 99999; transition: width 0.3s, height 0.3s, background 0.3s, opacity 0.3s; opacity: 0; will-change: transform; }
         .cursor.hovered { width: 80px; height: 80px; opacity: 0.9; background: var(--accent); }
 
-        /* --- DYNAMIC BLURRED NAVIGATION --- */
+        /* --- DYNAMIC BLURRED NAVIGATION & MOBILE MENU --- */
         nav { position: fixed; top: 0; left: 0; width: 100%; padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: transparent; border-bottom: 1px solid transparent; transition: background 0.4s ease, backdrop-filter 0.4s ease, border-bottom 0.4s ease; }
         nav.scrolled { background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); } 
         
+        .nav-links { display: flex; align-items: center; gap: 1.5rem; transition: 0.3s ease; }
         .nav-link { color: var(--text); text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; transition: color 0.4s ease, border-color 0.3s ease; border-bottom: 1px solid transparent; padding-bottom: 2px; }
         .nav-link:hover { border-bottom: 1px solid var(--accent); color: var(--accent); }
         .nav-link.active-link { border-bottom: 1px solid var(--accent); }
+
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; z-index: 1001; }
+        .hamburger .line { width: 25px; height: 2px; background-color: var(--text); transition: all 0.3s ease; }
 
         /* --- TYPOGRAPHY & LAYOUT --- */
         section { padding: 8rem 10%; border-bottom: 1px solid var(--border); position: relative; transition: border-color 0.4s ease; }
@@ -140,6 +165,11 @@
         .card-link { display: inline-block; color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid transparent; transition: 0.3s; align-self: flex-start; }
         .card-link:hover { border-bottom: 1px solid var(--accent); letter-spacing: 3px; }
 
+        /* FAQ Section styling */
+        .faq-item { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--card-border); }
+        .faq-item h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--text); }
+        .faq-item p { margin-bottom: 0; }
+
         .brand-grid { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
         .brand-tag { padding: 0.8rem 1.5rem; border: 1px solid var(--card-border); border-radius: 50px; color: var(--sub-text); font-weight: bold; text-transform: uppercase; transition: 0.3s; }
         .brand-tag:hover { border-color: var(--accent); color: #000; background: var(--accent); transform: scale(1.1); }
@@ -152,6 +182,7 @@
         .theme-toggle-btn:hover { transform: scale(1.1); background: rgba(128,128,128,0.2); }
         .theme-toggle-btn svg { width: 20px; height: 20px; fill: currentColor; }
 
+        /* MOBILE RESPONSIVE TWEAKS */
         @media(max-width: 768px) {
             .about-grid, .xp-grid { grid-template-columns: 1fr; }
             section { padding: 4rem 5%; }
@@ -159,7 +190,11 @@
             h1.hero-title { font-size: 3.5rem; }
             .cursor { display: none !important; } * { cursor: auto !important; }
             .card-company-logo { top: 2rem; right: 2rem; width: 45px; height: 45px; }
-            .mobile-hide { display: none; }
+            
+            /* Mobile Nav Dropdown */
+            .hamburger { display: flex; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background-color: var(--nav-bg); text-align: center; padding: 2rem 0; border-bottom: 1px solid var(--border); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+            .nav-links.mobile-active { display: flex; }
         }
     </style>
 </head>
@@ -168,17 +203,21 @@
     <div class="cursor"></div>
 
     <nav id="main-nav">
-        <div style="font-weight: bold; font-size: 1.2rem; color: var(--text); transition: color 0.4s ease;">
+        <div style="font-weight: bold; font-size: 1.2rem; color: var(--text); transition: color 0.4s ease; z-index: 1002;">
             <a href="index.html" style="color: inherit; text-decoration: none;"><span style="color: var(--accent);">M</span>I.</a>
         </div>
         
-        <div style="display: flex; align-items: center; gap: 1.5rem; color: var(--text); transition: color 0.4s ease;">
-            <a href="about.html" class="nav-link mobile-hide" aria-label="About Mahad">About</a>
-            <a href="work.html" class="nav-link mobile-hide" aria-label="View Portfolio">Works</a>
-            <a href="blog.html" class="nav-link mobile-hide" aria-label="Read Blog">Blog</a>
-            
-            <a href="https://vaguers.com" target="_blank" rel="noopener noreferrer" class="nav-link mobile-hide" aria-label="Visit Vaguers Apparel" style="color: var(--accent);">Shop ↗</a>
-            
+        <div class="hamburger" id="hamburger-icon" aria-label="Toggle Menu">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+        </div>
+
+        <div class="nav-links" id="nav-links">
+            <a href="about.html" class="nav-link" aria-label="About Mahad">About</a>
+            <a href="work.html" class="nav-link" aria-label="View Portfolio">Works</a>
+            <a href="blog.html" class="nav-link" aria-label="Read Blog">Blog</a>
+            <a href="https://vaguers.com" target="_blank" rel="noopener noreferrer" class="nav-link" aria-label="Visit Vaguers Apparel" style="color: var(--accent);">Shop ↗</a>
             <a href="mailto:Mahadikram@outlook.com" class="nav-link" aria-label="Contact Mahad Ikram">Contact</a>
             
             <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Dark/Light Mode">
@@ -210,15 +249,15 @@
         <section id="about">
             <div class="about-grid">
                 <div class="profile-frame reveal-3d" style="line-height: 0; font-size: 0; display: block;">
-                    <img src="mahad-photo.jpg" alt="Muhammad Mahad Ikram - Communication Designer" class="profile-img" fetchpriority="high">
+                    <img src="mahad-photo.jpg" alt="Muhammad Mahad Ikram - Communication Designer" class="profile-img" fetchpriority="high" loading="lazy">
                 </div>
                 <div class="about-text reveal-3d stagger-1">
                     <h2>The Dual Expertise</h2>
                     <p>
-                        I operate at the intersection of creativity and engineering. My career is defined by two distinct yet complementary roles.
+                        I operate at the intersection of creativity and engineering. My career is defined by two distinct yet complementary roles built on a solid foundation from my Communication Design degree at the University of Sindh.
                     </p>
                     <p>
-                        On one hand, I am a <strong>Creative Lead</strong>, crafting emotional campaigns for festivals and brands. On the other, I am a <strong>Prepress Specialist</strong>, trusted by multinational giants to ensure their packaging prints perfectly on the production line.
+                        On one hand, I am a <strong>Creative Lead</strong>, crafting emotional campaigns for festivals and brands. On the other, I am a <strong>Prepress Specialist</strong>, trusted by multinational giants to ensure their packaging prints perfectly on the production line. Explore my recent <a href="work.html" style="color: var(--accent); text-decoration: underline;">FMCG packaging prepress projects</a> to see how I combine creative design with technical execution.
                     </p>
                     <div style="margin-top: 2rem;">
                         <a href="work.html" class="btn-primary" aria-label="View Design Portfolio">View My Works</a>
@@ -227,7 +266,7 @@
             </div>
         </section>
 
-        <section>
+        <section id="experience">
             <h2 class="reveal-3d">Professional Journey</h2>
             <div class="xp-grid">
                 <article class="xp-card reveal-3d stagger-1">
@@ -250,7 +289,7 @@
                     <p>Where I ensure perfection for global giants.</p>
                     <ul>
                         <li><strong>Multinational Portfolio:</strong> working on print-ready files for brands like Nestle, Unilever, and KFC.</li>
-                        <li><strong>Technical Precision:</strong> Mastering Dielines, Colour Separations, and Bleeds for offset printing.</li>
+                        <li><strong>Technical Precision:</strong> Mastering Dielines, Colour Separations, and Bleeds for offset printing using industry-standard tools.</li>
                         <li><strong>Quality Control:</strong> Ensuring zero-error output for mass industrial printing.</li>
                     </ul>
                     <a href="https://packagesconvertors.com.pk/" target="_blank" rel="noopener noreferrer" class="card-link" aria-label="Visit Packages Convertors Website">Visit Website ↗</a>
@@ -258,10 +297,14 @@
             </div>
         </section>
 
-        <section>
-            <h2 class="reveal-3d">Trusted By Global Brands</h2>
-            <p class="reveal-3d">I have handled packaging and prepress requirements for some of the world's biggest names.</p>
-            <div class="brand-grid reveal-3d stagger-1">
+        <section id="trust-authority">
+            <h2 class="reveal-3d">Proven Global Authority</h2>
+            <div class="about-grid" style="grid-template-columns: 1fr; gap: 2rem;">
+                <div class="about-text reveal-3d stagger-1">
+                    <p>Beyond local prepress operations, I have established a high-authority global presence as a <strong>top-rated freelancer on Fiverr</strong>. Delivering premium structural packaging and visual identity solutions to international clients requires not just design skills, but strict technical adherence to global printing standards.</p>
+                </div>
+            </div>
+            <div class="brand-grid reveal-3d stagger-1" style="margin-top: 3rem;">
                 <span class="brand-tag">Nestlé</span>
                 <span class="brand-tag">Unilever</span>
                 <span class="brand-tag">KFC</span>
@@ -270,8 +313,24 @@
                 <span class="brand-tag">Wall's</span>
                 <span class="brand-tag">Colgate</span>
                 <span class="brand-tag">National Foods</span>
-                <span class="brand-tag">Getz Pharma</span>
-                <span class="brand-tag">Hoechst</span>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2 class="reveal-3d">Frequently Asked Questions</h2>
+            <div class="reveal-3d stagger-1">
+                <div class="faq-item">
+                    <h3>What does a Prepress Executive do for FMCG packaging?</h3>
+                    <p>A prepress executive ensures that digital packaging designs are technically flawless before mass production. This includes managing dielines, color separations, bleeds, and trapping for high-speed offset printing lines, ensuring the final physical product matches the creative vision.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Do you offer freelance communication design services globally?</h3>
+                    <p>Yes. While my technical print operations are based in Karachi, Pakistan, I work with clients worldwide via platforms like Fiverr to deliver 360-degree brand campaigns, creative strategy, and premium structural packaging designs tailored to global markets.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What is the benefit of hiring a designer with a prepress background?</h3>
+                    <p>Hiring a creative lead with prepress expertise eliminates costly printing errors. It ensures that the creative visuals designed on-screen are mathematically and technically viable for actual production, saving brands significant time and material costs during the manufacturing phase.</p>
+                </div>
             </div>
         </section>
 
@@ -286,7 +345,7 @@
 
         <section id="insights">
             <h2 class="reveal-3d">Design Insights & Blog</h2>
-            <p class="reveal-3d">Thoughts on print production, branding strategies, and navigating the global freelance market.</p>
+            <p class="reveal-3d">Read my latest <a href="blog.html" style="color: var(--accent); text-decoration: underline;">design insights and AI tech articles</a> focusing on print production, branding strategies, and navigating the global freelance market.</p>
             
             <div class="xp-grid" id="recent-blogs-container">
                 <p style="grid-column: 1 / -1; color: var(--sub-text);">Fetching latest insights...</p>
@@ -355,7 +414,6 @@
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
                     
-                    // Generate a clean text snippet by stripping HTML
                     const tmp = document.createElement("DIV");
                     tmp.innerHTML = data.content;
                     const textSnippet = (tmp.textContent || tmp.innerText || "").substring(0, 110) + "...";
@@ -370,7 +428,6 @@
                         <a href="blog.html" class="card-link" style="margin-top: auto;" aria-label="Read ${data.title}">Read Article ↗</a>
                     `;
 
-                    // Ensure cursor effect works on dynamically generated cards
                     article.addEventListener('mouseenter', () => {
                         const cursor = document.querySelector('.cursor');
                         if(cursor) cursor.classList.add('hovered');
@@ -393,13 +450,22 @@
     </script>
 
     <script>
-        // 1. Theme Engine (Controls the toggle button logic)
+        // 1. Mobile Menu Logic
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const navMenu = document.getElementById('nav-links');
+
+        if(hamburgerIcon && navMenu) {
+            hamburgerIcon.addEventListener('click', () => {
+                navMenu.classList.toggle('mobile-active');
+            });
+        }
+
+        // 2. Theme Engine
         const themeToggleBtn = document.getElementById('theme-toggle');
         const iconMoon = document.getElementById('icon-moon');
         const iconSun = document.getElementById('icon-sun');
         const metaThemeColor = document.getElementById('theme-color-meta');
 
-        // Note: Initial theme check was moved to <head> to prevent flashing
         const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
         if (currentTheme === 'light') {
             iconMoon.style.display = 'none';
@@ -423,14 +489,14 @@
             }
         });
 
-        // 2. Frosted Glass Nav Scroll
+        // 3. Frosted Glass Nav Scroll
         const mainNav = document.getElementById('main-nav');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) mainNav.classList.add('scrolled');
             else mainNav.classList.remove('scrolled');
         });
 
-        // 3. Desktop Cursor & Mobile Gyroscope
+        // 4. Desktop Cursor & Mobile Gyroscope
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
         const heroText = document.getElementById('tilt-text');
         const heroSection = document.getElementById('hero');
@@ -474,7 +540,7 @@
             }
         }
 
-        // 4. Scroll Reveal
+        // 5. Scroll Reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {

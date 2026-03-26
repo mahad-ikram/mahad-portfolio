@@ -5,31 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#050505" id="theme-color-meta">
     
-    <meta name="description" content="Read expert insights on FMCG Print Production, Brand Strategy, AI in Design, and Global Freelancing by Muhammad Mahad Ikram.">
+    <meta name="description" content="Read expert insights on FMCG Print Production, Brand Strategy, AI in Design, and Global Freelancing by Mahad Ikram, a Karachi-based Prepress Executive.">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
     <link rel="canonical" href="https://mahadikram.com/blog.html">
     
-    <meta property="og:title" content="Design Insights & Articles | Mahad Ikram">
+    <meta property="og:title" content="Design Insights & Blog | Prepress & FMCG Packaging">
     <meta property="og:description" content="Thoughts on print production, branding strategies, and navigating the global freelance market.">
     <meta property="og:type" content="blog">
     <meta property="og:url" content="https://mahadikram.com/blog.html">
     <meta property="og:image" content="https://mahadikram.com/mahad-photo.jpg">
     
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Design Insights | Mahad Ikram">
+    <meta name="twitter:title" content="Design Insights & Blog | Mahad Ikram">
     <meta name="twitter:description" content="Thoughts on print production, branding strategies, and navigating the global freelance market.">
     
-    <title>Insights & Articles | Mahad Ikram</title>
+    <title>Design Insights & Blog | Prepress & FMCG Packaging</title>
 
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-R9FW8DM3ZV"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-R9FW8DM3ZV');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R9FW8DM3ZV"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-R9FW8DM3ZV');
+    </script>
 
     <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
@@ -43,7 +41,13 @@
       "url": "https://mahadikram.com/blog.html",
       "author": {
         "@type": "Person",
-        "name": "Muhammad Mahad Ikram"
+        "name": "Muhammad Mahad Ikram",
+        "jobTitle": "Prepress Executive & Communication Designer",
+        "url": "https://mahadikram.com",
+        "homeLocation": {
+          "@type": "Place",
+          "name": "Karachi, Pakistan"
+        }
       }
     }
     </script>
@@ -86,20 +90,25 @@
         }
         .cursor.hovered { width: 80px; height: 80px; opacity: 0.9; background: var(--accent); }
 
-        /* --- 4. FROSTED GLASS NAV --- */
+        /* --- 4. FROSTED GLASS NAV & MOBILE MENU --- */
         nav {
             position: fixed; top: 0; left: 0; width: 100%; padding: 25px 5%; display: flex; justify-content: space-between; align-items: center;
             z-index: 1000; background: transparent; border-bottom: 1px solid transparent; transition: background 0.4s ease, backdrop-filter 0.4s ease, border-bottom 0.4s ease;
         }
         nav.scrolled { background: var(--nav-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+        
+        .nav-links { display: flex; align-items: center; gap: 1.5rem; transition: 0.3s ease; }
         .nav-link { color: var(--text); text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; transition: color 0.4s ease, border-color 0.3s ease; border-bottom: 1px solid transparent; padding-bottom: 2px; }
         .nav-link:hover { border-bottom: 1px solid var(--accent); color: var(--accent); }
         .nav-link.active-link { border-bottom: 1px solid var(--accent); }
 
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; z-index: 1001; }
+        .hamburger .line { width: 25px; height: 2px; background-color: var(--text); transition: all 0.3s ease; }
+
         /* --- 5. HEADER & CATEGORY FILTERS --- */
         .blog-header { padding: 10rem 5% 2rem; border-bottom: 1px solid var(--border); transition: border-color 0.4s ease; }
         h1 { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 6rem); text-transform: uppercase; line-height: 0.9; margin-bottom: 1rem; animation: slideDown 1s ease forwards; }
-        .blog-header p { font-size: 1.2rem; color: var(--sub-text); max-width: 600px; animation: fadeIn 1s ease forwards 0.3s; opacity: 0; margin-bottom: 3rem; }
+        .blog-header p { font-size: 1.2rem; color: var(--sub-text); max-width: 800px; animation: fadeIn 1s ease forwards 0.3s; opacity: 0; margin-bottom: 3rem; line-height: 1.6; }
 
         .filter-menu { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeIn 1s ease forwards 0.5s; opacity: 0; }
         .filter-btn { background: transparent; border: 1px solid var(--card-border); color: var(--sub-text); padding: 0.6rem 1.5rem; font-family: var(--font-body); text-transform: uppercase; font-weight: bold; cursor: none; transition: 0.3s ease; border-radius: 50px; font-size: 0.85rem; }
@@ -158,6 +167,11 @@
             .cursor { display: none !important; } * { cursor: auto !important; }
             .modal-close-btn { top: 1rem; right: 1.5rem; font-size: 2.5rem; }
             .reader-content { padding-top: 6rem; }
+            
+            /* Mobile Nav Dropdown */
+            .hamburger { display: flex; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background-color: var(--nav-bg); text-align: center; padding: 2rem 0; border-bottom: 1px solid var(--border); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+            .nav-links.mobile-active { display: flex; }
             .mobile-hide { display: none; }
         }
     </style>
@@ -167,17 +181,21 @@
     <div class="cursor"></div>
 
     <nav id="main-nav">
-        <div style="font-weight: bold; font-size: 1.2rem; color: var(--text); transition: color 0.4s ease;">
+        <div style="font-weight: bold; font-size: 1.2rem; color: var(--text); transition: color 0.4s ease; z-index: 1002;">
             <a href="index.html" style="color: inherit; text-decoration: none;"><span style="color: var(--accent);">M</span>I.</a>
         </div>
         
-        <div style="display: flex; align-items: center; gap: 1.5rem; color: var(--text); transition: color 0.4s ease;">
-            <a href="about.html" class="nav-link mobile-hide" aria-label="About Mahad">About</a>
-            <a href="work.html" class="nav-link mobile-hide" aria-label="View Portfolio">Works</a>
-            <a href="blog.html" class="nav-link active-link mobile-hide" aria-label="Read Blog">Blog</a>
-            
-            <a href="https://vaguers.com" target="_blank" rel="noopener noreferrer" class="nav-link mobile-hide" aria-label="Visit Vaguers Apparel" style="color: var(--accent);">Shop ↗</a>
-            
+        <div class="hamburger" id="hamburger-icon" aria-label="Toggle Menu">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+        </div>
+
+        <div class="nav-links" id="nav-links">
+            <a href="about.html" class="nav-link" aria-label="About Mahad">About</a>
+            <a href="work.html" class="nav-link" aria-label="View Portfolio">Works</a>
+            <a href="blog.html" class="nav-link active-link" aria-label="Read Blog">Blog</a>
+            <a href="https://vaguers.com" target="_blank" rel="noopener noreferrer" class="nav-link" aria-label="Visit Vaguers Apparel" style="color: var(--accent);">Shop ↗</a>
             <a href="mailto:Mahadikram@outlook.com" class="nav-link" aria-label="Contact Mahad Ikram">Contact</a>
             
             <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Dark/Light Mode">
@@ -190,7 +208,7 @@
     <main>
         <header class="blog-header">
             <h1><span style="color: var(--accent);">Design</span> Insights</h1>
-            <p>Thoughts on print production, branding strategies, and navigating the global freelance market. Written by Mahad Ikram.</p>
+            <p>Thoughts on print production, branding strategies, and navigating the global freelance market from Karachi, Pakistan. Written by Muhammad Mahad Ikram, specializing in <a href="work.html" style="color: var(--accent); text-decoration: underline;">FMCG packaging prepress</a> and <a href="index.html" style="color: var(--accent); text-decoration: underline;">communication design</a>.</p>
             
             <div class="filter-menu">
                 <button class="filter-btn active" data-filter="all" onclick="filterSelection('all')" aria-label="Show all articles">All Topics</button>
@@ -455,6 +473,15 @@
         // ----------------------------------------
         // UI & FRONTEND LOGIC (Nav, Theme, Modal)
         // ----------------------------------------
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const navMenu = document.getElementById('nav-links');
+
+        if(hamburgerIcon && navMenu) {
+            hamburgerIcon.addEventListener('click', () => {
+                navMenu.classList.toggle('mobile-active');
+            });
+        }
+
         const mainNav = document.getElementById('main-nav');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) mainNav.classList.add('scrolled');
