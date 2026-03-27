@@ -557,5 +557,222 @@
             });
         }, 2000);
     </script>
-</body>
+
+    <style>
+        /* Chatbot CSS */
+        #ai-chat-widget {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999999;
+            font-family: var(--font-body);
+        }
+        
+        #chat-toggle-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            color: #000;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        #chat-toggle-btn:hover { transform: scale(1.1); }
+        #chat-toggle-btn svg { width: 30px; height: 30px; }
+
+        #chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.8);
+            transform-origin: bottom right;
+            transition: all 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.9);
+        }
+        
+        #chat-window.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+        }
+
+        .chat-header {
+            background-color: #000;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-header h4 { margin: 0; color: var(--accent); font-family: var(--font-display); text-transform: uppercase; font-size: 1rem; }
+        #close-chat-btn { background: none; border: none; color: var(--sub-text); font-size: 1.5rem; cursor: pointer; transition: color 0.3s; }
+        #close-chat-btn:hover { color: #ff4444; }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) transparent;
+        }
+        
+        .message { padding: 12px 16px; border-radius: 8px; font-size: 0.95rem; line-height: 1.4; max-width: 85%; }
+        .ai-message { background-color: rgba(255,255,255,0.05); color: var(--text); align-self: flex-start; border-bottom-left-radius: 0; }
+        .user-message { background-color: var(--accent); color: #000; align-self: flex-end; border-bottom-right-radius: 0; font-weight: bold; }
+
+        .chat-input-area {
+            padding: 15px;
+            background-color: #000;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 10px;
+        }
+        #chat-input {
+            flex-grow: 1;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 10px 15px;
+            border-radius: 50px;
+            outline: none;
+            font-family: var(--font-body);
+        }
+        #chat-input:focus { border-color: var(--accent); }
+        #send-chat-btn {
+            background-color: var(--accent);
+            color: #000;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.3s;
+        }
+        #send-chat-btn:hover { transform: scale(1.1); }
+        #send-chat-btn svg { width: 18px; height: 18px; }
+
+        .typing-indicator { color: var(--sub-text); font-size: 0.8rem; font-style: italic; align-self: flex-start; display: none; margin-left: 10px; }
+        .typing-indicator.active { display: block; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
+
+        @media(max-width: 768px) {
+            #chat-window { width: 300px; height: 450px; bottom: 70px; right: -10px; }
+            #ai-chat-widget { bottom: 20px; right: 20px; }
+        }
+    </style>
+
+    <div id="ai-chat-widget">
+        <div id="chat-window">
+            <div class="chat-header">
+                <h4>Mahad AI</h4>
+                <button id="close-chat-btn">&times;</button>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="message ai-message">Hi! I'm Mahad's digital assistant. Ask me anything about his FMCG packaging expertise, prepress execution, or how to start a project!</div>
+                <div class="typing-indicator" id="typing-indicator">Mahad AI is typing...</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Type your message..." autocomplete="off">
+                <button id="send-chat-btn" aria-label="Send Message">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </button>
+            </div>
+        </div>
+
+        <button id="chat-toggle-btn" aria-label="Toggle Chat">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatToggleBtn = document.getElementById('chat-toggle-btn');
+            const chatWindow = document.getElementById('chat-window');
+            const closeChatBtn = document.getElementById('close-chat-btn');
+            const chatInput = document.getElementById('chat-input');
+            const sendChatBtn = document.getElementById('send-chat-btn');
+            const chatMessages = document.getElementById('chat-messages');
+            const typingIndicator = document.getElementById('typing-indicator');
+
+            // --- THE LIVE RENDER URL IS WIRED UP HERE ---
+            const BACKEND_URL = "https://mahad-portfolio-chat-bot.onrender.com/chat"; 
+
+            // Toggle Chat Window
+            chatToggleBtn.addEventListener('click', () => chatWindow.classList.toggle('active'));
+            closeChatBtn.addEventListener('click', () => chatWindow.classList.remove('active'));
+
+            // Send Message Logic
+            const sendMessage = async () => {
+                const messageText = chatInput.value.trim();
+                if (!messageText) return;
+
+                // 1. Add User Message to UI
+                appendMessage(messageText, 'user-message');
+                chatInput.value = '';
+                
+                // 2. Show Typing Indicator
+                typingIndicator.classList.add('active');
+                chatMessages.appendChild(typingIndicator); 
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                try {
+                    // 3. Send to your Render Backend
+                    const response = await fetch(BACKEND_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ message: messageText })
+                    });
+
+                    if (!response.ok) throw new Error("Server error");
+                    
+                    const data = await response.json();
+                    
+                    // 4. Remove typing indicator and add AI response
+                    typingIndicator.classList.remove('active');
+                    appendMessage(data.reply, 'ai-message');
+
+                } catch (error) {
+                    console.error("Chat error:", error);
+                    typingIndicator.classList.remove('active');
+                    appendMessage("Oops! My server is currently taking a quick nap. Please try again in a moment or email Mahad directly!", 'ai-message');
+                }
+            };
+
+            function appendMessage(text, className) {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `message ${className}`;
+                msgDiv.textContent = text;
+                chatMessages.appendChild(msgDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            // Event Listeners for sending
+            sendChatBtn.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+        });
+    </script>
+    </body>
 </html>
