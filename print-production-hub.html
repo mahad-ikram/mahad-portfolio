@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505" id="theme-color-meta">
+    <meta name="description" content="The Ultimate Guide to FMCG Packaging & Print Production by Mahad Ikram.">
+    <meta name="robots" content="index, follow">
+    <title>Print Production Hub | Mahad Ikram</title>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R9FW8DM3ZV"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-R9FW8DM3ZV');
+    </script>
+
+    <script>
+        (function() {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const currentTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+            if (currentTheme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+
+    <style>
+        /* --- 1. DYNAMIC THEME ENGINE --- */
+        :root {
+            --bg: #050505; --card-bg: #111111; --text: #ffffff; --sub-text: #888888;
+            --accent: #d4ff00; --border: #1a1a1a; --card-border: #222222;
+            --nav-bg: rgba(5, 5, 5, 0.95); 
+            --font-display: 'Arial Black', sans-serif; --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        [data-theme="light"] {
+            --bg: #f7f7f7; --card-bg: #ffffff; --text: #050505; --sub-text: #555555;
+            --accent: #9abd00; --border: #e0e0e0; --card-border: #d5d5d5;
+            --nav-bg: rgba(247, 247, 247, 0.95); 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; scroll-behavior: smooth; transition: background-color 0.4s ease, color 0.4s ease; }
+        strong { color: var(--accent); font-weight: 800; }
+
+        /* --- NAVIGATION --- */
+        nav { position: fixed; top: 0; left: 0; width: 100%; padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: var(--nav-bg); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+        .nav-links { display: flex; gap: 1.5rem; }
+        .nav-link { color: var(--text); text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 0.9rem; }
+        .nav-link:hover { color: var(--accent); }
+
+        .theme-toggle-btn { background: none; border: none; color: var(--text); cursor: pointer; width: 35px; height: 35px; }
+        .theme-toggle-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+        /* --- BUTTONS & SECTIONS --- */
+        section { padding: 8rem 10%; border-bottom: 1px solid var(--border); }
+        .btn-primary { display: inline-block; padding: 1rem 2.5rem; border: 2px solid var(--accent); border-radius: 50px; color: var(--accent); font-weight: bold; text-transform: uppercase; text-decoration: none; transition: 0.3s; margin-top: 1rem; }
+        .btn-primary:hover { background: var(--accent); color: #000; }
+
+        /* --- 3D SCROLL ANIMATIONS --- */
+        .reveal-3d { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .reveal-3d.active { opacity: 1; transform: translateY(0); }
+        .stagger-1 { transition-delay: 0.1s; } 
+        .stagger-2 { transition-delay: 0.2s; }
+
+        /* --- CHATBOT UI --- */
+        #ai-chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 999999; }
+        #chat-toggle-btn { width: 60px; height: 60px; border-radius: 50%; background-color: var(--accent); color: #000; border: none; cursor: pointer; display: flex; justify-content: center; align-items: center; }
+        #chat-window { position: absolute; bottom: 80px; right: 0; width: 350px; height: 500px; background-color: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; display: flex; flex-direction: column; opacity: 0; pointer-events: none; transform: scale(0.9); transition: all 0.3s ease; }
+        #chat-window.active { opacity: 1; pointer-events: auto; transform: scale(1); }
+        .chat-header { background-color: #000; padding: 15px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .chat-header h4 { margin: 0; color: var(--accent); text-transform: uppercase; }
+        #close-chat-btn { background: none; border: none; color: var(--sub-text); cursor: pointer; }
+        .chat-messages { flex-grow: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
+        .message { padding: 12px 16px; border-radius: 8px; font-size: 0.95rem; max-width: 85%; }
+        .ai-message { background-color: rgba(255,255,255,0.05); color: var(--text); align-self: flex-start; }
+        .user-message { background-color: var(--accent); color: #000; align-self: flex-end; }
+        .chat-input-area { padding: 15px; background-color: #000; border-top: 1px solid var(--border); display: flex; gap: 10px; }
+        #chat-input { flex-grow: 1; background-color: var(--card-bg); border: 1px solid var(--border); color: var(--text); padding: 10px 15px; border-radius: 50px; outline: none; }
+        #send-chat-btn { background-color: var(--accent); color: #000; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; }
+    </style>
+</head>
+<body>
+
+    <nav id="main-nav">
+        <div style="font-weight: bold; font-size: 1.2rem;">
+            <a href="index.html" style="color: var(--text); text-decoration: none;"><span style="color: var(--accent);">M</span>I.</a>
+        </div>
+        <div class="nav-links">
+            <a href="about.html" class="nav-link">About</a>
+            <a href="work.html" class="nav-link">Works</a>
+            <a href="blog.html" class="nav-link">Blog</a>
+            <a href="https://vaguers.com" target="_blank" class="nav-link" style="color: var(--accent);">Shop ↗</a>
+            <a href="mailto:Mahadikram@outlook.com" class="nav-link">Contact</a>
+            
+            <button id="theme-toggle" class="theme-toggle-btn">
+                <svg id="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg id="icon-sun" style="display: none;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <section id="hero" style="height: 100vh; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; border-bottom: none;">
+            <h4 class="reveal-3d" style="color: var(--accent); letter-spacing: 3px; margin-bottom: 1rem; text-transform: uppercase;">SEO Master Hub</h4>
+            
+            <h1 class="reveal-3d stagger-1" style="font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 5rem); margin-bottom: 1rem; text-transform: uppercase;">
+                Print Production <span style="color: var(--accent);">&</span> Prepress
+            </h1>
+            
+            <p class="reveal-3d stagger-2" style="color: var(--sub-text); max-width: 600px; margin: 0 auto 2.5rem auto; font-size: 1.2rem; line-height: 1.6;">
+                The ultimate master guide is currently being compiled. Our AI and expert design team are putting together the definitive resource for FMCG packaging standards. Check back soon!
+            </p>
+            
+            <div class="reveal-3d stagger-2">
+                <a href="index.html" class="btn-primary">← Back to Home</a>
+            </div>
+        </section>
+    </main>
+
+    <div id="ai-chat-widget">
+        <div id="chat-window">
+            <div class="chat-header">
+                <h4>Mahad AI</h4>
+                <button id="close-chat-btn">&times;</button>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="message ai-message">Hi! I'm Mahad's digital assistant. Ask me anything about his FMCG packaging expertise or how to start a project!</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Type your message..." autocomplete="off">
+                <button id="send-chat-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </button>
+            </div>
+        </div>
+        <button id="chat-toggle-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </button>
+    </div>
+
+    <script>
+        // Reveal Animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal-3d').forEach((el) => observer.observe(el));
+
+        // Theme Logic
+        const themeBtn = document.getElementById('theme-toggle');
+        themeBtn.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme') || 'dark';
+            let newTheme = theme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            document.getElementById('icon-moon').style.display = newTheme === 'light' ? 'none' : 'block';
+            document.getElementById('icon-sun').style.display = newTheme === 'light' ? 'block' : 'none';
+        });
+
+        // Chatbot Logic
+        const chatToggleBtn = document.getElementById('chat-toggle-btn');
+        const chatWindow = document.getElementById('chat-window');
+        const closeChatBtn = document.getElementById('close-chat-btn');
+        const sendChatBtn = document.getElementById('send-chat-btn');
+        const chatInput = document.getElementById('chat-input');
+        const chatMessages = document.getElementById('chat-messages');
+        const BACKEND_URL = "https://mahad-portfolio-chat-bot.onrender.com/chat";
+
+        chatToggleBtn.addEventListener('click', () => chatWindow.classList.toggle('active'));
+        closeChatBtn.addEventListener('click', () => chatWindow.classList.remove('active'));
+
+        const sendMessage = async () => {
+            const text = chatInput.value.trim();
+            if (!text) return;
+            chatMessages.innerHTML += `<div class="message user-message">${text}</div>`;
+            chatInput.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            try {
+                const response = await fetch(BACKEND_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: text }) });
+                const data = await response.json();
+                chatMessages.innerHTML += `<div class="message ai-message">${data.reply}</div>`;
+            } catch (error) {
+                chatMessages.innerHTML += `<div class="message ai-message">System currently offline.</div>`;
+            }
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        };
+
+        sendChatBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+    </script>
+</body>
+</html>
