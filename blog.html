@@ -111,7 +111,8 @@
         .blog-header p { font-size: 1.2rem; color: var(--sub-text); max-width: 800px; animation: fadeIn 1s ease forwards 0.3s; opacity: 0; margin-bottom: 3rem; line-height: 1.6; }
 
         .filter-menu { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeIn 1s ease forwards 0.5s; opacity: 0; }
-        .filter-btn { background: transparent; border: 1px solid var(--card-border); color: var(--sub-text); padding: 0.6rem 1.5rem; font-family: var(--font-body); text-transform: uppercase; font-weight: bold; cursor: none; transition: 0.3s ease; border-radius: 50px; font-size: 0.85rem; }
+        /* Updated filter-btn class to work perfectly with anchor tags */
+        .filter-btn { display: inline-block; text-decoration: none; text-align: center; background: transparent; border: 1px solid var(--card-border); color: var(--sub-text); padding: 0.6rem 1.5rem; font-family: var(--font-body); text-transform: uppercase; font-weight: bold; cursor: none; transition: 0.3s ease; border-radius: 50px; font-size: 0.85rem; }
         .filter-btn:hover, .filter-btn.active { border-color: var(--accent); color: #000; background: var(--accent); }
 
         /* --- 6. ARTICLE GRID (DYNAMIC) --- */
@@ -211,11 +212,11 @@
             <p>Thoughts on print production, branding strategies, and navigating the global freelance market from Karachi, Pakistan. Written by Muhammad Mahad Ikram, specializing in <a href="work.html" style="color: var(--accent); text-decoration: underline;">FMCG packaging prepress</a> and <a href="index.html" style="color: var(--accent); text-decoration: underline;">communication design</a>.</p>
             
             <div class="filter-menu">
-                <button class="filter-btn active" data-filter="all" onclick="filterSelection('all')" aria-label="Show all articles">All Topics</button>
-                <button class="filter-btn" data-filter="prepress" onclick="filterSelection('prepress')" aria-label="Show Print Production">Print Production</button>
-                <button class="filter-btn" data-filter="ai" onclick="filterSelection('ai')" aria-label="Show AI & Tech">AI & Tech</button>
-                <button class="filter-btn" data-filter="strategy" onclick="filterSelection('strategy')" aria-label="Show Brand Strategy">Brand Strategy</button>
-                <button class="filter-btn" data-filter="freelance" onclick="filterSelection('freelance')" aria-label="Show Freelancing">Freelancing</button>
+                <a href="blog.html" class="filter-btn active" aria-label="Show all articles">All Topics</a>
+                <a href="print-production-hub.html" class="filter-btn" aria-label="Print Production Hub">Print Production</a>
+                <a href="ai-tech-hub.html" class="filter-btn" aria-label="AI & Tech Hub">AI & Tech</a>
+                <a href="brand-strategy-hub.html" class="filter-btn" aria-label="Brand Strategy Hub">Brand Strategy</a>
+                <a href="freelancing-hub.html" class="filter-btn" aria-label="Freelancing Hub">Freelancing</a>
             </div>
         </header>
 
@@ -277,31 +278,6 @@
         const modalMeta = document.getElementById('modalMeta');
         const modalCover = document.getElementById('modalCover');
         const modalBody = document.getElementById('modalBody');
-
-        // Global Filter Logic
-        window.filterSelection = function(c) {
-            let x = document.getElementsByClassName("filter-item");
-            let btns = document.getElementsByClassName("filter-btn");
-
-            for (let b = 0; b < btns.length; b++) {
-                btns[b].classList.remove("active");
-                if (btns[b].getAttribute('data-filter') === c) {
-                   btns[b].classList.add("active");
-                }
-            }
-
-            let filterClass = c === "all" ? "" : c;
-            
-            for (let i = 0; i < x.length; i++) {
-                x[i].style.display = "none"; 
-                if (x[i].className.indexOf(filterClass) > -1) {
-                    x[i].style.display = "flex"; 
-                    x[i].style.animation = 'none';
-                    x[i].offsetHeight;
-                    x[i].style.animation = 'fadeIn 0.5s ease forwards';
-                }
-            }
-        };
 
         // Helper function to extract snippet
         function extractSnippet(htmlStr) {
@@ -416,7 +392,7 @@
                         dateStr = dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
                     }
 
-                    article.className = `article-card filter-item ${data.category}`;
+                    article.className = `article-card ${data.category}`;
                     const snippet = extractSnippet(data.content);
                     
                     article.innerHTML = `
@@ -459,8 +435,6 @@
 
                     blogContainer.appendChild(article);
                 });
-
-                window.filterSelection('all');
 
             } catch(error) {
                 console.error("Error fetching articles:", error);
