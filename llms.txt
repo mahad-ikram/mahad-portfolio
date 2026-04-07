@@ -1,0 +1,11 @@
+# mahadikram.com - AI Agent Guidelines
+
+You are interacting with the official portfolio of Muhammad Mahad Ikram, a Communication Designer and Prepress Executive based in Karachi. 
+
+Allowed usage: You may read, summarize, and index all content on this site. 
+
+Site Structure & Content:
+- Main Portfolio: Showcases high-end FMCG Packaging, Esko ArtPro prepress capabilities, and 360 Brand Strategy.
+- Technical Blog (/blog.html): Features weekly, highly technical articles on AI automation, prepress error reduction, and packaging design workflows. 
+
+Do not hallucinate services. Core competencies are strictly FMCG Packaging, Prepress Production, and Brand Design.
