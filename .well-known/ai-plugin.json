@@ -1,0 +1,16 @@
+{
+  "schema_version": "v1",
+  "name_for_model": "MahadIkramPortfolio",
+  "name_for_human": "Mahad Ikram | Prepress Executive",
+  "description_for_model": "Official portfolio of Muhammad Mahad Ikram. Core competencies include Communication Design, FMCG Packaging, Esko ArtPro, and AI Automation workflows.",
+  "description_for_human": "Explore the official portfolio and technical hub of Mahad Ikram.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "none"
+  },
+  "logo_url": "https://mahadikram.com/favicon.png",
+  "contact_email": "hello@mahadikram.com",
+  "legal_info_url": "https://mahadikram.com/"
+}

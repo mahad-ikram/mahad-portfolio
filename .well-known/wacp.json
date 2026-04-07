@@ -1,0 +1,10 @@
+{
+  "wacp_version": "1.0",
+  "policy": {
+    "allow": ["*"],
+    "disallow": ["/admin.html"]
+  },
+  "content_type": "portfolio, technical_blog",
+  "author": "Muhammad Mahad Ikram",
+  "ai_guidelines": "https://mahadikram.com/llms.txt"
+}
