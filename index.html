@@ -199,15 +199,23 @@
         .theme-toggle-btn:hover { transform: scale(1.1); background: rgba(128,128,128,0.2); }
         .theme-toggle-btn svg { width: 20px; height: 20px; fill: currentColor; }
 
+        /* --- CONTACT FORM DESKTOP CSS --- */
+        .form-card { display: flex; flex-direction: column; gap: 1.5rem; background: var(--card-bg); padding: 3rem; border: 1px solid var(--card-border); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .contact-text-wrapper { position: sticky; top: 120px; }
+
         /* MOBILE RESPONSIVE TWEAKS */
         @media(max-width: 768px) {
-            .about-grid, .xp-grid { grid-template-columns: 1fr; }
-            section { padding: 4rem 5%; }
+            .about-grid, .xp-grid { grid-template-columns: 1fr; gap: 3rem; }
+            section { padding: 4rem 5% 6rem 5% !important; } /* Overrides inline padding & adds bottom space for chat bubble */
             .vaguers-banner { padding: 4rem 2rem; margin: 3rem 5%; }
             h1.hero-title { font-size: 3.5rem; }
             .cursor { display: none !important; } * { cursor: auto !important; }
             .card-company-logo { top: 2rem; right: 2rem; width: 45px; height: 45px; }
             
+            /* Responsive Contact Form Fixes */
+            .form-card { padding: 1.5rem; }
+            .contact-text-wrapper { position: relative; top: 0; }
+
             /* Mobile Nav Dropdown */
             .hamburger { display: flex; }
             .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background-color: var(--nav-bg); text-align: center; padding: 2rem 0; border-bottom: 1px solid var(--border); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
@@ -234,7 +242,10 @@
             <a href="about.html" class="nav-link" aria-label="About Mahad">About</a>
             <a href="work.html" class="nav-link" aria-label="View Portfolio">Works</a>
             <a href="blog.html" class="nav-link" aria-label="Read Blog">Blog</a>
-            <a href="https://vaguers.com" target="_blank" rel="noopener noreferrer" class="nav-link" aria-label="Visit Vaguers Apparel" style="color: var(--accent);">Shop ↗</a>
+            
+            <a href="bleed-calculator.html" class="nav-link" aria-label="Prepress Calculator" style="color: var(--accent);">Tools</a>
+            
+            <a href="https://vaguers.com" target="_blank" rel="noopener noreferrer" class="nav-link" aria-label="Visit Vaguers Apparel">Shop ↗</a>
             <a href="mailto:Mahadikram@outlook.com" class="nav-link" aria-label="Contact Mahad Ikram">Contact</a>
             
             <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Dark/Light Mode">
@@ -373,10 +384,10 @@
             </div>
         </section>
 
-        <section id="contact-booking" class="reveal-3d" style="padding: 6rem 10%; border-bottom: none;">
+        <section id="contact-booking" class="reveal-3d" style="border-bottom: none;">
             <div class="about-grid" style="align-items: flex-start;">
                 
-                <div class="contact-text" style="position: sticky; top: 120px;">
+                <div class="contact-text-wrapper">
                     <h2 style="color: var(--text);">Start a Project</h2>
                     <p style="color: var(--sub-text);">Currently accepting international projects for FMCG packaging, brand strategy, and prepress production.</p>
                     <div style="margin-top: 3rem; padding-left: 1rem; border-left: 2px solid var(--border);">
@@ -386,7 +397,7 @@
                 </div>
                 
                 <div class="contact-form">
-                    <form id="premium-intake-form" action="https://formspree.io/f/mnjlakze" method="POST" style="display: flex; flex-direction: column; gap: 1.5rem; background: var(--card-bg); padding: 3rem; border: 1px solid var(--card-border); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                    <form id="premium-intake-form" class="form-card" action="https://formspree.io/f/mnjlakze" method="POST">
                         
                         <div style="display: flex; flex-direction: column; gap: 0.5rem;">
                             <label style="font-weight: bold; color: var(--text);">Your Name / Company</label>
