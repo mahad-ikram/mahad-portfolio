@@ -104,13 +104,12 @@
         h1 { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 6rem); text-transform: uppercase; line-height: 0.9; margin-bottom: 1rem; }
         .subtitle { color: var(--accent); font-size: 1.5rem; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; }
 
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; padding: 6rem 5%; align-items: center; }
-        .about-text p { font-size: 1.2rem; line-height: 1.8; color: var(--sub-text); margin-bottom: 2rem; }
+        /* FIXED: Changed align-items to flex-start and reduced top padding to 3rem */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; padding: 3rem 5% 6rem 5%; align-items: flex-start; }
         
-        /* UPDATED: Bold text is now the neon accent color */
+        .about-text p { font-size: 1.2rem; line-height: 1.8; color: var(--sub-text); margin-bottom: 2rem; }
         .about-text strong { color: var(--accent); }
         
-        /* UPDATED: Image frame scales natively without cropping */
         .image-frame { position: relative; width: 100%; overflow: hidden; border-radius: 8px; filter: grayscale(100%); transition: 0.5s; line-height: 0; }
         .image-frame:hover { filter: grayscale(0%); transform: scale(1.02); }
         .image-frame img { width: 100%; height: auto; display: block; }
