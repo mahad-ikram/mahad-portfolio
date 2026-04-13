@@ -156,7 +156,7 @@
         @keyframes scrollText { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
 
         /* --- BUTTONS --- */
-        .btn-primary { display: inline-block; padding: 1rem 2.5rem; border: 2px solid var(--accent); border-radius: 50px; color: var(--accent); font-weight: bold; text-transform: uppercase; text-decoration: none; letter-spacing: 1px; transition: 0.3s ease; margin-top: 1rem; }
+        .btn-primary { display: inline-block; padding: 1rem 2.5rem; border: 2px solid var(--accent); border-radius: 50px; color: var(--accent); font-weight: bold; text-transform: uppercase; text-decoration: none; letter-spacing: 1px; transition: 0.3s ease; margin-top: 1rem; background: transparent;}
         .btn-primary:hover { background: var(--accent); color: #000; transform: scale(1.05); }
 
         /* --- 3D SCROLL ANIMATIONS --- */
@@ -372,6 +372,89 @@
                 <a href="blog.html" class="btn-primary" aria-label="Read all blog posts">View All Articles</a>
             </div>
         </section>
+
+        <section id="contact-booking" class="reveal-3d" style="padding: 6rem 10%; max-width: 800px; margin: 0 auto; border-bottom: none;">
+            <h2 style="text-align: center; border: none; padding: 0; margin-bottom: 1rem; color: var(--text);">Start a Project</h2>
+            <p style="text-align: center; margin: 0 auto 3rem auto; color: var(--sub-text);">Currently accepting international projects for FMCG packaging, brand strategy, and prepress production.</p>
+            
+            <form id="premium-intake-form" action="https://formspree.io/f/mnjlakze" method="POST" style="display: flex; flex-direction: column; gap: 1.5rem; background: var(--card-bg); padding: 3rem; border: 1px solid var(--card-border); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <label style="font-weight: bold; color: var(--text);">Your Name / Company</label>
+                    <input type="text" name="name" required style="padding: 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; background: var(--bg); color: var(--text); outline: none;">
+                </div>
+                
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <label style="font-weight: bold; color: var(--text);">Email Address</label>
+                    <input type="email" name="email" required style="padding: 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; background: var(--bg); color: var(--text); outline: none;">
+                </div>
+                
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <label style="font-weight: bold; color: var(--text);">Project Type</label>
+                    <select name="project_type" style="padding: 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; background: var(--bg); color: var(--text); outline: none; appearance: auto;">
+                        <option value="Packaging & Dielines">FMCG Packaging & Dielines</option>
+                        <option value="Prepress & Color Separation">Prepress & Color Separation</option>
+                        <option value="Brand Identity">360° Brand Identity</option>
+                        <option value="AI Workflow Consultation">AI Workflow Consultation</option>
+                    </select>
+                </div>
+                
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <label style="font-weight: bold; color: var(--text);">Project Details & Timeline</label>
+                    <textarea name="message" rows="5" required style="padding: 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; background: var(--bg); color: var(--text); font-family: inherit; outline: none; resize: vertical;"></textarea>
+                </div>
+                
+                <button type="submit" id="form-submit-btn" class="btn-primary" style="margin-top: 1rem; width: 100%; border-radius: 6px; cursor: pointer; text-align: center; transition: all 0.3s ease;">Request a Quote</button>
+            </form>
+        </section>
+
+        <script>
+            const intakeForm = document.getElementById('premium-intake-form');
+            const submitBtn = document.getElementById('form-submit-btn');
+
+            if(intakeForm) {
+                intakeForm.addEventListener('submit', async function(e) {
+                    e.preventDefault(); // Stops the ugly redirect
+                    
+                    const originalText = submitBtn.innerText;
+                    submitBtn.innerText = 'Sending Request...';
+                    submitBtn.style.opacity = '0.7';
+                    submitBtn.disabled = true;
+
+                    try {
+                        const response = await fetch(intakeForm.action, {
+                            method: 'POST',
+                            body: new FormData(intakeForm),
+                            headers: { 'Accept': 'application/json' }
+                        });
+
+                        if(response.ok) {
+                            intakeForm.reset();
+                            submitBtn.innerText = 'Message Sent Successfully! ✅';
+                            submitBtn.style.backgroundColor = 'var(--accent)';
+                            submitBtn.style.color = '#000';
+                            submitBtn.style.opacity = '1';
+                        } else {
+                            submitBtn.innerText = 'Error. Please Try Again.';
+                            submitBtn.disabled = false;
+                            submitBtn.style.opacity = '1';
+                        }
+                    } catch(error) {
+                        submitBtn.innerText = 'Network Error. Try Again.';
+                        submitBtn.disabled = false;
+                        submitBtn.style.opacity = '1';
+                    }
+
+                    // Reset button after 5 seconds
+                    setTimeout(() => {
+                        submitBtn.innerText = originalText;
+                        submitBtn.disabled = false;
+                        submitBtn.style.backgroundColor = 'transparent';
+                        submitBtn.style.color = 'var(--accent)';
+                    }, 5000);
+                });
+            }
+        </script>
 
     </main>
 
