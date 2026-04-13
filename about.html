@@ -106,11 +106,14 @@
 
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; padding: 6rem 5%; align-items: center; }
         .about-text p { font-size: 1.2rem; line-height: 1.8; color: var(--sub-text); margin-bottom: 2rem; }
-        .about-text strong { color: var(--text); }
         
-        .image-frame { position: relative; width: 100%; height: 600px; overflow: hidden; border-radius: 8px; filter: grayscale(100%); transition: 0.5s; }
+        /* UPDATED: Bold text is now the neon accent color */
+        .about-text strong { color: var(--accent); }
+        
+        /* UPDATED: Image frame scales natively without cropping */
+        .image-frame { position: relative; width: 100%; overflow: hidden; border-radius: 8px; filter: grayscale(100%); transition: 0.5s; line-height: 0; }
         .image-frame:hover { filter: grayscale(0%); transform: scale(1.02); }
-        .image-frame img { width: 100%; height: 100%; object-fit: cover; }
+        .image-frame img { width: 100%; height: auto; display: block; }
 
         .stats-row { display: flex; gap: 3rem; margin-top: 3rem; border-top: 1px solid var(--border); padding-top: 3rem; }
         .stat-box h3 { font-family: var(--font-display); font-size: 3rem; color: var(--accent); line-height: 1; }
@@ -122,7 +125,6 @@
 
         @media(max-width: 768px) {
             .about-grid { grid-template-columns: 1fr; padding-top: 3rem; }
-            .image-frame { height: 400px; }
             .stats-row { flex-direction: column; gap: 2rem; }
             .cursor { display: none !important; } * { cursor: auto !important; }
             
