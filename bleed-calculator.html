@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505" id="theme-color-meta">
+    
+    <meta name="description" content="Free Prepress Packaging Bleed & Margin Calculator. Calculate exact dieline dimensions, safe zones, and trim sizes for FMCG boxes, pouches, and labels.">
+    <title>Ultimate Packaging Bleed & Margin Calculator | Mahad Ikram</title>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "FMCG Packaging Bleed & Margin Calculator",
+      "operatingSystem": "Web Browser",
+      "applicationCategory": "DesignApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "creator": {
+        "@type": "Person",
+        "name": "Muhammad Mahad Ikram"
+      }
+    }
+    </script>
+
+    <script>
+        (function() {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const currentTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+            if (currentTheme === 'light') document.documentElement.setAttribute('data-theme', 'light');
+        })();
+    </script>
+
+    <style>
+        /* Core Theme Engine */
+        :root {
+            --bg: #050505; --card-bg: #111111; --text: #ffffff; --sub-text: #888888;
+            --accent: #d4ff00; --border: #1a1a1a; --card-border: #222222;
+            --nav-bg: rgba(5, 5, 5, 0.95); --danger: #ff4444; --safe: #00cc66;
+            --font-display: 'Arial Black', sans-serif; --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        [data-theme="light"] {
+            --bg: #f7f7f7; --card-bg: #ffffff; --text: #050505; --sub-text: #555555;
+            --accent: #9abd00; --border: #e0e0e0; --card-border: #d5d5d5;
+            --nav-bg: rgba(247, 247, 247, 0.95); 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; line-height: 1.6; }
+        
+        /* Navigation */
+        nav { position: fixed; top: 0; width: 100%; padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: var(--nav-bg); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+        .logo a { color: var(--text); text-decoration: none; font-weight: bold; font-size: 1.2rem; }
+        .logo span { color: var(--accent); }
+        .back-btn { color: var(--text); text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 0.9rem; border-bottom: 1px solid var(--accent); padding-bottom: 2px; transition: color 0.3s; }
+        .back-btn:hover { color: var(--accent); }
+
+        /* Tool Layout */
+        .tool-header { padding: 10rem 10% 4rem 10%; text-align: center; border-bottom: 1px solid var(--border); }
+        .tool-header h1 { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 4rem); text-transform: uppercase; margin-bottom: 1rem; line-height: 1; }
+        .tool-header p { color: var(--sub-text); max-width: 600px; margin: 0 auto; font-size: 1.1rem; }
+
+        .calculator-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; padding: 6rem 10%; align-items: start; }
+        
+        /* Input Panel */
+        .input-panel { background: var(--card-bg); padding: 3rem; border: 1px solid var(--card-border); border-radius: 12px; }
+        .input-group { margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+        label { font-weight: bold; color: var(--text); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        select, input { padding: 12px 15px; background: var(--bg); border: 1px solid var(--border); color: var(--text); border-radius: 6px; font-size: 1rem; outline: none; transition: border-color 0.3s; font-family: var(--font-body); }
+        select:focus, input:focus { border-color: var(--accent); }
+        
+        /* Results & Visualizer Panel */
+        .results-panel { position: sticky; top: 120px; }
+        .visualizer-container { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 2rem; display: flex; justify-content: center; align-items: center; height: 350px; margin-bottom: 2rem; overflow: hidden; }
+        
+        /* The CSS Rendered Box */
+        .box-bleed { border: 2px dashed var(--danger); background: rgba(255, 68, 68, 0.1); display: flex; justify-content: center; align-items: center; position: relative; transition: all 0.5s ease; }
+        .box-trim { border: 2px solid var(--text); background: var(--card-bg); display: flex; justify-content: center; align-items: center; position: absolute; transition: all 0.5s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .box-safe { border: 2px dashed var(--safe); background: rgba(0, 204, 102, 0.05); position: absolute; transition: all 0.5s ease; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; font-size: 0.8rem; color: var(--sub-text); font-weight: bold; }
+
+        .legend { display: flex; gap: 1.5rem; justify-content: center; margin-bottom: 2rem; font-size: 0.85rem; font-weight: bold; text-transform: uppercase; flex-wrap: wrap; }
+        .legend span { display: flex; align-items: center; gap: 8px; color: var(--text); }
+        .dot { width: 14px; height: 14px; border-radius: 50%; }
+
+        .data-readout { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 2rem; }
+        .data-row { display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding: 1rem 0; align-items: center; }
+        .data-row:last-child { border-bottom: none; }
+        .data-label { color: var(--sub-text); font-weight: bold; font-size: 0.95rem; }
+        .data-value { font-family: monospace; font-size: 1.3rem; font-weight: bold; color: var(--accent); }
+
+        .btn-primary { display: block; width: 100%; text-align: center; padding: 1.2rem; background: var(--accent); color: #000; font-weight: bold; text-transform: uppercase; text-decoration: none; border-radius: 6px; margin-top: 2rem; border: none; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; font-size: 1rem; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(212, 255, 0, 0.2); }
+
+        /* Modal Styles */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 2000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal-content { background: var(--card-bg); border: 1px solid var(--border); padding: 3rem; border-radius: 12px; max-width: 500px; width: 90%; position: relative; transform: translateY(20px); transition: transform 0.3s ease; }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+        .close-modal { position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+
+        @media(max-width: 900px) {
+            .calculator-grid { grid-template-columns: 1fr; gap: 2rem; padding: 4rem 5%; }
+            .tool-header { padding: 8rem 5% 3rem 5%; }
+            .results-panel { position: relative; top: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo"><a href="index.html"><span>M</span>I.</a></div>
+        <a href="index.html" class="back-btn">← Back to Studio</a>
+    </nav>
+
+    <header class="tool-header">
+        <h1>Ultimate Prepress Calculator</h1>
+        <p>Professional bleed, trim, and safe margin specifications for FMCG packaging. Stop guessing. Start printing perfectly.</p>
+    </header>
+
+    <main class="calculator-grid">
+        
+        <section class="input-panel">
+            <h2 style="margin-bottom: 2rem; color: var(--text); font-size: 1.2rem; text-transform: uppercase; border-left: 3px solid var(--accent); padding-left: 10px;">1. Configuration</h2>
+            
+            <div class="input-group">
+                <label>Packaging Material</label>
+                <select id="pack-type">
+                    <option value="carton">Folding Carton (Standard Retail Box)</option>
+                    <option value="corrugated">Corrugated Mailer (Thick Board / E-Commerce)</option>
+                    <option value="pouch">Flexible Pouch / Wrapper / Sachet</option>
+                    <option value="label">Product Label (Roll / Die-Cut)</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Industry Standard Presets</label>
+                <select id="preset-size">
+                    </select>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+                <div class="input-group">
+                    <label>Trim Width (mm)</label>
+                    <input type="number" id="trim-width" value="100" min="1" step="1">
+                </div>
+                <div class="input-group">
+                    <label>Trim Height (mm)</label>
+                    <input type="number" id="trim-height" value="150" min="1" step="1">
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem; padding: 1.5rem; background: rgba(212, 255, 0, 0.05); border-left: 3px solid var(--accent); border-radius: 6px;">
+                <h3 style="font-size: 0.9rem; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--text);">Prepress AI Pre-Flight</h3>
+                <p style="font-size: 0.85rem; color: var(--sub-text);" id="ai-insight">Loading prepress guidelines...</p>
+            </div>
+        </section>
+
+        <section class="results-panel">
+            
+            <div class="legend">
+                <span><div class="dot" style="background: var(--danger);"></div> Bleed</span>
+                <span><div class="dot" style="border: 2px solid var(--text); background: transparent;"></div> Trim Line</span>
+                <span><div class="dot" style="background: var(--safe);"></div> Safe Zone</span>
+            </div>
+
+            <div class="visualizer-container">
+                <div class="box-bleed" id="vis-bleed">
+                    <div class="box-trim" id="vis-trim">
+                        <div class="box-safe" id="vis-safe">
+                            <span style="color: var(--accent); font-size: 1.2rem; margin-bottom: 5px;">ARTWORK</span>
+                            <span>AREA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-readout">
+                <div class="data-row">
+                    <span class="data-label">Total Canvas Size <br><small style="color: var(--danger); font-weight: normal;">(Include Bleed in Dieline)</small></span>
+                    <span class="data-value" id="out-doc">106 x 156 mm</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Final Trim Size <br><small style="color: var(--text); font-weight: normal;">(Actual Die-Cut Size)</small></span>
+                    <span class="data-value" id="out-trim">100 x 150 mm</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Safe Margin <br><small style="color: var(--safe); font-weight: normal;">(Keep Text/Logos Inside)</small></span>
+                    <span class="data-value" id="out-safe">94 x 144 mm</span>
+                </div>
+                
+                <button class="btn-primary" id="open-modal-btn">Export Dieline Specs (PDF)</button>
+            </div>
+        </section>
+    </main>
+
+    <footer style="text-align: center; padding: 4rem; border-top: 1px solid var(--border); color: var(--sub-text); margin-top: 4rem;">
+        <p>Built for Print Professionals by <strong>Mahad Ikram</strong>.</p>
+    </footer>
+
+    <div class="modal-overlay" id="lead-modal">
+        <div class="modal-content">
+            <button class="close-modal" id="close-modal-btn">&times;</button>
+            <h3 style="color: var(--text); font-family: var(--font-display); text-transform: uppercase; margin-bottom: 1rem;">Export Prepress Specs</h3>
+            <p style="color: var(--sub-text); margin-bottom: 2rem; font-size: 0.95rem;">Enter your email to receive this exact dieline specification sheet to send to your offset printer. I'll also send you my ultimate prepress checklist.</p>
+            
+            <form id="lead-capture-form" action="https://formspree.io/f/mnjlakze" method="POST" style="display: flex; flex-direction: column; gap: 1rem;">
+                <input type="hidden" name="form_type" value="Bleed Calculator Lead">
+                <input type="hidden" name="calculated_specs" id="hidden-specs" value="">
+                
+                <input type="text" name="name" placeholder="Your Name" required style="padding: 12px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text);">
+                <input type="email" name="email" placeholder="Your Work Email" required style="padding: 12px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text);">
+                
+                <button type="submit" id="modal-submit-btn" class="btn-primary" style="margin-top: 0.5rem;">Send My Specs</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // 1. The "Smart" Industry Database
+        const db = {
+            carton: { 
+                bleed: 3, safe: 3, 
+                insight: "Standard Folding Cartons require a 3mm bleed. PRO TIP: Ensure all background textures extend fully to the red bleed line. Any white gap will show up as a noticeable flaw if the die-cutting blade shifts.",
+                presets: [
+                    { name: "Custom Dimensions...", w: 100, h: 150 },
+                    { name: "Standard Retail Soap Box", w: 65, h: 95 },
+                    { name: "Cosmetic Serum Box", w: 40, h: 120 },
+                    { name: "Cereal / Food Carton", w: 190, h: 280 }
+                ]
+            },
+            corrugated: { 
+                bleed: 5, safe: 5, 
+                insight: "Corrugated fluting can shift significantly during cutting. A larger 5mm bleed and safe zone is strictly required. PRO TIP: Keep fine typography far away from the fold lines (creases) to prevent ink cracking.",
+                presets: [
+                    { name: "Custom Dimensions...", w: 150, h: 100 },
+                    { name: "E-Commerce Mailer (Small)", w: 152, h: 152 },
+                    { name: "E-Commerce Mailer (Medium)", w: 254, h: 203 },
+                    { name: "Shoe Box Style", w: 330, h: 190 }
+                ]
+            },
+            pouch: { 
+                bleed: 5, safe: 5, 
+                insight: "Flexible packaging stretches and distorts under heat seals. PRO TIP: Keep all critical artwork, nutritional facts, and barcodes at least 5mm away from the sealing edges to prevent them from being crimped.",
+                presets: [
+                    { name: "Custom Dimensions...", w: 100, h: 150 },
+                    { name: "Stand-up Coffee Pouch", w: 160, h: 230 },
+                    { name: "Snack / Chip Bag", w: 140, h: 200 },
+                    { name: "Sachet / Wrapper", w: 60, h: 100 }
+                ]
+            },
+            label: { 
+                bleed: 1.5, safe: 1.5, 
+                insight: "Roll labels are die-cut with high precision. 1.5mm bleed is standard. PRO TIP: Ensure your CMYK black text is set to 100% K (not Rich Black) to avoid muddy registration issues on high-speed label presses.",
+                presets: [
+                    { name: "Custom Dimensions...", w: 50, h: 50 },
+                    { name: "Beverage Bottle Wrap", w: 210, h: 90 },
+                    { name: "Supplement Jar Label", w: 150, h: 70 },
+                    { name: "Round Sticker", w: 50, h: 50 }
+                ]
+            }
+        };
+
+        const els = {
+            type: document.getElementById('pack-type'),
+            preset: document.getElementById('preset-size'),
+            width: document.getElementById('trim-width'),
+            height: document.getElementById('trim-height'),
+            insight: document.getElementById('ai-insight'),
+            outDoc: document.getElementById('out-doc'),
+            outTrim: document.getElementById('out-trim'),
+            outSafe: document.getElementById('out-safe'),
+            visBleed: document.getElementById('vis-bleed'),
+            visTrim: document.getElementById('vis-trim'),
+            visSafe: document.getElementById('vis-safe'),
+            hiddenSpecs: document.getElementById('hidden-specs')
+        };
+
+        // 2. Populate Presets when Material Changes
+        function updatePresets() {
+            const material = els.type.value;
+            const presets = db[material].presets;
+            
+            els.preset.innerHTML = '';
+            presets.forEach((p, index) => {
+                const opt = document.createElement('option');
+                opt.value = index;
+                opt.innerText = p.name + (index === 0 ? "" : ` (${p.w}x${p.h}mm)`);
+                els.preset.appendChild(opt);
+            });
+            
+            // Set insight text
+            els.insight.innerText = db[material].insight;
+            
+            // Trigger preset selection logic
+            applyPreset();
+        }
+
+        // 3. Apply Preset Dimensions
+        function applyPreset() {
+            const material = els.type.value;
+            const presetIndex = els.preset.value;
+            const selectedPreset = db[material].presets[presetIndex];
+            
+            els.width.value = selectedPreset.w;
+            els.height.value = selectedPreset.h;
+            
+            calculate();
+        }
+
+        // 4. Core Math & Drawing Engine
+        function calculate() {
+            let w = parseFloat(els.width.value) || 0;
+            let h = parseFloat(els.height.value) || 0;
+            const material = els.type.value;
+            
+            const bleedMargin = db[material].bleed;
+            const safeMargin = db[material].safe;
+
+            // Math
+            const docW = (w + (bleedMargin * 2)).toFixed(1);
+            const docH = (h + (bleedMargin * 2)).toFixed(1);
+            const trimW = w.toFixed(1);
+            const trimH = h.toFixed(1);
+            const safeW = (w - (safeMargin * 2)).toFixed(1);
+            const safeH = (h - (safeMargin * 2)).toFixed(1);
+
+            // Update Text Readouts
+            els.outDoc.innerHTML = `<strong>${docW}</strong> x <strong>${docH}</strong> mm`;
+            els.outTrim.innerHTML = `<strong>${trimW}</strong> x <strong>${trimH}</strong> mm`;
+            els.outSafe.innerHTML = `<strong>${safeW}</strong> x <strong>${safeH}</strong> mm`;
+
+            // Prepare hidden data for lead capture form
+            els.hiddenSpecs.value = `Material: ${material} | Doc: ${docW}x${docH} | Trim: ${trimW}x${trimH} | Safe: ${safeW}x${safeH}`;
+
+            // Update CSS Visualizer (Scale proportionally)
+            const maxDim = Math.max(docW, docH);
+            const scale = 260 / maxDim; // Max pixels to fit in the UI box
+
+            els.visBleed.style.width = `${docW * scale}px`;
+            els.visBleed.style.height = `${docH * scale}px`;
+            
+            els.visTrim.style.width = `${trimW * scale}px`;
+            els.visTrim.style.height = `${trimH * scale}px`;
+            
+            els.visSafe.style.width = `${safeW * scale}px`;
+            els.visSafe.style.height = `${safeH * scale}px`;
+        }
+
+        // 5. Event Listeners
+        els.type.addEventListener('change', updatePresets);
+        els.preset.addEventListener('change', applyPreset);
+        
+        // If they manually type, switch preset dropdown to "Custom"
+        ['input', 'keyup'].forEach(evt => {
+            els.width.addEventListener(evt, () => { els.preset.value = "0"; calculate(); });
+            els.height.addEventListener(evt, () => { els.preset.value = "0"; calculate(); });
+        });
+
+        // 6. Modal Logic
+        const modal = document.getElementById('lead-modal');
+        document.getElementById('open-modal-btn').addEventListener('click', () => modal.classList.add('active'));
+        document.getElementById('close-modal-btn').addEventListener('click', () => modal.classList.remove('active'));
+        
+        // Form AJAX Submission
+        const leadForm = document.getElementById('lead-capture-form');
+        const modalBtn = document.getElementById('modal-submit-btn');
+        
+        leadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            modalBtn.innerText = 'Sending...';
+            
+            try {
+                const res = await fetch(leadForm.action, {
+                    method: 'POST', body: new FormData(leadForm), headers: { 'Accept': 'application/json' }
+                });
+                if(res.ok) {
+                    modalBtn.innerText = 'Specs Sent! Check your inbox.';
+                    modalBtn.style.background = 'var(--safe)';
+                    setTimeout(() => modal.classList.remove('active'), 2000);
+                }
+            } catch (err) {
+                modalBtn.innerText = 'Error. Try Again.';
+            }
+        });
+
+        // Initialize on load
+        updatePresets();
+    </script>
+</body>
+</html>
