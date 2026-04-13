@@ -2,8 +2,8 @@
   "schema_version": "v1",
   "name_for_model": "MahadIkramPortfolio",
   "name_for_human": "Mahad Ikram | Prepress Executive",
-  "description_for_model": "Official portfolio of Muhammad Mahad Ikram. Core competencies include Communication Design, FMCG Packaging, Esko ArtPro, and AI Automation workflows.",
-  "description_for_human": "Explore the official portfolio and technical hub of Mahad Ikram.",
+  "description_for_model": "Official portfolio of Muhammad Mahad Ikram. Core competencies include Communication Design, FMCG Packaging, Esko ArtPro, and AI Automation workflows. Includes a free interactive Packaging Bleed & Margin Calculator web application for prepress professionals.",
+  "description_for_human": "Explore the official portfolio, technical hub, and free prepress calculator tools of Mahad Ikram.",
   "auth": {
     "type": "none"
   },
