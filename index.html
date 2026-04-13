@@ -373,39 +373,51 @@
             </div>
         </section>
 
-        <section id="contact-booking" class="reveal-3d" style="padding: 6rem 10%; max-width: 800px; margin: 0 auto; border-bottom: none;">
-            <h2 style="text-align: center; border: none; padding: 0; margin-bottom: 1rem; color: var(--text);">Start a Project</h2>
-            <p style="text-align: center; margin: 0 auto 3rem auto; color: var(--sub-text);">Currently accepting international projects for FMCG packaging, brand strategy, and prepress production.</p>
-            
-            <form id="premium-intake-form" action="https://formspree.io/f/mnjlakze" method="POST" style="display: flex; flex-direction: column; gap: 1.5rem; background: var(--card-bg); padding: 3rem; border: 1px solid var(--card-border); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+        <section id="contact-booking" class="reveal-3d" style="padding: 6rem 10%; border-bottom: none;">
+            <div class="about-grid" style="align-items: flex-start;">
                 
-                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                    <label style="font-weight: bold; color: var(--text);">Your Name / Company</label>
-                    <input type="text" name="name" required style="padding: 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; background: var(--bg); color: var(--text); outline: none;">
+                <div class="contact-text" style="position: sticky; top: 120px;">
+                    <h2 style="color: var(--text);">Start a Project</h2>
+                    <p style="color: var(--sub-text);">Currently accepting international projects for FMCG packaging, brand strategy, and prepress production.</p>
+                    <div style="margin-top: 3rem; padding-left: 1rem; border-left: 2px solid var(--border);">
+                        <span style="display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: var(--sub-text); margin-bottom: 0.5rem;">Direct Contact</span>
+                        <a href="mailto:Mahadikram@outlook.com" style="color: var(--text); font-weight: bold; text-decoration: none; font-size: 1.1rem; transition: color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text)'">Mahadikram@outlook.com</a>
+                    </div>
                 </div>
                 
-                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                    <label style="font-weight: bold; color: var(--text);">Email Address</label>
-                    <input type="email" name="email" required style="padding: 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; background: var(--bg); color: var(--text); outline: none;">
+                <div class="contact-form">
+                    <form id="premium-intake-form" action="https://formspree.io/f/mnjlakze" method="POST" style="display: flex; flex-direction: column; gap: 1.5rem; background: var(--card-bg); padding: 3rem; border: 1px solid var(--card-border); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                        
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                            <label style="font-weight: bold; color: var(--text);">Your Name / Company</label>
+                            <input type="text" name="name" required style="padding: 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; background: var(--bg); color: var(--text); outline: none;">
+                        </div>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                            <label style="font-weight: bold; color: var(--text);">Email Address</label>
+                            <input type="email" name="email" required style="padding: 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; background: var(--bg); color: var(--text); outline: none;">
+                        </div>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                            <label style="font-weight: bold; color: var(--text);">Project Type</label>
+                            <select name="project_type" style="padding: 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; background: var(--bg); color: var(--text); outline: none; appearance: auto;">
+                                <option value="Packaging & Dielines">FMCG Packaging & Dielines</option>
+                                <option value="Prepress & Color Separation">Prepress & Color Separation</option>
+                                <option value="Brand Identity">360° Brand Identity</option>
+                                <option value="AI Workflow Consultation">AI Workflow Consultation</option>
+                            </select>
+                        </div>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                            <label style="font-weight: bold; color: var(--text);">Project Details & Timeline</label>
+                            <textarea name="message" rows="5" required style="padding: 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; background: var(--bg); color: var(--text); font-family: inherit; outline: none; resize: vertical;"></textarea>
+                        </div>
+                        
+                        <button type="submit" id="form-submit-btn" class="btn-primary" style="margin-top: 1rem; width: 100%; border-radius: 6px; cursor: pointer; text-align: center; transition: all 0.3s ease;">Request a Quote</button>
+                    </form>
                 </div>
-                
-                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                    <label style="font-weight: bold; color: var(--text);">Project Type</label>
-                    <select name="project_type" style="padding: 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; background: var(--bg); color: var(--text); outline: none; appearance: auto;">
-                        <option value="Packaging & Dielines">FMCG Packaging & Dielines</option>
-                        <option value="Prepress & Color Separation">Prepress & Color Separation</option>
-                        <option value="Brand Identity">360° Brand Identity</option>
-                        <option value="AI Workflow Consultation">AI Workflow Consultation</option>
-                    </select>
-                </div>
-                
-                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                    <label style="font-weight: bold; color: var(--text);">Project Details & Timeline</label>
-                    <textarea name="message" rows="5" required style="padding: 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; background: var(--bg); color: var(--text); font-family: inherit; outline: none; resize: vertical;"></textarea>
-                </div>
-                
-                <button type="submit" id="form-submit-btn" class="btn-primary" style="margin-top: 1rem; width: 100%; border-radius: 6px; cursor: pointer; text-align: center; transition: all 0.3s ease;">Request a Quote</button>
-            </form>
+
+            </div>
         </section>
 
         <script>
@@ -414,7 +426,7 @@
 
             if(intakeForm) {
                 intakeForm.addEventListener('submit', async function(e) {
-                    e.preventDefault(); // Stops the ugly redirect
+                    e.preventDefault(); 
                     
                     const originalText = submitBtn.innerText;
                     submitBtn.innerText = 'Sending Request...';
@@ -445,7 +457,6 @@
                         submitBtn.style.opacity = '1';
                     }
 
-                    // Reset button after 5 seconds
                     setTimeout(() => {
                         submitBtn.innerText = originalText;
                         submitBtn.disabled = false;
