@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505" id="theme-color-meta">
+    
+    <meta name="description" content="Create accurate, regulation-compliant nutrition labels for packaging in seconds. Generate FDA and EU nutrition panels with correct formatting and export-ready files.">
+    <title>Nutrition Label Generator | Mahad Ikram</title>
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script>
+        (function() {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const currentTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+            if (currentTheme === 'light') { document.documentElement.setAttribute('data-theme', 'light'); }
+        })();
+    </script>
+
+    <style>
+        /* --- CORE THEME --- */
+        :root {
+            --bg: #050505; --card-bg: #111111; --text: #ffffff; --sub-text: #888888;
+            --accent: #d4ff00; --border: #1a1a1a; --card-border: #222222;
+            --nav-bg: rgba(5, 5, 5, 0.95); 
+            --font-display: 'Arial Black', sans-serif; --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        [data-theme="light"] {
+            --bg: #f7f7f7; --card-bg: #ffffff; --text: #050505; --sub-text: #555555;
+            --accent: #9abd00; --border: #e0e0e0; --card-border: #d5d5d5;
+            --nav-bg: rgba(247, 247, 247, 0.95); 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; transition: background-color 0.4s ease, color 0.4s ease; padding-top: 100px; cursor: none; }
+        a, button, select, label { cursor: none; }
+        input[type="number"], input[type="text"] { cursor: text; }
+
+        /* --- CURSOR & NAV --- */
+        .cursor { position: fixed; top: 0; left: 0; width: 20px; height: 20px; background: white; border-radius: 50%; pointer-events: none; mix-blend-mode: difference; z-index: 9999999; transition: width 0.3s, height 0.3s, background 0.3s, opacity 0.2s; opacity: 0; will-change: transform; }
+        .cursor.hovered { width: 80px; height: 80px; opacity: 0.9; background: var(--accent); }
+        .cursor.hidden { opacity: 0 !important; width: 0; height: 0; }
+
+        nav { position: fixed; top: 0; left: 0; width: 100%; padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: transparent; border-bottom: 1px solid transparent; transition: background 0.4s ease, backdrop-filter 0.4s ease, border-bottom 0.4s ease; }
+        nav.scrolled { background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); } 
+        
+        .nav-links { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-link { color: var(--text); text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; transition: color 0.4s ease, border-color 0.3s ease; border-bottom: 1px solid transparent; padding-bottom: 2px; }
+        .nav-link:hover, .nav-link.active-link { border-bottom: 1px solid var(--accent); color: var(--accent); }
+        .theme-toggle-btn { background: none; border: none; outline: none; color: var(--text); display: inline-flex; align-items: center; justify-content: center; width: 35px; height: 35px; border-radius: 50%; transition: 0.3s ease; }
+        .theme-toggle-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+        /* --- TOOL CSS --- */
+        main { padding: 4rem 10%; min-height: 100vh; }
+        h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); text-transform: uppercase; margin-bottom: 1rem; }
+        p.subtitle { color: var(--sub-text); font-size: 1.2rem; margin-bottom: 3rem; max-width: 700px; line-height: 1.6; }
+
+        .tool-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; }
+        @media(max-width: 900px) { .tool-grid { grid-template-columns: 1fr; gap: 2rem; } }
+
+        .control-panel { background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--card-border); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .control-panel h3 { font-size: 1.2rem; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 1.5rem; color: var(--accent); text-transform: uppercase; }
+        
+        .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+        .input-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .input-group label { font-weight: bold; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; color: var(--sub-text); }
+        
+        select, input[type="number"], input[type="text"] { width: 100%; padding: 0.8rem; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; font-weight: bold; outline: none; transition: border-color 0.3s; font-family: monospace; }
+        select:focus, input:focus { border-color: var(--accent); }
+
+        /* --- NUTRITION LABEL RENDERER --- */
+        .display-panel { display: flex; flex-direction: column; gap: 1.5rem; align-items: center; }
+        
+        .canvas-container { background: #ffffff; padding: 2rem; border-radius: 12px; border: 1px solid var(--card-border); display: flex; justify-content: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.05); width: 100%; overflow-x: auto; }
+
+        /* Official FDA Typographic Specs */
+        .nf-box { background: #fff; color: #000; border: 1px solid #000; padding: 6px; width: 320px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; box-sizing: border-box; }
+        .nf-title { font-size: 2.2rem; font-weight: 900; margin: 0; line-height: 1; letter-spacing: -0.5px; }
+        .nf-servings { font-size: 1rem; margin: 4px 0; }
+        .nf-serving-size { font-size: 1rem; font-weight: bold; display: flex; justify-content: space-between; border-bottom: 10px solid #000; padding-bottom: 4px; margin-bottom: 4px; }
+        
+        .nf-amt-per-serving { font-size: 0.9rem; font-weight: bold; margin: 0; }
+        .nf-calories-row { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 4px solid #000; padding-bottom: 2px; margin-bottom: 4px; }
+        .nf-calories-title { font-size: 1.8rem; font-weight: 900; line-height: 1; }
+        .nf-calories-val { font-size: 2.8rem; font-weight: 900; line-height: 1; letter-spacing: -1px; }
+
+        .nf-dv-header { text-align: right; font-size: 0.8rem; font-weight: bold; border-bottom: 1px solid #000; padding-bottom: 2px; }
+        
+        .nf-line { border-bottom: 1px solid #000; padding: 4px 0; font-size: 0.95rem; display: flex; justify-content: space-between; }
+        .nf-line.indented { padding-left: 1rem; }
+        .nf-line.indented-2 { padding-left: 2rem; }
+        .nf-line.thick { border-bottom: 4px solid #000; }
+        
+        .nf-text-bold { font-weight: 900; }
+        .nf-dv { font-weight: 900; }
+
+        .nf-footnote { font-size: 0.75rem; line-height: 1.2; margin-top: 8px; padding-top: 6px; border-top: 1px solid #000; }
+
+        /* EU Style overrides */
+        .eu-box { border: 1px solid #000; padding: 10px; width: 350px; font-family: Arial, sans-serif; background: #fff; color: #000; }
+        .eu-title { font-weight: bold; font-size: 1.4rem; margin-bottom: 10px; text-transform: uppercase; }
+        .eu-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+        .eu-table th, .eu-table td { border-bottom: 1px solid #000; padding: 6px 0; text-align: right; }
+        .eu-table th:first-child, .eu-table td:first-child { text-align: left; }
+        .eu-table .eu-indent { padding-left: 15px; }
+
+        .download-btn { width: 100%; padding: 1.2rem; background: var(--accent); color: #000; border: none; border-radius: 8px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; cursor: none; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1rem; margin-top: 1rem; }
+        .download-btn:hover { background: #b3d900; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(212, 255, 0, 0.2); }
+
+        /* --- SEO SECTION --- */
+        .seo-content { margin-top: 6rem; padding-top: 4rem; border-top: 1px solid var(--border); max-width: 900px; margin-left: auto; margin-right: auto; }
+        .seo-content h2 { font-size: 1.8rem; margin-top: 3rem; margin-bottom: 1rem; color: var(--text); border-left: 3px solid var(--accent); padding-left: 1rem; }
+        .seo-content h3 { font-size: 1.3rem; margin-top: 2rem; margin-bottom: 0.5rem; color: var(--text); }
+        .seo-content p, .seo-content li { color: var(--sub-text); line-height: 1.8; margin-bottom: 1rem; font-size: 1.1rem; }
+        .seo-content ul { padding-left: 2rem; margin-bottom: 2rem; }
+        .seo-content li::marker { color: var(--accent); }
+
+        /* Mobile Adjustments */
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; z-index: 1001; }
+        .hamburger .line { width: 25px; height: 2px; background-color: var(--text); transition: all 0.3s ease; }
+        @media(max-width: 768px) {
+            .cursor { display: none !important; } * { cursor: auto !important; }
+            .hamburger { display: flex; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background-color: var(--nav-bg); text-align: center; padding: 2rem 0; border-bottom: 1px solid var(--border); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+            .nav-links.mobile-active { display: flex; }
+            .input-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor"></div>
+
+    <nav id="main-nav">
+        <div style="font-weight: bold; font-size: 1.2rem; color: var(--text); z-index: 1002;">
+            <a href="index.html" style="color: inherit; text-decoration: none;"><span style="color: var(--accent);">M</span>I.</a>
+        </div>
+        <div class="hamburger" id="hamburger-icon"><span class="line"></span><span class="line"></span><span class="line"></span></div>
+        <div class="nav-links" id="nav-links">
+            <a href="about.html" class="nav-link">About</a>
+            <a href="work.html" class="nav-link">Works</a>
+            <a href="blog.html" class="nav-link">Blog</a>
+            <a href="bleed-calculator.html" class="nav-link active-link" style="color: var(--accent);">Tools</a>
+            <a href="https://vaguers.com" target="_blank" class="nav-link">Shop ↗</a>
+            <a href="mailto:Mahadikram@outlook.com" class="nav-link">Contact</a>
+            <button id="theme-toggle" class="theme-toggle-btn">
+                <svg id="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg id="icon-sun" style="display: none;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <h1>Nutrition Panel Formatter</h1>
+        <p class="subtitle">Ensure FMCG compliance. Auto-calculate % Daily Values and generate pixel-perfect, typography-compliant FDA & EU nutrition labels for print.</p>
+
+        <div class="tool-grid">
+            
+            <div class="control-panel">
+                
+                <div class="input-group" style="margin-bottom: 1.5rem;">
+                    <label>Compliance Region</label>
+                    <select id="region-select">
+                        <option value="fda">FDA Standard (USA / North America)</option>
+                        <option value="eu">EU Reference Intake (Europe)</option>
+                    </select>
+                </div>
+
+                <h3>Serving & Calories</h3>
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label>Servings Per Container</label>
+                        <input type="text" id="val-servings" value="8">
+                    </div>
+                    <div class="input-group">
+                        <label>Serving Size</label>
+                        <input type="text" id="val-size" value="2/3 cup (55g)">
+                    </div>
+                    <div class="input-group">
+                        <label>Calories (kcal)</label>
+                        <input type="number" id="val-cal" value="230">
+                    </div>
+                </div>
+
+                <h3>Core Macros (g/mg)</h3>
+                <div class="input-grid">
+                    <div class="input-group"><label>Total Fat (g)</label><input type="number" id="val-fat" value="8"></div>
+                    <div class="input-group"><label>Sat. Fat (g)</label><input type="number" id="val-sat" value="1"></div>
+                    <div class="input-group"><label>Trans Fat (g)</label><input type="number" id="val-trans" value="0"></div>
+                    <div class="input-group"><label>Cholesterol (mg)</label><input type="number" id="val-chol" value="0"></div>
+                    <div class="input-group"><label>Sodium (mg)</label><input type="number" id="val-sod" value="160"></div>
+                    <div class="input-group"><label>Total Carbs (g)</label><input type="number" id="val-carb" value="37"></div>
+                    <div class="input-group"><label>Dietary Fiber (g)</label><input type="number" id="val-fib" value="4"></div>
+                    <div class="input-group"><label>Total Sugars (g)</label><input type="number" id="val-sug" value="12"></div>
+                    <div class="input-group"><label>Added Sugars (g)</label><input type="number" id="val-add" value="10"></div>
+                    <div class="input-group"><label>Protein (g)</label><input type="number" id="val-pro" value="3"></div>
+                </div>
+
+                <h3 id="vit-header">Vitamins & Minerals</h3>
+                <div class="input-grid" id="vit-grid">
+                    <div class="input-group"><label>Vitamin D (mcg)</label><input type="number" id="val-vitd" value="2"></div>
+                    <div class="input-group"><label>Calcium (mg)</label><input type="number" id="val-calc" value="260"></div>
+                    <div class="input-group"><label>Iron (mg)</label><input type="number" id="val-iron" value="8"></div>
+                    <div class="input-group"><label>Potassium (mg)</label><input type="number" id="val-pot" value="235"></div>
+                </div>
+
+            </div>
+
+            <div class="display-panel">
+                
+                <div class="canvas-container">
+                    <div id="render-target">
+                        </div>
+                </div>
+
+                <button id="btn-download" class="download-btn">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    Download Transparent PNG
+                </button>
+
+            </div>
+        </div>
+
+        <div class="seo-content">
+            <h2>Nutrition Label Generator (FDA & EU) – Create Compliant Nutrition Panels Instantly</h2>
+            <p>Create accurate, regulation-compliant nutrition labels for packaging in seconds. Generate FDA and EU nutrition panels with correct formatting, % daily values, and export-ready files.</p>
+
+            <h2>What is a Nutrition Label?</h2>
+            <p>A nutrition label provides essential information about the nutritional value of a food product, including calories, fats, carbohydrates, protein, and vitamins. It is legally required for most packaged foods globally to ensure consumer transparency.</p>
+
+            <h2>FDA vs EU Nutrition Label Formats</h2>
+            <h3>FDA Nutrition Label (US 2016+ Standard)</h3>
+            <p>The FDA mandates a highly specific typographic hierarchy. "Calories" must be printed in a massively oversized, bold font. The label relies on a strict order of nutrients and calculates a <strong>% Daily Value (%DV)</strong> based on a 2,000-calorie diet, requiring exact 8-point and 1-point separator hairlines.</p>
+            
+            <h3>EU Nutrition Declaration</h3>
+            <p>The European Union uses a cleaner, table-based approach. Values are standardly required to be shown "Per 100g" or "Per 100ml" to allow consumers to easily compare different products. It uses "Energy (kJ/kcal)" and groups specific saturated fats and sugars directly underneath their parent macros.</p>
+
+            <h2>Automatic %DV Calculations</h2>
+            <p>Our tool automatically mathematically cross-references your inputs against the official FDA Daily Reference Values (e.g., 78g for Total Fat, 2300mg for Sodium) to instantly generate accurate percentages, saving prepress operators hours of manual data entry.</p>
+
+            <h2>Export Print-Ready Labels</h2>
+            <p>Using advanced Canvas rendering, this tool allows you to download your generated label as a high-resolution, transparent PNG. Perfect for importing directly into Adobe Illustrator, Photoshop, or Esko ArtPro for final packaging layouts.</p>
+        </div>
+    </main>
+
+    <script>
+        // --- THEME & NAV LOGIC ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const iconMoon = document.getElementById('icon-moon'); const iconSun = document.getElementById('icon-sun');
+        const metaThemeColor = document.getElementById('theme-color-meta');
+        themeToggleBtn.addEventListener('click', () => {
+            let newTheme = (document.documentElement.getAttribute('data-theme') || 'dark') === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme); localStorage.setItem('theme', newTheme);
+            if(newTheme === 'light') { iconMoon.style.display = 'none'; iconSun.style.display = 'block'; metaThemeColor.setAttribute('content', '#f7f7f7'); } 
+            else { iconMoon.style.display = 'block'; iconSun.style.display = 'none'; metaThemeColor.setAttribute('content', '#050505'); }
+        });
+        const mainNav = document.getElementById('main-nav'); window.addEventListener('scroll', () => { mainNav.classList.toggle('scrolled', window.scrollY > 50); });
+        const hamburgerIcon = document.getElementById('hamburger-icon'); const navMenu = document.getElementById('nav-links');
+        if(hamburgerIcon) hamburgerIcon.addEventListener('click', () => navMenu.classList.toggle('mobile-active'));
+
+        // --- CURSOR FIX ENGINE ---
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        if (!isTouchDevice) {
+            const cursor = document.querySelector('.cursor');
+            document.addEventListener('mousemove', (e) => { 
+                if(cursor && !cursor.classList.contains('hidden')) { cursor.style.opacity = '1'; cursor.style.transform = `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0)`; } 
+            });
+            document.querySelectorAll('a, button, select').forEach(i => { i.addEventListener('mouseenter', () => cursor?.classList.add('hovered')); i.addEventListener('mouseleave', () => cursor?.classList.remove('hovered')); });
+            document.querySelectorAll('input').forEach(i => { i.addEventListener('mouseenter', () => cursor?.classList.add('hidden')); i.addEventListener('mouseleave', () => cursor?.classList.remove('hidden')); });
+        }
+
+        // --- NUTRITION LABEL ENGINE ---
+        const regionSelect = document.getElementById('region-select');
+        const renderTarget = document.getElementById('render-target');
+        const btnDownload = document.getElementById('btn-download');
+
+        // FDA Daily Values (Based on 2000 cal diet)
+        const DV = {
+            fat: 78, sat: 20, chol: 300, sod: 2300, carb: 275, fib: 28, add: 50,
+            vitd: 20, calc: 1300, iron: 18, pot: 4700
+        };
+
+        // Inputs
+        const inputs = [
+            'val-servings', 'val-size', 'val-cal', 'val-fat', 'val-sat', 'val-trans',
+            'val-chol', 'val-sod', 'val-carb', 'val-fib', 'val-sug', 'val-add', 'val-pro',
+            'val-vitd', 'val-calc', 'val-iron', 'val-pot'
+        ];
+
+        inputs.forEach(id => {
+            document.getElementById(id).addEventListener('input', drawLabel);
+        });
+
+        regionSelect.addEventListener('change', () => {
+            const vitGrid = document.getElementById('vit-grid');
+            const vitHeader = document.getElementById('vit-header');
+            if(regionSelect.value === 'eu') {
+                vitGrid.style.display = 'none';
+                vitHeader.style.display = 'none';
+            } else {
+                vitGrid.style.display = 'grid';
+                vitHeader.style.display = 'block';
+            }
+            drawLabel();
+        });
+
+        function getVal(id) { return parseFloat(document.getElementById(id).value) || 0; }
+        function getStr(id) { return document.getElementById(id).value || ""; }
+        function calcDV(val, dv) { return Math.round((val / dv) * 100); }
+
+        function drawLabel() {
+            const region = regionSelect.value;
+            let html = "";
+
+            if (region === 'fda') {
+                // FDA FORMAT
+                html = `
+                <div class="nf-box" id="label-export">
+                    <h1 class="nf-title">Nutrition Facts</h1>
+                    <div class="nf-servings">${getStr('val-servings')} servings per container</div>
+                    <div class="nf-serving-size"><span>Serving size</span><span>${getStr('val-size')}</span></div>
+                    
+                    <div class="nf-amt-per-serving">Amount per serving</div>
+                    <div class="nf-calories-row">
+                        <span class="nf-calories-title">Calories</span>
+                        <span class="nf-calories-val">${getVal('val-cal')}</span>
+                    </div>
+                    
+                    <div class="nf-dv-header">% Daily Value*</div>
+                    
+                    <div class="nf-line"><span class="nf-text-bold">Total Fat <span style="font-weight:normal">${getVal('val-fat')}g</span></span> <span class="nf-dv">${calcDV(getVal('val-fat'), DV.fat)}%</span></div>
+                    <div class="nf-line indented"><span>Saturated Fat ${getVal('val-sat')}g</span> <span class="nf-dv">${calcDV(getVal('val-sat'), DV.sat)}%</span></div>
+                    <div class="nf-line indented"><span>Trans Fat ${getVal('val-trans')}g</span></div>
+                    
+                    <div class="nf-line"><span class="nf-text-bold">Cholesterol <span style="font-weight:normal">${getVal('val-chol')}mg</span></span> <span class="nf-dv">${calcDV(getVal('val-chol'), DV.chol)}%</span></div>
+                    <div class="nf-line"><span class="nf-text-bold">Sodium <span style="font-weight:normal">${getVal('val-sod')}mg</span></span> <span class="nf-dv">${calcDV(getVal('val-sod'), DV.sod)}%</span></div>
+                    
+                    <div class="nf-line"><span class="nf-text-bold">Total Carbohydrate <span style="font-weight:normal">${getVal('val-carb')}g</span></span> <span class="nf-dv">${calcDV(getVal('val-carb'), DV.carb)}%</span></div>
+                    <div class="nf-line indented"><span>Dietary Fiber ${getVal('val-fib')}g</span> <span class="nf-dv">${calcDV(getVal('val-fib'), DV.fib)}%</span></div>
+                    <div class="nf-line indented"><span>Total Sugars ${getVal('val-sug')}g</span></div>
+                    <div class="nf-line indented-2"><span>Includes ${getVal('val-add')}g Added Sugars</span> <span class="nf-dv">${calcDV(getVal('val-add'), DV.add)}%</span></div>
+                    
+                    <div class="nf-line thick"><span class="nf-text-bold">Protein <span style="font-weight:normal">${getVal('val-pro')}g</span></span></div>
+                    
+                    <div class="nf-line"><span>Vitamin D ${getVal('val-vitd')}mcg</span> <span>${calcDV(getVal('val-vitd'), DV.vitd)}%</span></div>
+                    <div class="nf-line"><span>Calcium ${getVal('val-calc')}mg</span> <span>${calcDV(getVal('val-calc'), DV.calc)}%</span></div>
+                    <div class="nf-line"><span>Iron ${getVal('val-iron')}mg</span> <span>${calcDV(getVal('val-iron'), DV.iron)}%</span></div>
+                    <div class="nf-line"><span>Potassium ${getVal('val-pot')}mg</span> <span>${calcDV(getVal('val-pot'), DV.pot)}%</span></div>
+                    
+                    <div class="nf-footnote">* The % Daily Value (DV) tells you how much a nutrient in a serving of food contributes to a daily diet. 2,000 calories a day is used for general nutrition advice.</div>
+                </div>`;
+            } else {
+                // EU FORMAT
+                const kj = Math.round(getVal('val-cal') * 4.184); // Convert kcal to kJ
+                html = `
+                <div class="eu-box" id="label-export">
+                    <div class="eu-title">Nutrition Declaration</div>
+                    <table class="eu-table">
+                        <tr>
+                            <th style="text-align:left;">Typical Values</th>
+                            <th>Per Serving</th>
+                        </tr>
+                        <tr>
+                            <td>Energy</td>
+                            <td>${kj} kJ / ${getVal('val-cal')} kcal</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold;">Fat</td>
+                            <td>${getVal('val-fat')} g</td>
+                        </tr>
+                        <tr>
+                            <td class="eu-indent">of which saturates</td>
+                            <td>${getVal('val-sat')} g</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold;">Carbohydrate</td>
+                            <td>${getVal('val-carb')} g</td>
+                        </tr>
+                        <tr>
+                            <td class="eu-indent">of which sugars</td>
+                            <td>${getVal('val-sug')} g</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold;">Fibre</td>
+                            <td>${getVal('val-fib')} g</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold;">Protein</td>
+                            <td>${getVal('val-pro')} g</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold;">Salt</td>
+                            <td>${(getVal('val-sod') * 2.5 / 1000).toFixed(2)} g</td>
+                        </tr>
+                    </table>
+                </div>`;
+            }
+
+            renderTarget.innerHTML = html;
+        }
+
+        // Initialize Label
+        drawLabel();
+
+        // DOWNLOAD LOGIC (html2canvas)
+        btnDownload.addEventListener('click', () => {
+            const element = document.getElementById('label-export');
+            
+            // Momentarily force background to transparent for PNG capture
+            const originalBg = element.style.backgroundColor;
+            element.style.backgroundColor = 'transparent';
+
+            html2canvas(element, {
+                backgroundColor: null,
+                scale: 3 // High resolution for print
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `Mahad_Nutrition_${regionSelect.value.toUpperCase()}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                
+                // Restore background
+                element.style.backgroundColor = originalBg;
+            });
+        });
+
+    </script>
+</body>
+</html>
