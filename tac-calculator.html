@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505" id="theme-color-meta">
+    
+    <meta name="description" content="Calculate Total Area Coverage (TAC), convert RGB to CMYK, and auto-optimize ink limits for offset print production.">
+    <title>TAC Ink Estimator | Mahad Ikram</title>
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <script>
+        (function() {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const currentTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+            if (currentTheme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+
+    <style>
+        /* --- CORE THEME (Inherited from Index) --- */
+        :root {
+            --bg: #050505; --card-bg: #111111; --text: #ffffff; --sub-text: #888888;
+            --accent: #d4ff00; --border: #1a1a1a; --card-border: #222222;
+            --nav-bg: rgba(5, 5, 5, 0.95); 
+            --cyan: #00AEEF; --magenta: #EC008C; --yellow: #FFF200; --black: #231F20;
+            --font-display: 'Arial Black', sans-serif; --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        [data-theme="light"] {
+            --bg: #f7f7f7; --card-bg: #ffffff; --text: #050505; --sub-text: #555555;
+            --accent: #9abd00; --border: #e0e0e0; --card-border: #d5d5d5;
+            --nav-bg: rgba(247, 247, 247, 0.95); 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body { background-color: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; transition: background-color 0.4s ease, color 0.4s ease; padding-top: 100px; }
+
+        /* --- CURSOR & NAV --- */
+        .cursor { position: fixed; top: 0; left: 0; width: 20px; height: 20px; background: white; border-radius: 50%; pointer-events: none; mix-blend-mode: difference; z-index: 9999999; transition: width 0.3s, height 0.3s, background 0.3s, opacity 0.3s; opacity: 0; will-change: transform; }
+        .cursor.hovered { width: 80px; height: 80px; opacity: 0.9; background: var(--accent); }
+
+        nav { position: fixed; top: 0; left: 0; width: 100%; padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: transparent; border-bottom: 1px solid transparent; transition: background 0.4s ease, backdrop-filter 0.4s ease, border-bottom 0.4s ease; }
+        nav.scrolled { background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); } 
+        
+        .nav-links { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-link { color: var(--text); text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; transition: color 0.4s ease, border-color 0.3s ease; border-bottom: 1px solid transparent; padding-bottom: 2px; }
+        .nav-link:hover, .nav-link.active-link { border-bottom: 1px solid var(--accent); color: var(--accent); }
+        .theme-toggle-btn { background: none; border: none; outline: none; color: var(--text); display: inline-flex; align-items: center; justify-content: center; width: 35px; height: 35px; border-radius: 50%; transition: 0.3s ease; }
+        .theme-toggle-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+        /* --- TAC TOOL CSS --- */
+        main { padding: 4rem 10%; min-height: 100vh; }
+        h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 4rem); text-transform: uppercase; margin-bottom: 1rem; }
+        p.subtitle { color: var(--sub-text); font-size: 1.2rem; margin-bottom: 3rem; max-width: 600px; }
+
+        .tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+        @media(max-width: 768px) { .tool-grid { grid-template-columns: 1fr; gap: 2rem; } }
+
+        .control-panel { background: var(--card-bg); padding: 3rem; border-radius: 12px; border: 1px solid var(--card-border); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        label { display: block; font-weight: bold; text-transform: uppercase; margin-bottom: 0.8rem; font-size: 0.85rem; letter-spacing: 1px; color: var(--text); }
+        
+        select, input[type="text"] { width: 100%; padding: 1rem; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; outline: none; margin-bottom: 2rem; transition: border-color 0.3s; font-family: var(--font-body); }
+        select:focus, input[type="text"]:focus { border-color: var(--accent); }
+
+        .hex-flex { display: flex; gap: 1rem; margin-bottom: 2rem; }
+        .btn-secondary { padding: 0 1.5rem; background: transparent; color: var(--text); border: 2px solid var(--accent); border-radius: 6px; font-weight: bold; text-transform: uppercase; transition: 0.3s; }
+        .btn-secondary:hover { background: var(--accent); color: #000; }
+
+        .slider-container { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+        .slider-label { width: 30px; font-weight: bold; font-size: 1.2rem; }
+        .slider-val { width: 55px; text-align: right; font-weight: bold; font-family: monospace; font-size: 1.1rem; color: var(--text); }
+        
+        input[type=range] { flex-grow: 1; -webkit-appearance: none; height: 8px; background: var(--border); border-radius: 4px; outline: none; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; border: 2px solid white; transition: transform 0.2s; }
+        input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+        
+        #slider-c::-webkit-slider-thumb { background: var(--cyan); }
+        #slider-m::-webkit-slider-thumb { background: var(--magenta); }
+        #slider-y::-webkit-slider-thumb { background: var(--yellow); }
+        #slider-k::-webkit-slider-thumb { background: #555; } /* Dark grey to be visible on dark mode */
+
+        .display-panel { display: flex; flex-direction: column; gap: 2rem; }
+        .preview-box { width: 100%; height: 200px; border-radius: 12px; border: 1px solid var(--card-border); display: flex; justify-content: center; align-items: center; transition: background-color 0.2s ease; box-shadow: inset 0 0 20px rgba(0,0,0,0.1); }
+        .preview-text { background: rgba(0,0,0,0.7); color: white; padding: 0.5rem 1.5rem; border-radius: 50px; font-family: monospace; font-size: 1.2rem; letter-spacing: 2px; }
+
+        .tac-dashboard { text-align: center; background: var(--card-bg); padding: 3rem 2rem; border-radius: 12px; border: 1px solid var(--card-border); position: relative; overflow: hidden; }
+        .tac-value { font-family: var(--font-display); font-size: 5rem; line-height: 1; margin-bottom: 0.5rem; transition: color 0.3s; color: var(--accent); }
+        .tac-limit { color: var(--sub-text); text-transform: uppercase; font-size: 0.9rem; font-weight: bold; letter-spacing: 2px; }
+
+        .warning-banner { background: #ff4444; color: white; padding: 1rem; border-radius: 6px; font-weight: bold; text-transform: uppercase; margin-top: 2rem; display: none; animation: pulse 1s infinite alternate; }
+        @keyframes pulse { from { opacity: 0.8; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+
+        .optimize-btn { width: 100%; padding: 1.2rem; background: var(--accent); color: #000; border: none; border-radius: 6px; font-weight: bold; text-transform: uppercase; margin-top: 1rem; display: none; font-size: 1rem; transition: 0.3s; }
+        .optimize-btn:hover { transform: scale(1.02); }
+        
+        .savings-badge { display: none; margin-top: 1rem; color: var(--accent); font-weight: bold; font-size: 0.9rem; text-transform: uppercase; border: 1px solid var(--accent); padding: 0.8rem; border-radius: 6px; }
+
+        /* Mobile Hamburger Fix */
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; z-index: 1001; }
+        .hamburger .line { width: 25px; height: 2px; background-color: var(--text); transition: all 0.3s ease; }
+        @media(max-width: 768px) {
+            .cursor { display: none !important; } * { cursor: auto !important; }
+            .hamburger { display: flex; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background-color: var(--nav-bg); text-align: center; padding: 2rem 0; border-bottom: 1px solid var(--border); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+            .nav-links.mobile-active { display: flex; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor"></div>
+
+    <nav id="main-nav">
+        <div style="font-weight: bold; font-size: 1.2rem; color: var(--text); z-index: 1002;">
+            <a href="index.html" style="color: inherit; text-decoration: none;"><span style="color: var(--accent);">M</span>I.</a>
+        </div>
+        
+        <div class="hamburger" id="hamburger-icon" aria-label="Toggle Menu">
+            <span class="line"></span><span class="line"></span><span class="line"></span>
+        </div>
+
+        <div class="nav-links" id="nav-links">
+            <a href="about.html" class="nav-link">About</a>
+            <a href="work.html" class="nav-link">Works</a>
+            <a href="blog.html" class="nav-link">Blog</a>
+            <a href="bleed-calculator.html" class="nav-link active-link" style="color: var(--accent);">Tools</a>
+            <a href="https://vaguers.com" target="_blank" class="nav-link">Shop ↗</a>
+            <a href="mailto:Mahadikram@outlook.com" class="nav-link">Contact</a>
+            
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Dark/Light Mode">
+                <svg id="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg id="icon-sun" style="display: none;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <h1>TAC Ink Estimator</h1>
+        <p class="subtitle">Avoid press jams and muddy prints. Calculate your Total Area Coverage, convert RGB hex codes to safe CMYK, and auto-optimize ink density for offset printing.</p>
+
+        <div class="tool-grid">
+            
+            <div class="control-panel">
+                <label>1. Select Paper Profile / Max Limit</label>
+                <select id="paper-profile">
+                    <option value="300">Coated Carton Board (Max 300%)</option>
+                    <option value="280">Premium Gloss Paper (Max 280%)</option>
+                    <option value="240">Uncoated Offset Kraft (Max 240%)</option>
+                    <option value="220">Newsprint / Porous (Max 220%)</option>
+                </select>
+
+                <label>2. Quick Convert RGB Hex to CMYK</label>
+                <div class="hex-flex">
+                    <input type="text" id="hex-input" placeholder="e.g. #FF5733" maxlength="7" style="margin-bottom: 0;">
+                    <button id="convert-btn" class="btn-secondary">Convert</button>
+                </div>
+
+                <label>3. Mix Your Ink (CMYK)</label>
+                <div class="slider-container">
+                    <span class="slider-label" style="color: var(--cyan);">C</span>
+                    <input type="range" id="slider-c" min="0" max="100" value="85">
+                    <span class="slider-val" id="val-c">85%</span>
+                </div>
+                <div class="slider-container">
+                    <span class="slider-label" style="color: var(--magenta);">M</span>
+                    <input type="range" id="slider-m" min="0" max="100" value="75">
+                    <span class="slider-val" id="val-m">75%</span>
+                </div>
+                <div class="slider-container">
+                    <span class="slider-label" style="color: var(--yellow);">Y</span>
+                    <input type="range" id="slider-y" min="0" max="100" value="75">
+                    <span class="slider-val" id="val-y">75%</span>
+                </div>
+                <div class="slider-container">
+                    <span class="slider-label">K</span>
+                    <input type="range" id="slider-k" min="0" max="100" value="90">
+                    <span class="slider-val" id="val-k">90%</span>
+                </div>
+            </div>
+
+            <div class="display-panel">
+                <div class="preview-box" id="color-preview">
+                    <span class="preview-text" id="hex-preview">#000000</span>
+                </div>
+
+                <div class="tac-dashboard">
+                    <div class="tac-value" id="tac-total">325%</div>
+                    <div class="tac-limit">Total Area Coverage</div>
+                    
+                    <div class="warning-banner" id="warning-banner">⚠️ INK LIMIT EXCEEDED!</div>
+                    <button class="optimize-btn" id="optimize-btn">✨ Auto-Optimize for Print</button>
+                    <div class="savings-badge" id="savings-badge">Ink Reduced by 0%</div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // --- 1. THEME & GLOBAL SCRIPTS (From your index) ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const iconMoon = document.getElementById('icon-moon');
+        const iconSun = document.getElementById('icon-sun');
+        const metaThemeColor = document.getElementById('theme-color-meta');
+
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        if (currentTheme === 'light') { iconMoon.style.display = 'none'; iconSun.style.display = 'block'; metaThemeColor.setAttribute('content', '#f7f7f7'); }
+
+        themeToggleBtn.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme') || 'dark';
+            let newTheme = theme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            if (newTheme === 'light') { iconMoon.style.display = 'none'; iconSun.style.display = 'block'; metaThemeColor.setAttribute('content', '#f7f7f7'); } 
+            else { iconMoon.style.display = 'block'; iconSun.style.display = 'none'; metaThemeColor.setAttribute('content', '#050505'); }
+        });
+
+        const mainNav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => { if (window.scrollY > 50) mainNav.classList.add('scrolled'); else mainNav.classList.remove('scrolled'); });
+
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const navMenu = document.getElementById('nav-links');
+        if(hamburgerIcon && navMenu) { hamburgerIcon.addEventListener('click', () => { navMenu.classList.toggle('mobile-active'); }); }
+
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        if (!isTouchDevice) {
+            const cursor = document.querySelector('.cursor');
+            document.addEventListener('mousemove', (e) => {
+                if(cursor) { cursor.style.opacity = '1'; cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`; }
+            });
+            document.querySelectorAll('a, button, input[type=range], select').forEach(item => {
+                item.addEventListener('mouseenter', () => { if(cursor) cursor.classList.add('hovered'); });
+                item.addEventListener('mouseleave', () => { if(cursor) cursor.classList.remove('hovered'); });
+            });
+        } else {
+            const cursorElement = document.querySelector('.cursor');
+            if(cursorElement) cursorElement.remove();
+        }
+
+        // --- 2. TAC CALCULATOR LOGIC ---
+        const sliderC = document.getElementById('slider-c'); const sliderM = document.getElementById('slider-m');
+        const sliderY = document.getElementById('slider-y'); const sliderK = document.getElementById('slider-k');
+        const valC = document.getElementById('val-c'); const valM = document.getElementById('val-m');
+        const valY = document.getElementById('val-y'); const valK = document.getElementById('val-k');
+        const paperProfile = document.getElementById('paper-profile'); const tacTotal = document.getElementById('tac-total');
+        const warningBanner = document.getElementById('warning-banner'); const colorPreview = document.getElementById('color-preview');
+        const hexPreview = document.getElementById('hex-preview'); const hexInput = document.getElementById('hex-input');
+        const convertBtn = document.getElementById('convert-btn'); const optimizeBtn = document.getElementById('optimize-btn');
+        const savingsBadge = document.getElementById('savings-badge');
+
+        let originalInkVolume = 0;
+
+        function cmykToRgb(c, m, y, k) {
+            let r = 255 * (1 - c / 100) * (1 - k / 100);
+            let g = 255 * (1 - m / 100) * (1 - k / 100);
+            let b = 255 * (1 - y / 100) * (1 - k / 100);
+            let rHex = Math.round(r).toString(16).padStart(2, '0'); let gHex = Math.round(g).toString(16).padStart(2, '0'); let bHex = Math.round(b).toString(16).padStart(2, '0');
+            hexPreview.innerText = `#${rHex}${gHex}${bHex}`.toUpperCase();
+            return `rgb(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)})`;
+        }
+
+        function hexToCmyk(hex) {
+            hex = hex.replace('#', '');
+            if(hex.length !== 6) return alert('Please enter a valid 6-character hex code.');
+            let r = parseInt(hex.substring(0, 2), 16) / 255; let g = parseInt(hex.substring(2, 4), 16) / 255; let b = parseInt(hex.substring(4, 6), 16) / 255;
+            let k = 1 - Math.max(r, g, b);
+            if (k === 1) return { c: 0, m: 0, y: 0, k: 100 };
+            let c = (1 - r - k) / (1 - k); let m = (1 - g - k) / (1 - k); let y = (1 - b - k) / (1 - k);
+            return { c: Math.round(c * 100), m: Math.round(m * 100), y: Math.round(y * 100), k: Math.round(k * 100) };
+        }
+
+        function calculateTAC() {
+            let c = parseInt(sliderC.value); let m = parseInt(sliderM.value);
+            let y = parseInt(sliderY.value); let k = parseInt(sliderK.value);
+            let maxLimit = parseInt(paperProfile.value);
+
+            valC.innerText = c + "%"; valM.innerText = m + "%"; valY.innerText = y + "%"; valK.innerText = k + "%";
+            let totalInk = c + m + y + k;
+            tacTotal.innerText = totalInk + "%";
+            colorPreview.style.backgroundColor = cmykToRgb(c, m, y, k);
+
+            if (totalInk > maxLimit) {
+                tacTotal.style.color = "#ff4444";
+                warningBanner.style.display = "block"; optimizeBtn.style.display = "block"; savingsBadge.style.display = "none";
+                originalInkVolume = totalInk; 
+            } else {
+                tacTotal.style.color = "var(--accent)";
+                warningBanner.style.display = "none"; optimizeBtn.style.display = "none";
+            }
+        }
+
+        optimizeBtn.addEventListener('click', () => {
+            let c = parseInt(sliderC.value); let m = parseInt(sliderM.value);
+            let y = parseInt(sliderY.value); let k = parseInt(sliderK.value);
+            let limit = parseInt(paperProfile.value);
+            let excess = (c + m + y + k) - limit;
+            if (excess <= 0) return;
+
+            let cmyTotal = c + m + y;
+            if (cmyTotal > 0) {
+                let ratio = (cmyTotal - excess) / cmyTotal;
+                sliderC.value = Math.max(0, Math.floor(c * ratio));
+                sliderM.value = Math.max(0, Math.floor(m * ratio));
+                sliderY.value = Math.max(0, Math.floor(y * ratio));
+            } else {
+                sliderK.value = Math.max(0, limit);
+            }
+            calculateTAC();
+            let newTotal = parseInt(sliderC.value) + parseInt(sliderM.value) + parseInt(sliderY.value) + parseInt(sliderK.value);
+            savingsBadge.innerText = `✅ Total Ink Reduced by ${originalInkVolume - newTotal}%`;
+            savingsBadge.style.display = "inline-block";
+        });
+
+        convertBtn.addEventListener('click', () => {
+            let hex = hexInput.value; if(!hex) return;
+            let cmyk = hexToCmyk(hex);
+            if(cmyk) {
+                sliderC.value = cmyk.c; sliderM.value = cmyk.m; sliderY.value = cmyk.y; sliderK.value = cmyk.k;
+                savingsBadge.style.display = "none"; calculateTAC();
+            }
+        });
+
+        sliderC.addEventListener('input', calculateTAC); sliderM.addEventListener('input', calculateTAC);
+        sliderY.addEventListener('input', calculateTAC); sliderK.addEventListener('input', calculateTAC);
+        paperProfile.addEventListener('change', calculateTAC);
+
+        calculateTAC(); 
+    </script>
+</body>
+</html>
