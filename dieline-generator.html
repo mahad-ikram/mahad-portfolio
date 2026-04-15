@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505" id="theme-color-meta">
+    
+    <meta name="description" content="Generate accurate, print-ready packaging dielines in seconds. Free custom SVG box templates for STE, RTE, and Gable Top cartons.">
+    <title>Auto-Dieline Generator | Mahad Ikram</title>
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <script>
+        (function() {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const currentTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+            if (currentTheme === 'light') { document.documentElement.setAttribute('data-theme', 'light'); }
+        })();
+    </script>
+
+    <style>
+        /* --- CORE THEME --- */
+        :root {
+            --bg: #050505; --card-bg: #111111; --text: #ffffff; --sub-text: #888888;
+            --accent: #d4ff00; --border: #1a1a1a; --card-border: #222222;
+            --nav-bg: rgba(5, 5, 5, 0.95); 
+            --cut-line: #ff4444; --fold-line: #00AEEF;
+            --font-display: 'Arial Black', sans-serif; --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        [data-theme="light"] {
+            --bg: #f7f7f7; --card-bg: #ffffff; --text: #050505; --sub-text: #555555;
+            --accent: #9abd00; --border: #e0e0e0; --card-border: #d5d5d5;
+            --nav-bg: rgba(247, 247, 247, 0.95); 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body { background-color: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; transition: background-color 0.4s ease, color 0.4s ease; padding-top: 100px; }
+
+        /* --- CURSOR & NAV --- */
+        .cursor { position: fixed; top: 0; left: 0; width: 20px; height: 20px; background: white; border-radius: 50%; pointer-events: none; mix-blend-mode: difference; z-index: 9999999; transition: width 0.3s, height 0.3s, background 0.3s, opacity 0.3s; opacity: 0; will-change: transform; }
+        .cursor.hovered { width: 80px; height: 80px; opacity: 0.9; background: var(--accent); }
+
+        nav { position: fixed; top: 0; left: 0; width: 100%; padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: transparent; border-bottom: 1px solid transparent; transition: background 0.4s ease, backdrop-filter 0.4s ease, border-bottom 0.4s ease; }
+        nav.scrolled { background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); } 
+        
+        .nav-links { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-link { color: var(--text); text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; transition: color 0.4s ease, border-color 0.3s ease; border-bottom: 1px solid transparent; padding-bottom: 2px; }
+        .nav-link:hover, .nav-link.active-link { border-bottom: 1px solid var(--accent); color: var(--accent); }
+        .theme-toggle-btn { background: none; border: none; outline: none; color: var(--text); display: inline-flex; align-items: center; justify-content: center; width: 35px; height: 35px; border-radius: 50%; transition: 0.3s ease; }
+        .theme-toggle-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+        /* --- TOOL CSS --- */
+        main { padding: 4rem 10%; min-height: 100vh; }
+        h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); text-transform: uppercase; margin-bottom: 1rem; }
+        p.subtitle { color: var(--sub-text); font-size: 1.2rem; margin-bottom: 3rem; max-width: 700px; line-height: 1.6; }
+
+        .tool-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; }
+        @media(max-width: 900px) { .tool-grid { grid-template-columns: 1fr; gap: 2rem; } }
+
+        .control-panel { background: var(--card-bg); padding: 3rem; border-radius: 12px; border: 1px solid var(--card-border); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        label { display: block; font-weight: bold; text-transform: uppercase; margin-bottom: 0.8rem; font-size: 0.85rem; letter-spacing: 1px; color: var(--text); }
+        
+        select, input[type="number"] { width: 100%; padding: 1rem; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 6px; font-size: 1.1rem; font-weight: bold; outline: none; margin-bottom: 1.5rem; transition: border-color 0.3s; font-family: monospace; }
+        select:focus, input:focus { border-color: var(--accent); }
+        
+        .input-hint { display: block; margin-top: -1rem; margin-bottom: 2rem; font-size: 0.8rem; color: var(--sub-text); }
+
+        .input-group { display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem; }
+        .input-group label { margin-bottom: 0; width: 80px; }
+        .input-group input { margin-bottom: 0; }
+
+        /* --- VISUAL DISPLAY --- */
+        .display-panel { display: flex; flex-direction: column; gap: 1.5rem; }
+        
+        .canvas-container { background: #ffffff; padding: 2rem; border-radius: 12px; border: 1px solid var(--card-border); display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: inset 0 0 30px rgba(0,0,0,0.05); height: 500px; position: relative; }
+        
+        svg { max-width: 100%; max-height: 100%; width: auto; height: auto; transition: all 0.3s ease; }
+
+        .legend { position: absolute; bottom: 20px; left: 20px; display: flex; gap: 1rem; background: rgba(255,255,255,0.9); padding: 10px 15px; border-radius: 6px; border: 1px solid #ddd; font-size: 0.8rem; font-weight: bold; color: #333; }
+        .legend-item { display: flex; align-items: center; gap: 8px; }
+        .legend-line { width: 30px; height: 3px; }
+        .line-cut { background: var(--cut-line); }
+        .line-fold { background: transparent; border-top: 3px dashed var(--fold-line); }
+
+        .download-btn { width: 100%; padding: 1.2rem; background: var(--accent); color: #000; border: none; border-radius: 8px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1rem; }
+        .download-btn:hover { background: #b3d900; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(212, 255, 0, 0.2); }
+
+        /* --- SEO SECTION --- */
+        .seo-content { margin-top: 6rem; padding-top: 4rem; border-top: 1px solid var(--border); max-width: 900px; margin-left: auto; margin-right: auto; }
+        .seo-content h2 { font-size: 1.8rem; margin-top: 3rem; margin-bottom: 1rem; color: var(--text); border-left: 3px solid var(--accent); padding-left: 1rem; }
+        .seo-content h3 { font-size: 1.3rem; margin-top: 2rem; margin-bottom: 0.5rem; color: var(--text); }
+        .seo-content p, .seo-content li { color: var(--sub-text); line-height: 1.8; margin-bottom: 1rem; font-size: 1.1rem; }
+        .seo-content ul { padding-left: 2rem; margin-bottom: 2rem; }
+        .seo-content li::marker { color: var(--accent); }
+
+        @media(max-width: 768px) {
+            .cursor { display: none !important; } * { cursor: auto !important; }
+            .hamburger { display: flex; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background-color: var(--nav-bg); text-align: center; padding: 2rem 0; border-bottom: 1px solid var(--border); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+            .nav-links.mobile-active { display: flex; }
+            .canvas-container { height: 400px; padding: 1rem; }
+            .legend { bottom: 10px; left: 10px; flex-direction: column; gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor"></div>
+
+    <nav id="main-nav">
+        <div style="font-weight: bold; font-size: 1.2rem; color: var(--text); z-index: 1002;">
+            <a href="index.html" style="color: inherit; text-decoration: none;"><span style="color: var(--accent);">M</span>I.</a>
+        </div>
+        <div class="hamburger" id="hamburger-icon"><span class="line"></span><span class="line"></span><span class="line"></span></div>
+        <div class="nav-links" id="nav-links">
+            <a href="about.html" class="nav-link">About</a>
+            <a href="work.html" class="nav-link">Works</a>
+            <a href="blog.html" class="nav-link">Blog</a>
+            <a href="bleed-calculator.html" class="nav-link active-link" style="color: var(--accent);">Tools</a>
+            <a href="https://vaguers.com" target="_blank" class="nav-link">Shop ↗</a>
+            <a href="mailto:Mahadikram@outlook.com" class="nav-link">Contact</a>
+            <button id="theme-toggle" class="theme-toggle-btn">
+                <svg id="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg id="icon-sun" style="display: none;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <h1>Dieline Generator</h1>
+        <p class="subtitle">Create structurally flawless, print-ready SVG dielines in seconds. Formatted perfectly for Adobe Illustrator with separated Cut and Fold layers.</p>
+
+        <div class="tool-grid">
+            
+            <div class="control-panel">
+                <label>1. Select Box Structure</label>
+                <select id="box-type">
+                    <option value="ste">Straight Tuck End (STE)</option>
+                    <option value="rte">Reverse Tuck End (RTE)</option>
+                    <option value="gable">Gable Top (Milk Carton)</option>
+                    <option value="sleeve">Packaging Sleeve</option>
+                </select>
+                <span class="input-hint" id="structure-hint">Standard structure. Top and bottom flaps tuck into the rear.</span>
+
+                <label style="margin-top: 2rem;">2. Outer Dimensions (mm)</label>
+                
+                <div class="input-group">
+                    <label for="dim-l">Length</label>
+                    <input type="number" id="dim-l" value="80" min="20" max="500">
+                </div>
+                
+                <div class="input-group">
+                    <label for="dim-w">Width</label>
+                    <input type="number" id="dim-w" value="40" min="20" max="500">
+                </div>
+                
+                <div class="input-group">
+                    <label for="dim-d">Depth</label>
+                    <input type="number" id="dim-d" value="120" min="20" max="800">
+                </div>
+
+                <p style="color: var(--sub-text); font-size: 0.8rem; margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1rem;">
+                    * Flaps, friction locks, 45° gussets, and glue tabs are mathematically calculated based on global carton standards.
+                </p>
+            </div>
+
+            <div class="display-panel">
+                
+                <div class="canvas-container" id="svg-container">
+                    <div class="legend">
+                        <div class="legend-item"><div class="legend-line line-cut"></div> Cut Line</div>
+                        <div class="legend-item"><div class="legend-line line-fold"></div> Fold Line</div>
+                    </div>
+                </div>
+
+                <button id="btn-download" class="download-btn">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    Download Layered SVG
+                </button>
+
+            </div>
+        </div>
+
+        <div class="seo-content">
+            <h2>Dieline Generator – Create Packaging Dielines (SVG, PDF) Instantly</h2>
+            <p>Generate accurate, print-ready packaging dielines in seconds. Create box templates, cut lines, and fold lines automatically with our advanced dieline generator tool.</p>
+
+            <h2>Create Custom Box Dielines</h2>
+            <h3>Straight Tuck End Box (STE) Dieline</h3>
+            <p>The global standard for premium retail packaging. Both closure flaps tuck into the rear of the box, providing a clean front face.</p>
+            
+            <h3>Reverse Tuck End Box (RTE) Dieline</h3>
+            <p>The most common and cost-effective carton. The top flap tucks to the rear, while the bottom flap tucks to the front. Because the flaps alternate, RTE boxes nest tightly together on a printing sheet, reducing paperboard waste and saving costs.</p>
+
+            <h3>Gable Top Box (Milk Carton)</h3>
+            <p>A complex structural design utilizing 45-degree folding gussets and an interlocking top seal. Highly popular for FMCG food, beverage, and premium gift boxes.</p>
+
+            <h3>Packaging Sleeve Template</h3>
+            <p>A simple open-ended tube structure perfect for sliding over coffee cups, custom soap boxes, or premium food trays. Requires only a single glue flap.</p>
+
+            <h2>Why Use Our Prepress Dieline Generator?</h2>
+            <ul>
+                <li><strong>Parametric Precision:</strong> Custom sizes generate instantly without visual distortion.</li>
+                <li><strong>Complex Trigonometry:</strong> Gussets and roof pitch angles adapt flawlessly to your specific Length and Width inputs.</li>
+                <li><strong>Prepress Authority:</strong> Built by packaging experts to ensure structural integrity on the production line.</li>
+            </ul>
+        </div>
+    </main>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const iconMoon = document.getElementById('icon-moon'); const iconSun = document.getElementById('icon-sun');
+        const metaThemeColor = document.getElementById('theme-color-meta');
+        themeToggleBtn.addEventListener('click', () => {
+            let newTheme = (document.documentElement.getAttribute('data-theme') || 'dark') === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme); localStorage.setItem('theme', newTheme);
+            if(newTheme === 'light') { iconMoon.style.display = 'none'; iconSun.style.display = 'block'; metaThemeColor.setAttribute('content', '#f7f7f7'); } 
+            else { iconMoon.style.display = 'block'; iconSun.style.display = 'none'; metaThemeColor.setAttribute('content', '#050505'); }
+        });
+        const mainNav = document.getElementById('main-nav'); window.addEventListener('scroll', () => { mainNav.classList.toggle('scrolled', window.scrollY > 50); });
+        const hamburgerIcon = document.getElementById('hamburger-icon'); const navMenu = document.getElementById('nav-links');
+        if(hamburgerIcon) hamburgerIcon.addEventListener('click', () => navMenu.classList.toggle('mobile-active'));
+
+        // --- DIELINE MATH ENGINE ---
+        const typeSelect = document.getElementById('box-type');
+        const hintText = document.getElementById('structure-hint');
+        const inputL = document.getElementById('dim-l');
+        const inputW = document.getElementById('dim-w');
+        const inputD = document.getElementById('dim-d');
+        const container = document.getElementById('svg-container');
+        const btnDownload = document.getElementById('btn-download');
+
+        let generatedSVGString = "";
+
+        const hints = {
+            ste: "Standard structure. Top and bottom flaps tuck into the rear.",
+            rte: "Cost-effective. Flaps alternate directions to save paperboard space.",
+            gable: "Complex FMCG structure with 45-degree collapsing gussets and top seal.",
+            sleeve: "Open-ended tube. Slides over products or existing boxes."
+        };
+
+        typeSelect.addEventListener('change', () => {
+            hintText.innerText = hints[typeSelect.value];
+            generateDieline();
+        });
+
+        function generateDieline() {
+            let type = typeSelect.value;
+            let L = parseFloat(inputL.value) || 80;
+            let W = parseFloat(inputW.value) || 40;
+            let D = parseFloat(inputD.value) || 120;
+
+            const G = 15; // Glue Flap
+            const T = 15; // Tuck Flap (Friction Lock)
+            const SH = 15; // Gable Seal Height
+            const RH = W / 2; // Gable Roof Height
+            const dustHeight = W * 0.6; // Dust flaps 60% of Width
+            const padding = 20;
+            
+            const totalWidth = G + W + L + W + L;
+            
+            // Height adjustments based on type
+            let totalHeight = D;
+            if (type === 'ste' || type === 'rte') totalHeight += (T*2) + (W*2);
+            if (type === 'gable') totalHeight += SH + RH + W + T;
+            
+            const viewW = totalWidth + (padding * 2);
+            const viewH = totalHeight + (padding * 2);
+
+            // Starting coordinates
+            const startX = padding;
+            let startY = padding;
+            if (type === 'ste' || type === 'rte') startY += T + W; 
+            if (type === 'gable') startY += SH + RH;
+
+            function line(x1, y1, x2, y2) { return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" />`; }
+            
+            let folds = `<g id="Layer_Folds" stroke="#00AEEF" stroke-width="1.5" stroke-dasharray="6,4" fill="none">`;
+            let cuts = `<g id="Layer_Cuts" stroke="#ff4444" stroke-width="1.5" fill="none" stroke-linejoin="round">`;
+
+            // COMMON TO ALL (Vertical Folds)
+            folds += line(startX + G, startY, startX + G, startY + D);
+            folds += line(startX + G + W, startY, startX + G + W, startY + D);
+            folds += line(startX + G + W + L, startY, startX + G + W + L, startY + D);
+            folds += line(startX + G + W + L + W, startY, startX + G + W + L + W, startY + D);
+
+            if (type === 'sleeve') {
+                // SLEEVE LOGIC
+                cuts += `<path d="M ${startX + G} ${startY} L ${startX} ${startY + 5} L ${startX} ${startY + D - 5} L ${startX + G} ${startY + D}" />`;
+                cuts += line(startX + totalWidth, startY, startX + totalWidth, startY + D);
+                cuts += line(startX + G, startY, startX + totalWidth, startY);
+                cuts += line(startX + G, startY + D, startX + totalWidth, startY + D);
+            } 
+            else if (type === 'gable') {
+                // GABLE TOP ROOF (Folds)
+                folds += line(startX + G, startY, startX + totalWidth, startY); // Base of roof
+                folds += line(startX + G, startY - RH, startX + totalWidth, startY - RH); // Top of roof / Base of seal
+                folds += line(startX + G + (W/2), startY - RH, startX + G + (W/2), startY - RH - SH); // Vertical seal fold 1
+                folds += line(startX + G + W + L + (W/2), startY - RH, startX + G + W + L + (W/2), startY - RH - SH); // Vertical seal fold 2
+                
+                // 45-Degree Gusset Folds (Side 1)
+                folds += line(startX + G, startY, startX + G + (W/2), startY - RH);
+                folds += line(startX + G + W, startY, startX + G + (W/2), startY - RH);
+                // 45-Degree Gusset Folds (Side 2)
+                folds += line(startX + G + W + L, startY, startX + G + W + L + (W/2), startY - RH);
+                folds += line(startX + G + W + L + W, startY, startX + G + W + L + (W/2), startY - RH);
+
+                // GABLE TOP ROOF (Cuts)
+                cuts += `<path d="M ${startX + G} ${startY - RH} L ${startX} ${startY - RH + 5} L ${startX} ${startY + D - 5} L ${startX + G} ${startY + D}" />`; // Extended Glue Flap
+                cuts += line(startX + totalWidth, startY - RH - SH, startX + totalWidth, startY + D); // Right edge extended
+                cuts += line(startX + G, startY - RH - SH, startX + totalWidth, startY - RH - SH); // Absolute Top Cut
+
+                // GABLE BOTTOM (Standard STE Tuck)
+                folds += line(startX + G, startY + D, startX + totalWidth, startY + D);
+                folds += line(startX + G + W, startY + D + W, startX + G + W + L, startY + D + W); 
+                
+                cuts += `<path d="M ${startX + G} ${startY + D} L ${startX + G + 2} ${startY + D + dustHeight} L ${startX + G + W - 2} ${startY + D + dustHeight} L ${startX + G + W} ${startY + D}" />`; // Dust 1
+                cuts += `<path d="M ${startX + G + W} ${startY + D} L ${startX + G + W} ${startY + D + W} L ${startX + G + W + 2} ${startY + D + W + T} L ${startX + G + W + L - 2} ${startY + D + W + T} L ${startX + G + W + L} ${startY + D + W} L ${startX + G + W + L} ${startY + D}" />`; // Main Bottom
+                cuts += `<path d="M ${startX + G + W + L} ${startY + D} L ${startX + G + W + L + 2} ${startY + D + dustHeight} L ${startX + G + W + L + W - 2} ${startY + D + dustHeight} L ${startX + G + W + L + W} ${startY + D}" />`; // Dust 2
+                cuts += line(startX + totalWidth - L, startY + D, startX + totalWidth, startY + D); // Back bottom cut
+            }
+            else {
+                // COMMON FOR STE & RTE
+                cuts += `<path d="M ${startX + G} ${startY} L ${startX} ${startY + 5} L ${startX} ${startY + D - 5} L ${startX + G} ${startY + D}" />`; // Glue Flap
+                cuts += line(startX + totalWidth, startY, startX + totalWidth, startY + D); // Right Edge
+
+                // COMMON TOP FLAPS
+                folds += line(startX + G, startY, startX + totalWidth, startY);
+                folds += line(startX + G + W, startY - W, startX + G + W + L, startY - W); 
+                
+                cuts += `<path d="M ${startX + G} ${startY} L ${startX + G + 2} ${startY - dustHeight} L ${startX + G + W - 2} ${startY - dustHeight} L ${startX + G + W} ${startY}" />`; // Dust 1
+                cuts += `<path d="M ${startX + G + W} ${startY} L ${startX + G + W} ${startY - W} L ${startX + G + W + 2} ${startY - W - T} L ${startX + G + W + L - 2} ${startY - W - T} L ${startX + G + W + L} ${startY - W} L ${startX + G + W + L} ${startY}" />`; // Main Top
+                cuts += `<path d="M ${startX + G + W + L} ${startY} L ${startX + G + W + L + 2} ${startY - dustHeight} L ${startX + G + W + L + W - 2} ${startY - dustHeight} L ${startX + G + W + L + W} ${startY}" />`; // Dust 2
+                cuts += line(startX + totalWidth - L, startY, startX + totalWidth, startY); // Back top cut
+
+                if (type === 'ste') {
+                    // STE BOTTOM
+                    folds += line(startX + G, startY + D, startX + totalWidth, startY + D);
+                    folds += line(startX + G + W, startY + D + W, startX + G + W + L, startY + D + W); 
+                    
+                    cuts += `<path d="M ${startX + G} ${startY + D} L ${startX + G + 2} ${startY + D + dustHeight} L ${startX + G + W - 2} ${startY + D + dustHeight} L ${startX + G + W} ${startY + D}" />`; 
+                    cuts += `<path d="M ${startX + G + W} ${startY + D} L ${startX + G + W} ${startY + D + W} L ${startX + G + W + 2} ${startY + D + W + T} L ${startX + G + W + L - 2} ${startY + D + W + T} L ${startX + G + W + L} ${startY + D + W} L ${startX + G + W + L} ${startY + D}" />`; 
+                    cuts += `<path d="M ${startX + G + W + L} ${startY + D} L ${startX + G + W + L + 2} ${startY + D + dustHeight} L ${startX + G + W + L + W - 2} ${startY + D + dustHeight} L ${startX + G + W + L + W} ${startY + D}" />`; 
+                    cuts += line(startX + totalWidth - L, startY + D, startX + totalWidth, startY + D); 
+                } 
+                else if (type === 'rte') {
+                    // RTE BOTTOM
+                    folds += line(startX + G, startY + D, startX + totalWidth, startY + D);
+                    folds += line(startX + totalWidth - L, startY + D + W, startX + totalWidth, startY + D + W); 
+                    
+                    cuts += `<path d="M ${startX + G} ${startY + D} L ${startX + G + 2} ${startY + D + dustHeight} L ${startX + G + W - 2} ${startY + D + dustHeight} L ${startX + G + W} ${startY + D}" />`; 
+                    cuts += line(startX + G + W, startY + D, startX + G + W + L, startY + D); 
+                    cuts += `<path d="M ${startX + G + W + L} ${startY + D} L ${startX + G + W + L + 2} ${startY + D + dustHeight} L ${startX + G + W + L + W - 2} ${startY + D + dustHeight} L ${startX + G + W + L + W} ${startY + D}" />`; 
+                    cuts += `<path d="M ${startX + totalWidth - L} ${startY + D} L ${startX + totalWidth - L} ${startY + D + W} L ${startX + totalWidth - L + 2} ${startY + D + W + T} L ${startX + totalWidth - 2} ${startY + D + W + T} L ${startX + totalWidth} ${startY + D + W} L ${startX + totalWidth} ${startY + D}" />`; 
+                }
+            }
+
+            folds += `</g>`;
+            cuts += `</g>`;
+
+            generatedSVGString = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${viewW} ${viewH}" width="100%" height="100%">
+                ${folds}
+                ${cuts}
+            </svg>`;
+
+            container.innerHTML = generatedSVGString + `
+                <div class="legend">
+                    <div class="legend-item"><div class="legend-line line-cut"></div> Cut Line</div>
+                    <div class="legend-item"><div class="legend-line line-fold"></div> Fold Line</div>
+                </div>`;
+        }
+
+        inputL.addEventListener('input', generateDieline);
+        inputW.addEventListener('input', generateDieline);
+        inputD.addEventListener('input', generateDieline);
+        generateDieline();
+
+        btnDownload.addEventListener('click', () => {
+            const typeName = typeSelect.value.toUpperCase();
+            const fileName = `Mahad_Dieline_${typeName}_${inputL.value}x${inputW.value}x${inputD.value}mm.svg`;
+            const blob = new Blob([generatedSVGString], {type: 'image/svg+xml;charset=utf-8'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = fileName;
+            document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+        });
+
+    </script>
+</body>
+</html>
