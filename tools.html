@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505" id="theme-color-meta">
+    
+    <meta name="description" content="Free enterprise-grade prepress and structural packaging tools for FMCG designers. Generate dielines, barcodes, nutrition panels, and calculate ink limits.">
+    <title>Prepress Tools & SaaS | Mahad Ikram</title>
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <script>
+        (function() {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const currentTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+            if (currentTheme === 'light') { document.documentElement.setAttribute('data-theme', 'light'); }
+        })();
+    </script>
+
+    <style>
+        /* --- CORE THEME --- */
+        :root {
+            --bg: #050505; --card-bg: #111111; --text: #ffffff; --sub-text: #888888;
+            --accent: #d4ff00; --border: #1a1a1a; --card-border: #222222;
+            --nav-bg: rgba(5, 5, 5, 0.95); 
+            --font-display: 'Arial Black', sans-serif; --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        [data-theme="light"] {
+            --bg: #f7f7f7; --card-bg: #ffffff; --text: #050505; --sub-text: #555555;
+            --accent: #9abd00; --border: #e0e0e0; --card-border: #d5d5d5;
+            --nav-bg: rgba(247, 247, 247, 0.95); 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; transition: background-color 0.4s ease, color 0.4s ease; padding-top: 100px; cursor: none; }
+        a, button { cursor: none; }
+
+        /* --- CURSOR & NAV --- */
+        .cursor { position: fixed; top: 0; left: 0; width: 20px; height: 20px; background: white; border-radius: 50%; pointer-events: none; mix-blend-mode: difference; z-index: 9999999; transition: width 0.3s, height 0.3s, background 0.3s, opacity 0.2s; opacity: 0; will-change: transform; }
+        .cursor.hovered { width: 80px; height: 80px; opacity: 0.9; background: var(--accent); }
+        .cursor.hidden { opacity: 0 !important; width: 0; height: 0; }
+
+        nav { position: fixed; top: 0; left: 0; width: 100%; padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: transparent; border-bottom: 1px solid transparent; transition: background 0.4s ease, backdrop-filter 0.4s ease, border-bottom 0.4s ease; }
+        nav.scrolled { background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); } 
+        
+        .nav-links { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-link { color: var(--text); text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; transition: color 0.4s ease, border-color 0.3s ease; border-bottom: 1px solid transparent; padding-bottom: 2px; }
+        .nav-link:hover, .nav-link.active-link { border-bottom: 1px solid var(--accent); color: var(--accent); }
+        .theme-toggle-btn { background: none; border: none; outline: none; color: var(--text); display: inline-flex; align-items: center; justify-content: center; width: 35px; height: 35px; border-radius: 50%; transition: 0.3s ease; }
+        .theme-toggle-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+        /* --- TOOLS HUB CSS --- */
+        main { padding: 4rem 10%; min-height: 100vh; }
+        h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 4.5rem); text-transform: uppercase; margin-bottom: 1rem; line-height: 1; }
+        p.subtitle { color: var(--sub-text); font-size: 1.2rem; margin-bottom: 4rem; max-width: 700px; line-height: 1.6; }
+
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+        
+        .tool-card { background: var(--card-bg); padding: 3rem 2rem; border-radius: 12px; border: 1px solid var(--card-border); text-decoration: none; display: flex; flex-direction: column; gap: 1rem; transition: all 0.4s ease; position: relative; overflow: hidden; }
+        .tool-card:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        
+        .tool-icon { width: 60px; height: 60px; background: rgba(212, 255, 0, 0.1); color: var(--accent); display: flex; align-items: center; justify-content: center; border-radius: 12px; font-size: 1.5rem; margin-bottom: 1rem; transition: background 0.3s ease; }
+        .tool-card:hover .tool-icon { background: var(--accent); color: #000; }
+        
+        .tool-title { font-family: var(--font-display); font-size: 1.5rem; color: var(--text); text-transform: uppercase; line-height: 1.2; margin: 0; }
+        .tool-desc { color: var(--sub-text); font-size: 1rem; line-height: 1.6; margin: 0; flex-grow: 1; }
+        
+        .tool-btn { color: var(--text); font-weight: bold; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px; margin-top: 1rem; display: flex; align-items: center; gap: 5px; transition: color 0.3s ease; }
+        .tool-card:hover .tool-btn { color: var(--accent); }
+
+        /* Mobile Adjustments */
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; z-index: 1001; }
+        .hamburger .line { width: 25px; height: 2px; background-color: var(--text); transition: all 0.3s ease; }
+        @media(max-width: 768px) {
+            .cursor { display: none !important; } * { cursor: auto !important; }
+            .hamburger { display: flex; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background-color: var(--nav-bg); text-align: center; padding: 2rem 0; border-bottom: 1px solid var(--border); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+            .nav-links.mobile-active { display: flex; }
+            main { padding: 2rem 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor"></div>
+
+    <nav id="main-nav">
+        <div style="font-weight: bold; font-size: 1.2rem; color: var(--text); z-index: 1002;">
+            <a href="index.html" style="color: inherit; text-decoration: none;"><span style="color: var(--accent);">M</span>I.</a>
+        </div>
+        <div class="hamburger" id="hamburger-icon"><span class="line"></span><span class="line"></span><span class="line"></span></div>
+        <div class="nav-links" id="nav-links">
+            <a href="about.html" class="nav-link">About</a>
+            <a href="work.html" class="nav-link">Works</a>
+            <a href="blog.html" class="nav-link">Blog</a>
+            <a href="tools.html" class="nav-link active-link" style="color: var(--accent);">Tools</a>
+            <a href="https://vaguers.com" target="_blank" class="nav-link">Shop ↗</a>
+            <a href="mailto:Mahadikram@outlook.com" class="nav-link">Contact</a>
+            <button id="theme-toggle" class="theme-toggle-btn">
+                <svg id="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg id="icon-sun" style="display: none;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <h1>Prepress &<br><span style="color: var(--accent);">Packaging SaaS</span></h1>
+        <p class="subtitle">A suite of enterprise-grade calculators and generators built specifically for FMCG packaging designers and prepress operators. Stop guessing. Start calculating.</p>
+
+        <div class="tools-grid">
+            
+            <a href="dieline-generator.html" class="tool-card">
+                <div class="tool-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                </div>
+                <h3 class="tool-title">Auto-Dieline Generator</h3>
+                <p class="tool-desc">Generate mathematically perfect SVG cut and fold lines for Straight Tuck, Reverse Tuck, and Gable Top cartons instantly.</p>
+                <div class="tool-btn">Launch Tool ↗</div>
+            </a>
+
+            <a href="barcode-calculator.html" class="tool-card">
+                <div class="tool-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5v14"></path><path d="M8 5v14"></path><path d="M12 5v14"></path><path d="M17 5v14"></path><path d="M21 5v14"></path></svg>
+                </div>
+                <h3 class="tool-title">Barcode Safe-Zone Engine</h3>
+                <p class="tool-desc">Ensure 100% GS1 scanning compliance. Calculate quiet zones, magnification limits, and download vector barcodes.</p>
+                <div class="tool-btn">Launch Tool ↗</div>
+            </a>
+
+            <a href="nutrition-generator.html" class="tool-card">
+                <div class="tool-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                </div>
+                <h3 class="tool-title">Nutrition Label Formatter</h3>
+                <p class="tool-desc">Auto-calculate % Daily Values and generate pixel-perfect, typography-compliant FDA & EU nutrition panels.</p>
+                <div class="tool-btn">Launch Tool ↗</div>
+            </a>
+
+            <a href="tac-calculator.html" class="tool-card">
+                <div class="tool-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+                </div>
+                <h3 class="tool-title">TAC Ink Estimator</h3>
+                <p class="tool-desc">Calculate Total Area Coverage, convert RGB to CMYK safely, and auto-optimize ink density for high-speed offset printing.</p>
+                <div class="tool-btn">Launch Tool ↗</div>
+            </a>
+
+            <a href="shrink-sleeve-calculator.html" class="tool-card">
+                <div class="tool-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"></path></svg>
+                </div>
+                <h3 class="tool-title">Shrink Sleeve Distortion</h3>
+                <p class="tool-desc">Calculate exact anamorphic distortion ratios to prevent warped logos on curved bottles and energy drink cans.</p>
+                <div class="tool-btn">Launch Tool ↗</div>
+            </a>
+
+        </div>
+
+    </main>
+
+    <script>
+        // --- THEME & NAV LOGIC ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const iconMoon = document.getElementById('icon-moon'); const iconSun = document.getElementById('icon-sun');
+        const metaThemeColor = document.getElementById('theme-color-meta');
+        themeToggleBtn.addEventListener('click', () => {
+            let newTheme = (document.documentElement.getAttribute('data-theme') || 'dark') === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme); localStorage.setItem('theme', newTheme);
+            if(newTheme === 'light') { iconMoon.style.display = 'none'; iconSun.style.display = 'block'; metaThemeColor.setAttribute('content', '#f7f7f7'); } 
+            else { iconMoon.style.display = 'block'; iconSun.style.display = 'none'; metaThemeColor.setAttribute('content', '#050505'); }
+        });
+        const mainNav = document.getElementById('main-nav'); window.addEventListener('scroll', () => { mainNav.classList.toggle('scrolled', window.scrollY > 50); });
+        const hamburgerIcon = document.getElementById('hamburger-icon'); const navMenu = document.getElementById('nav-links');
+        if(hamburgerIcon) hamburgerIcon.addEventListener('click', () => navMenu.classList.toggle('mobile-active'));
+
+        // --- CURSOR FIX ---
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        if (!isTouchDevice) {
+            const cursor = document.querySelector('.cursor');
+            document.addEventListener('mousemove', (e) => { 
+                if(cursor && !cursor.classList.contains('hidden')) { cursor.style.opacity = '1'; cursor.style.transform = `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0)`; } 
+            });
+            document.querySelectorAll('a, button, .tool-card').forEach(i => { i.addEventListener('mouseenter', () => cursor?.classList.add('hovered')); i.addEventListener('mouseleave', () => cursor?.classList.remove('hovered')); });
+        }
+    </script>
+</body>
+</html>
