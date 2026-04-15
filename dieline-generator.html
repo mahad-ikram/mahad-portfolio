@@ -35,7 +35,6 @@
             --nav-bg: rgba(247, 247, 247, 0.95); 
         }
 
-        /* FIX: Removed global cursor: none so inputs can have their normal cursor back */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; transition: background-color 0.4s ease, color 0.4s ease; padding-top: 100px; cursor: none; }
         a, button, select, label { cursor: none; }
@@ -44,7 +43,6 @@
         /* --- CURSOR & NAV --- */
         .cursor { position: fixed; top: 0; left: 0; width: 20px; height: 20px; background: white; border-radius: 50%; pointer-events: none; mix-blend-mode: difference; z-index: 9999999; transition: width 0.3s, height 0.3s, background 0.3s, opacity 0.2s; opacity: 0; will-change: transform; }
         .cursor.hovered { width: 80px; height: 80px; opacity: 0.9; background: var(--accent); }
-        /* FIX: Hide custom cursor completely when hovering over inputs */
         .cursor.hidden { opacity: 0 !important; width: 0; height: 0; }
 
         nav { position: fixed; top: 0; left: 0; width: 100%; padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: transparent; border-bottom: 1px solid transparent; transition: background 0.4s ease, backdrop-filter 0.4s ease, border-bottom 0.4s ease; }
@@ -162,7 +160,7 @@
                 </div>
                 
                 <div class="input-group">
-                    <label for="dim-d">Depth</label>
+                    <label for="dim-d">Depth (Height)</label>
                     <input type="number" id="dim-d" value="120" min="20" max="800">
                 </div>
 
@@ -235,18 +233,13 @@
             document.addEventListener('mousemove', (e) => { 
                 if(cursor && !cursor.classList.contains('hidden')) { 
                     cursor.style.opacity = '1'; 
-                    // Better positioning math
                     cursor.style.transform = `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0)`; 
                 } 
             });
-            
-            // Neon hover effect on buttons
             document.querySelectorAll('a, button, select').forEach(i => { 
                 i.addEventListener('mouseenter', () => cursor?.classList.add('hovered')); 
                 i.addEventListener('mouseleave', () => cursor?.classList.remove('hovered')); 
             });
-
-            // FIX: Hide the custom circle completely when entering a text input box!
             document.querySelectorAll('input').forEach(i => {
                 i.addEventListener('mouseenter', () => cursor?.classList.add('hidden')); 
                 i.addEventListener('mouseleave', () => cursor?.classList.remove('hidden')); 
@@ -267,7 +260,7 @@
         const hints = {
             ste: "Standard structure. Top and bottom flaps tuck into the rear.",
             rte: "Cost-effective. Flaps alternate directions to save paperboard space.",
-            gable: "Complex FMCG structure with 45-degree collapsing gussets and top seal.",
+            gable: "Complex FMCG structure with 45-degree gussets and sealed flattening bottom.",
             sleeve: "Open-ended tube. Slides over products or existing boxes."
         };
 
@@ -284,17 +277,19 @@
 
             const G = 15; // Glue Flap
             const T = 15; // Tuck Flap (Friction Lock)
-            const SH = 15; // Gable Seal Height
-            const RH = W / 2; // Gable Roof Height
-            const dustHeight = W * 0.6; // Dust flaps 60% of Width
             const padding = 20;
-            
             const totalWidth = G + W + L + W + L;
             
-            // Height adjustments based on type
+            // Gable specific vars
+            const SH = 15; // Gable Seal Height
+            const RH = W / 2; // Gable Roof Height
+            const BH = W / 2; // Gable Bottom Flap (Meets in middle)
+            const dustHeight = W * 0.6; // Dust flaps
+            
+            // Height adjustments
             let totalHeight = D;
             if (type === 'ste' || type === 'rte') totalHeight += (T*2) + (W*2);
-            if (type === 'gable') totalHeight += SH + RH + W + T;
+            if (type === 'gable') totalHeight += SH + RH + BH;
             
             const viewW = totalWidth + (padding * 2);
             const viewH = totalHeight + (padding * 2);
@@ -303,60 +298,76 @@
             const startX = padding;
             let startY = padding;
             if (type === 'ste' || type === 'rte') startY += T + W; 
-            if (type === 'gable') startY += SH + RH;
+            if (type === 'gable') startY += SH + RH; // startY is top of main body
 
             function line(x1, y1, x2, y2) { return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" />`; }
             
             let folds = `<g id="Layer_Folds" stroke="#00AEEF" stroke-width="1.5" stroke-dasharray="6,4" fill="none">`;
             let cuts = `<g id="Layer_Cuts" stroke="#ff4444" stroke-width="1.5" fill="none" stroke-linejoin="round">`;
 
-            // COMMON TO ALL (Vertical Folds)
-            folds += line(startX + G, startY, startX + G, startY + D);
-            folds += line(startX + G + W, startY, startX + G + W, startY + D);
-            folds += line(startX + G + W + L, startY, startX + G + W + L, startY + D);
-            folds += line(startX + G + W + L + W, startY, startX + G + W + L + W, startY + D);
-
             if (type === 'sleeve') {
-                // SLEEVE LOGIC
+                folds += line(startX + G, startY, startX + G, startY + D);
+                folds += line(startX + G + W, startY, startX + G + W, startY + D);
+                folds += line(startX + G + W + L, startY, startX + G + W + L, startY + D);
+                folds += line(startX + G + W + L + W, startY, startX + G + W + L + W, startY + D);
+                
                 cuts += `<path d="M ${startX + G} ${startY} L ${startX} ${startY + 5} L ${startX} ${startY + D - 5} L ${startX + G} ${startY + D}" />`;
                 cuts += line(startX + totalWidth, startY, startX + totalWidth, startY + D);
                 cuts += line(startX + G, startY, startX + totalWidth, startY);
                 cuts += line(startX + G, startY + D, startX + totalWidth, startY + D);
             } 
             else if (type === 'gable') {
-                // GABLE TOP ROOF (Folds)
+                const sealY = startY - RH - SH;
+                const roofY = startY - RH;
+                const bodyBotY = startY + D;
+                const flapBotY = startY + D + BH;
+
+                // HORIZONTAL FOLDS
+                folds += line(startX + G, roofY, startX + totalWidth, roofY); // Base of seal
                 folds += line(startX + G, startY, startX + totalWidth, startY); // Base of roof
-                folds += line(startX + G, startY - RH, startX + totalWidth, startY - RH); // Top of roof / Base of seal
-                folds += line(startX + G + (W/2), startY - RH, startX + G + (W/2), startY - RH - SH); // Vertical seal fold 1
-                folds += line(startX + G + W + L + (W/2), startY - RH, startX + G + W + L + (W/2), startY - RH - SH); // Vertical seal fold 2
-                
-                // 45-Degree Gusset Folds (Side 1)
-                folds += line(startX + G, startY, startX + G + (W/2), startY - RH);
-                folds += line(startX + G + W, startY, startX + G + (W/2), startY - RH);
-                // 45-Degree Gusset Folds (Side 2)
-                folds += line(startX + G + W + L, startY, startX + G + W + L + (W/2), startY - RH);
-                folds += line(startX + G + W + L + W, startY, startX + G + W + L + (W/2), startY - RH);
+                folds += line(startX + G, bodyBotY, startX + totalWidth, bodyBotY); // Base of body
 
-                // GABLE TOP ROOF (Cuts)
-                cuts += `<path d="M ${startX + G} ${startY - RH} L ${startX} ${startY - RH + 5} L ${startX} ${startY + D - 5} L ${startX + G} ${startY + D}" />`; // Extended Glue Flap
-                cuts += line(startX + totalWidth, startY - RH - SH, startX + totalWidth, startY + D); // Right edge extended
-                cuts += line(startX + G, startY - RH - SH, startX + totalWidth, startY - RH - SH); // Absolute Top Cut
+                // VERTICAL FOLDS (Panel Separators)
+                folds += line(startX + G, sealY, startX + G, flapBotY);
+                folds += line(startX + G + W, sealY, startX + G + W, flapBotY);
+                folds += line(startX + G + W + L, sealY, startX + G + W + L, flapBotY);
+                folds += line(startX + G + W + L + W, sealY, startX + G + W + L + W, flapBotY);
 
-                // GABLE BOTTOM (Standard STE Tuck)
-                folds += line(startX + G, startY + D, startX + totalWidth, startY + D);
-                folds += line(startX + G + W, startY + D + W, startX + G + W + L, startY + D + W); 
-                
-                cuts += `<path d="M ${startX + G} ${startY + D} L ${startX + G + 2} ${startY + D + dustHeight} L ${startX + G + W - 2} ${startY + D + dustHeight} L ${startX + G + W} ${startY + D}" />`; // Dust 1
-                cuts += `<path d="M ${startX + G + W} ${startY + D} L ${startX + G + W} ${startY + D + W} L ${startX + G + W + 2} ${startY + D + W + T} L ${startX + G + W + L - 2} ${startY + D + W + T} L ${startX + G + W + L} ${startY + D + W} L ${startX + G + W + L} ${startY + D}" />`; // Main Bottom
-                cuts += `<path d="M ${startX + G + W + L} ${startY + D} L ${startX + G + W + L + 2} ${startY + D + dustHeight} L ${startX + G + W + L + W - 2} ${startY + D + dustHeight} L ${startX + G + W + L + W} ${startY + D}" />`; // Dust 2
-                cuts += line(startX + totalWidth - L, startY + D, startX + totalWidth, startY + D); // Back bottom cut
+                // VERTICAL FLATTENING FOLDS (Center of W panels)
+                folds += line(startX + G + W/2, sealY, startX + G + W/2, flapBotY);
+                folds += line(startX + G + W + L + W/2, sealY, startX + G + W + L + W/2, flapBotY);
+
+                // TOP GUSSETS
+                folds += line(startX + G, startY, startX + G + W/2, roofY);
+                folds += line(startX + G + W, startY, startX + G + W/2, roofY);
+                folds += line(startX + G + W + L, startY, startX + G + W + L + W/2, roofY);
+                folds += line(startX + G + W + L + W, startY, startX + G + W + L + W/2, roofY);
+
+                // BOTTOM GUSSETS
+                folds += line(startX + G, bodyBotY, startX + G + W/2, flapBotY);
+                folds += line(startX + G + W, bodyBotY, startX + G + W/2, flapBotY);
+                folds += line(startX + G + W + L, bodyBotY, startX + G + W + L + W/2, flapBotY);
+                folds += line(startX + G + W + L + W, bodyBotY, startX + G + W + L + W/2, flapBotY);
+
+                // ONE CONTINUOUS MASTER CUT
+                cuts += `<path d="M ${startX + G} ${sealY} 
+                                   L ${startX} ${sealY + 5} 
+                                   L ${startX} ${flapBotY - 5} 
+                                   L ${startX + G} ${flapBotY} 
+                                   L ${startX + totalWidth} ${flapBotY} 
+                                   L ${startX + totalWidth} ${sealY} Z" />`;
             }
             else {
                 // COMMON FOR STE & RTE
+                folds += line(startX + G, startY, startX + G, startY + D);
+                folds += line(startX + G + W, startY, startX + G + W, startY + D);
+                folds += line(startX + G + W + L, startY, startX + G + W + L, startY + D);
+                folds += line(startX + G + W + L + W, startY, startX + G + W + L + W, startY + D);
+
                 cuts += `<path d="M ${startX + G} ${startY} L ${startX} ${startY + 5} L ${startX} ${startY + D - 5} L ${startX + G} ${startY + D}" />`; // Glue Flap
                 cuts += line(startX + totalWidth, startY, startX + totalWidth, startY + D); // Right Edge
 
-                // COMMON TOP FLAPS
+                // TOP FLAPS
                 folds += line(startX + G, startY, startX + totalWidth, startY);
                 folds += line(startX + G + W, startY - W, startX + G + W + L, startY - W); 
                 
