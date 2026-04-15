@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505" id="theme-color-meta">
+    
+    <meta name="description" content="Calculate shrink sleeve anamorphic pre-distortion. Find the exact horizontal scale percentage for PETG, PVC, and OPS shrink labels in Adobe Illustrator.">
+    <title>Shrink Sleeve Pre-Distortion Engine | Mahad Ikram</title>
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <script>
+        (function() {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const currentTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+            if (currentTheme === 'light') { document.documentElement.setAttribute('data-theme', 'light'); }
+        })();
+    </script>
+
+    <style>
+        /* --- CORE THEME --- */
+        :root {
+            --bg: #050505; --card-bg: #111111; --text: #ffffff; --sub-text: #888888;
+            --accent: #d4ff00; --border: #1a1a1a; --card-border: #222222;
+            --nav-bg: rgba(5, 5, 5, 0.95); 
+            --warning: #ffbb33; --danger: #ff4444; --safe: #00C851;
+            --font-display: 'Arial Black', sans-serif; --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        [data-theme="light"] {
+            --bg: #f7f7f7; --card-bg: #ffffff; --text: #050505; --sub-text: #555555;
+            --accent: #9abd00; --border: #e0e0e0; --card-border: #d5d5d5;
+            --nav-bg: rgba(247, 247, 247, 0.95); 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; transition: background-color 0.4s ease, color 0.4s ease; padding-top: 100px; cursor: none; }
+        a, button, select, label { cursor: none; }
+        input[type="number"], input[type="text"] { cursor: text; }
+
+        /* --- CURSOR & NAV --- */
+        .cursor { position: fixed; top: 0; left: 0; width: 20px; height: 20px; background: white; border-radius: 50%; pointer-events: none; mix-blend-mode: difference; z-index: 9999999; transition: width 0.3s, height 0.3s, background 0.3s, opacity 0.2s; opacity: 0; will-change: transform; }
+        .cursor.hovered { width: 80px; height: 80px; opacity: 0.9; background: var(--accent); }
+        .cursor.hidden { opacity: 0 !important; width: 0; height: 0; }
+
+        nav { position: fixed; top: 0; left: 0; width: 100%; padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: transparent; border-bottom: 1px solid transparent; transition: background 0.4s ease, backdrop-filter 0.4s ease, border-bottom 0.4s ease; }
+        nav.scrolled { background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); } 
+        
+        .nav-links { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-link { color: var(--text); text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; transition: color 0.4s ease, border-color 0.3s ease; border-bottom: 1px solid transparent; padding-bottom: 2px; }
+        .nav-link:hover, .nav-link.active-link { border-bottom: 1px solid var(--accent); color: var(--accent); }
+        .theme-toggle-btn { background: none; border: none; outline: none; color: var(--text); display: inline-flex; align-items: center; justify-content: center; width: 35px; height: 35px; border-radius: 50%; transition: 0.3s ease; }
+        .theme-toggle-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+        /* --- TOOL CSS --- */
+        main { padding: 4rem 10%; min-height: 100vh; }
+        h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); text-transform: uppercase; margin-bottom: 1rem; }
+        p.subtitle { color: var(--sub-text); font-size: 1.2rem; margin-bottom: 3rem; max-width: 700px; line-height: 1.6; }
+
+        .tool-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; }
+        @media(max-width: 900px) { .tool-grid { grid-template-columns: 1fr; gap: 2rem; } }
+
+        .control-panel { background: var(--card-bg); padding: 3rem; border-radius: 12px; border: 1px solid var(--card-border); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        label { display: block; font-weight: bold; text-transform: uppercase; margin-bottom: 0.8rem; font-size: 0.85rem; letter-spacing: 1px; color: var(--text); }
+        
+        select, input[type="number"] { width: 100%; padding: 1rem; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 6px; font-size: 1.1rem; font-weight: bold; outline: none; margin-bottom: 1.5rem; transition: border-color 0.3s; font-family: monospace; }
+        select:focus, input:focus { border-color: var(--accent); }
+        
+        .input-hint { display: block; margin-top: -1rem; margin-bottom: 2rem; font-size: 0.8rem; color: var(--sub-text); }
+
+        .input-group { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+        
+        .alert-banner { padding: 1rem; border-radius: 6px; font-weight: bold; text-transform: uppercase; text-align: center; margin-top: 1rem; display: none; }
+
+        /* --- VISUAL DISPLAY --- */
+        .display-panel { display: flex; flex-direction: column; gap: 1.5rem; }
+        
+        .visualizer-card { background: #ffffff; padding: 3rem 2rem; border-radius: 12px; border: 1px solid var(--card-border); display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: inset 0 0 30px rgba(0,0,0,0.05); }
+        
+        .distortion-demo { display: flex; align-items: center; gap: 3rem; margin-top: 1rem; }
+        .demo-box { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+        .demo-label { font-weight: bold; color: #333; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; text-align: center; }
+        
+        .circle-original { width: 80px; height: 80px; border-radius: 50%; background: #000; display: flex; align-items: center; justify-content: center; color: var(--accent); font-weight: bold; border: 2px solid #ccc; }
+        .circle-distorted { width: 80px; height: 80px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; color: #000; font-weight: bold; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 2px dashed #000; }
+
+        .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .data-card { background: var(--card-bg); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--card-border); text-align: center; display: flex; flex-direction: column; justify-content: center;}
+        .data-card.highlight { border-color: var(--accent); box-shadow: 0 10px 20px rgba(212, 255, 0, 0.05); }
+        .data-title { font-size: 0.75rem; text-transform: uppercase; color: var(--sub-text); font-weight: bold; letter-spacing: 1px; margin-bottom: 0.5rem; }
+        .data-value { font-family: monospace; font-size: 1.5rem; color: var(--text); font-weight: bold; transition: color 0.3s; }
+        .data-value.highlight-val { color: var(--accent); font-size: 2.2rem; }
+
+        /* --- SEO SECTION --- */
+        .seo-content { margin-top: 6rem; padding-top: 4rem; border-top: 1px solid var(--border); max-width: 900px; margin-left: auto; margin-right: auto; }
+        .seo-content h2 { font-size: 1.8rem; margin-top: 3rem; margin-bottom: 1rem; color: var(--text); border-left: 3px solid var(--accent); padding-left: 1rem; }
+        .seo-content h3 { font-size: 1.3rem; margin-top: 2rem; margin-bottom: 0.5rem; color: var(--text); }
+        .seo-content p, .seo-content li { color: var(--sub-text); line-height: 1.8; margin-bottom: 1rem; font-size: 1.1rem; }
+        .seo-content ul { padding-left: 2rem; margin-bottom: 2rem; }
+        .seo-content li::marker { color: var(--accent); }
+
+        @media(max-width: 768px) {
+            .cursor { display: none !important; } * { cursor: auto !important; }
+            .hamburger { display: flex; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background-color: var(--nav-bg); text-align: center; padding: 2rem 0; border-bottom: 1px solid var(--border); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+            .nav-links.mobile-active { display: flex; }
+            .distortion-demo { flex-direction: column; gap: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor"></div>
+
+    <nav id="main-nav">
+        <div style="font-weight: bold; font-size: 1.2rem; color: var(--text); z-index: 1002;">
+            <a href="index.html" style="color: inherit; text-decoration: none;"><span style="color: var(--accent);">M</span>I.</a>
+        </div>
+        <div class="hamburger" id="hamburger-icon"><span class="line"></span><span class="line"></span><span class="line"></span></div>
+        <div class="nav-links" id="nav-links">
+            <a href="about.html" class="nav-link">About</a>
+            <a href="work.html" class="nav-link">Works</a>
+            <a href="blog.html" class="nav-link">Blog</a>
+            <a href="bleed-calculator.html" class="nav-link active-link" style="color: var(--accent);">Tools</a>
+            <a href="https://vaguers.com" target="_blank" class="nav-link">Shop ↗</a>
+            <a href="mailto:Mahadikram@outlook.com" class="nav-link">Contact</a>
+            <button id="theme-toggle" class="theme-toggle-btn">
+                <svg id="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg id="icon-sun" style="display: none;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <h1>Shrink Sleeve Pre-Distortion</h1>
+        <p class="subtitle">Calculate anamorphic distortion ratios for shrink sleeve packaging. Prevent warped logos and barcodes on curved bottles and energy drink cans.</p>
+
+        <div class="tool-grid">
+            
+            <div class="control-panel">
+                <label>1. Select Film Material</label>
+                <select id="film-type">
+                    <option value="78">PETG (Premium - Max 78% Shrink)</option>
+                    <option value="60">PVC (Standard - Max 60% Shrink)</option>
+                    <option value="70">OPS (Contours - Max 70% Shrink)</option>
+                </select>
+                <span class="input-hint">Affects maximum safe shrink limits before tearing occurs.</span>
+
+                <label style="margin-top: 2rem;">2. Container Dimensions (mm)</label>
+                
+                <div class="input-group">
+                    <label>Maximum Bottle Diameter</label>
+                    <input type="number" id="dim-max" value="65" min="10">
+                    <span class="input-hint" style="margin-bottom:0;">The widest part of the bottle. Dictates Layflat Width.</span>
+                </div>
+                
+                <div class="input-group">
+                    <label>Target Diameter (Design Area)</label>
+                    <input type="number" id="dim-target" value="45" min="10">
+                    <span class="input-hint" style="margin-bottom:0;">The narrow part where your logo/barcode will sit.</span>
+                </div>
+
+                <div class="input-group">
+                    <label>Slip Allowance (mm)</label>
+                    <input type="number" id="dim-slip" value="2" min="0">
+                    <span class="input-hint" style="margin-bottom:0;">Extra wiggle room to slide the sleeve over the bottle.</span>
+                </div>
+
+                <div id="alert-banner" class="alert-banner"></div>
+            </div>
+
+            <div class="display-panel">
+                
+                <div class="visualizer-card">
+                    <h3 style="color: #000; text-transform: uppercase; margin-bottom: 2rem; font-size: 1rem; border-bottom: 2px solid #ccc; padding-bottom: 5px;">Anamorphic Pre-Stretch Demo</h3>
+                    
+                    <div class="distortion-demo">
+                        <div class="demo-box">
+                            <div class="circle-original">100%</div>
+                            <div class="demo-label">Final Shrunk Result<br>(On the bottle)</div>
+                        </div>
+                        
+                        <div style="color: #ccc; font-size: 2rem;">⟵</div>
+                        
+                        <div class="demo-box">
+                            <div class="circle-distorted" id="vis-distorted">144%</div>
+                            <div class="demo-label">Pre-Distorted Artwork<br>(In Illustrator)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="data-grid">
+                    <div class="data-card">
+                        <div class="data-title">Sleeve Layflat Width (LF)</div>
+                        <div class="data-value" id="out-lf">104.1 mm</div>
+                    </div>
+                    <div class="data-card">
+                        <div class="data-title">Material Shrink Required</div>
+                        <div class="data-value" id="out-shrink">30.8%</div>
+                    </div>
+                    <div class="data-card highlight" style="grid-column: 1 / -1;">
+                        <div class="data-title">Illustrator Horizontal Scale %</div>
+                        <div class="data-value highlight-val" id="out-scale">144.4%</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="seo-content">
+            <h2>Shrink Sleeve Distortion Calculator – Fix Warped Packaging Graphics</h2>
+            <p>Calculate exact anamorphic distortion ratios for shrink sleeve labels in seconds. Ensure your logos, text, and barcodes remain perfectly proportioned after heat tunnel shrinking.</p>
+
+            <h2>Why Do Shrink Sleeves Need Pre-Distortion?</h2>
+            <p>When an FMCG brand applies a shrink sleeve to a contoured container (like a trigger spray bottle or curved energy drink can), the plastic film shrinks significantly more at the narrow neck than it does at the wide base. If you place a perfectly round circular logo onto the narrow neck section in Adobe Illustrator, the heat tunnel will shrink the plastic horizontally, turning your beautiful round logo into a compressed, squished oval.</p>
+
+            <h2>How the Anamorphic Scale Works</h2>
+            <p>To combat the physics of the heat tunnel, prepress technicians must intentionally "break" the artwork before printing it. We calculate the exact mathematical Shrink Ratio of the bottle's narrow target area compared to its widest base. We then apply an <strong>Anamorphic Horizontal Scale</strong> to the artwork in Illustrator.</p>
+            <p>For example, if the material will shrink by 30% at the neck, we must intentionally stretch the artwork horizontally by 142.8% in Illustrator. When the sleeve shrinks, it pulls the stretched artwork back into a perfect, undistorted shape.</p>
+
+            <h2>Understanding Film Materials (PETG vs PVC)</h2>
+            <ul>
+                <li><strong>PETG (Polyethylene Terephthalate Glycol):</strong> The premium industry standard. It boasts the highest shrink capability (up to 78%), allowing it to wrap tightly around extreme curves without tearing.</li>
+                <li><strong>PVC (Polyvinyl Chloride):</strong> Highly cost-effective but limited to about 60% maximum shrink. Attempting to use PVC on a bottle with a very narrow neck and very wide base will result in "smiling" (wrinkles) or tearing in the heat tunnel.</li>
+                <li><strong>OPS (Oriented Polystyrene):</strong> Excellent for squeezable containers because it shrinks more consistently (up to 70%) and handles soft plastic bottles beautifully.</li>
+            </ul>
+
+            <h2>Avoid Barcode Scanning Failures</h2>
+            <p>If you do not pre-distort your GS1 barcodes on a shrink sleeve, the bars will compress together in the heat tunnel. This removes the required quiet zones and changes the bar widths, causing 100% failure rates at retail supermarket scanners. Use this tool to lock in your anamorphic scaling factor before rendering your final barcode.</p>
+        </div>
+    </main>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const iconMoon = document.getElementById('icon-moon'); const iconSun = document.getElementById('icon-sun');
+        const metaThemeColor = document.getElementById('theme-color-meta');
+        themeToggleBtn.addEventListener('click', () => {
+            let newTheme = (document.documentElement.getAttribute('data-theme') || 'dark') === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme); localStorage.setItem('theme', newTheme);
+            if(newTheme === 'light') { iconMoon.style.display = 'none'; iconSun.style.display = 'block'; metaThemeColor.setAttribute('content', '#f7f7f7'); } 
+            else { iconMoon.style.display = 'block'; iconSun.style.display = 'none'; metaThemeColor.setAttribute('content', '#050505'); }
+        });
+        const mainNav = document.getElementById('main-nav'); window.addEventListener('scroll', () => { mainNav.classList.toggle('scrolled', window.scrollY > 50); });
+        const hamburgerIcon = document.getElementById('hamburger-icon'); const navMenu = document.getElementById('nav-links');
+        if(hamburgerIcon) hamburgerIcon.addEventListener('click', () => navMenu.classList.toggle('mobile-active'));
+
+        // --- CURSOR FIX ---
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        if (!isTouchDevice) {
+            const cursor = document.querySelector('.cursor');
+            document.addEventListener('mousemove', (e) => { 
+                if(cursor && !cursor.classList.contains('hidden')) { cursor.style.opacity = '1'; cursor.style.transform = `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0)`; } 
+            });
+            document.querySelectorAll('a, button, select').forEach(i => { i.addEventListener('mouseenter', () => cursor?.classList.add('hovered')); i.addEventListener('mouseleave', () => cursor?.classList.remove('hovered')); });
+            document.querySelectorAll('input').forEach(i => { i.addEventListener('mouseenter', () => cursor?.classList.add('hidden')); i.addEventListener('mouseleave', () => cursor?.classList.remove('hidden')); });
+        }
+
+        // --- DISTORTION MATH ENGINE ---
+        const filmType = document.getElementById('film-type');
+        const dimMax = document.getElementById('dim-max');
+        const dimTarget = document.getElementById('dim-target');
+        const dimSlip = document.getElementById('dim-slip');
+        
+        const outLf = document.getElementById('out-lf');
+        const outShrink = document.getElementById('out-shrink');
+        const outScale = document.getElementById('out-scale');
+        
+        const alertBanner = document.getElementById('alert-banner');
+        const visDistorted = document.getElementById('vis-distorted');
+
+        function calculateDistortion() {
+            const maxD = parseFloat(dimMax.value) || 0;
+            const targetD = parseFloat(dimTarget.value) || 0;
+            const slip = parseFloat(dimSlip.value) || 0;
+            const maxMaterialShrink = parseFloat(filmType.value);
+
+            if (maxD <= 0 || targetD <= 0) return;
+
+            // 1. Calculate Sleeve Circumference based on widest point + slip
+            const maxCircumference = (maxD * Math.PI);
+            const sleeveCircumference = maxCircumference + slip;
+            
+            // Layflat is half the circumference
+            const layflat = sleeveCircumference / 2;
+
+            // 2. Calculate the circumference of the bottle where the logo goes
+            const targetCircumference = targetD * Math.PI;
+
+            // 3. How much does the sleeve have to shrink to hit the target?
+            let shrinkRatio = targetCircumference / sleeveCircumference;
+            if (shrinkRatio > 1) shrinkRatio = 1; // Cannot "un-shrink" if target is wider than sleeve
+            
+            const shrinkPercentage = (1 - shrinkRatio) * 100;
+
+            // 4. Anamorphic Scale (How much to stretch the artwork in Illustrator)
+            // If it shrinks to 70% of its size (0.7), we must print it at 1 / 0.7 = 1.42 (142%)
+            let scalePercentage = 100;
+            if (shrinkRatio > 0) {
+                scalePercentage = (1 / shrinkRatio) * 100;
+            }
+
+            // --- UPDATE DOM ---
+            outLf.innerText = layflat.toFixed(1) + " mm";
+            outShrink.innerText = shrinkPercentage.toFixed(1) + "%";
+            outScale.innerText = scalePercentage.toFixed(1) + "%";
+            visDistorted.innerText = scalePercentage.toFixed(0) + "%";
+
+            // Visualizer CSS transformation (Stretch the circle horizontally)
+            const cssScale = scalePercentage / 100;
+            visDistorted.style.transform = `scaleX(${cssScale})`;
+
+            // Warning Logic
+            if (shrinkPercentage > maxMaterialShrink) {
+                alertBanner.innerText = `⚠️ Material Warning: Required shrink (${shrinkPercentage.toFixed(0)}%) exceeds ${filmType.options[filmType.selectedIndex].text.split(' ')[0]} maximum limits. The plastic will tear.`;
+                alertBanner.style.display = "block";
+                alertBanner.style.backgroundColor = "rgba(255, 68, 68, 0.2)";
+                alertBanner.style.color = "var(--danger)";
+                alertBanner.style.border = "1px solid var(--danger)";
+                outShrink.style.color = "var(--danger)";
+            } 
+            else if (shrinkPercentage > (maxMaterialShrink - 5)) {
+                alertBanner.innerText = `🟡 Risk Warning: You are very close to the maximum shrink limits of this material.`;
+                alertBanner.style.display = "block";
+                alertBanner.style.backgroundColor = "rgba(255, 187, 51, 0.2)";
+                alertBanner.style.color = "var(--warning)";
+                alertBanner.style.border = "1px solid var(--warning)";
+                outShrink.style.color = "var(--warning)";
+            }
+            else {
+                alertBanner.style.display = "none";
+                outShrink.style.color = "var(--text)";
+            }
+        }
+
+        filmType.addEventListener('change', calculateDistortion);
+        dimMax.addEventListener('input', calculateDistortion);
+        dimTarget.addEventListener('input', calculateDistortion);
+        dimSlip.addEventListener('input', calculateDistortion);
+
+        calculateDistortion(); // Init
+    </script>
+</body>
+</html>
