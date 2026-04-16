@@ -124,6 +124,9 @@
         .btn-export:hover { background: var(--accent); color: #000; }
 
         @media(max-width: 768px) {
+            /* THIS IS THE NEW LINE THAT FIXES THE OVERLAP */
+            nav { background: var(--nav-bg) !important; border-bottom: 1px solid var(--border) !important; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+            
             .cursor { display: none !important; } * { cursor: auto !important; }
             .color-comparison { height: 200px; }
             .swatch-box { padding: 1rem; }
