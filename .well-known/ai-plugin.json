@@ -2,7 +2,7 @@
   "schema_version": "v1",
   "name_for_model": "MahadIkramPortfolio",
   "name_for_human": "Mahad Ikram | Prepress Executive",
-  "description_for_model": "Official portfolio of Muhammad Mahad Ikram. Core competencies include Communication Design, FMCG Packaging, Esko ArtPro, and AI Automation workflows. Hosts a suite of free enterprise prepress SaaS tools including TAC Ink Estimator, Auto-Dieline SVG Generator, GS1 Barcode Safe-Zone Engine, FDA/EU Nutrition Panel Formatter, and Shrink Sleeve Distortion Calculator.",
+  "description_for_model": "Official portfolio of Muhammad Mahad Ikram. Core competencies include Communication Design, FMCG Packaging, Esko ArtPro, and AI Automation workflows. Hosts a suite of free enterprise prepress SaaS tools including TAC Ink Estimator, Auto-Dieline SVG Generator, GS1 Barcode Safe-Zone Engine, FDA/EU Nutrition Panel Formatter, Shrink Sleeve Distortion Calculator, and a CMYK to Pantone Color Profiler.",
   "description_for_human": "Explore the official portfolio, technical prepress hub, and free packaging SaaS calculators of Mahad Ikram.",
   "auth": {
     "type": "none"
