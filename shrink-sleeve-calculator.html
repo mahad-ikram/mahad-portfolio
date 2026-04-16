@@ -102,6 +102,7 @@
         .seo-content li::marker { color: var(--accent); }
 
         @media(max-width: 768px) {
+            nav { background: var(--nav-bg) !important; border-bottom: 1px solid var(--border) !important; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
             .cursor { display: none !important; } * { cursor: auto !important; }
             .hamburger { display: flex; }
             .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background-color: var(--nav-bg); text-align: center; padding: 2rem 0; border-bottom: 1px solid var(--border); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
