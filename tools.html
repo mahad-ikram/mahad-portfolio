@@ -5,12 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#050505" id="theme-color-meta">
     
-    <meta name="description" content="Free enterprise-grade prepress and structural packaging tools for FMCG designers. Generate dielines, barcodes, nutrition panels, and calculate ink limits.">
-    <title>Free Prepress & Packaging Tools | Mahad Ikram</title>
+    <title>Free TAC Calculator, Dieline Generator & Packaging Tools | Mahad Ikram</title>
+    <meta name="description" content="Free online TAC calculator, dieline generator, barcode checker, CMYK to Pantone converter, and nutrition label tools. Built for packaging designers and print professionals.">
+    <meta name="keywords" content="TAC calculator, dieline generator, barcode checker, CMYK to Pantone converter, packaging tools, prepress tools">
+    <link rel="canonical" href="https://mahadikram.com/tools.html">
+
+    <meta property="og:title" content="Free Prepress & Packaging Tools">
+    <meta property="og:description" content="TAC calculator, dieline generator, barcode checker & more. Free tools for designers.">
+    <meta property="og:url" content="https://mahadikram.com/tools.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://mahadikram.com/preview.jpg">
 
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="icon" type="image/png" href="favicon.png">
 
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Mahad Ikram Prepress & Packaging SaaS",
+      "description": "A complete suite of free online tools for packaging designers including a TAC calculator, dieline generator, barcode safe zone checker, and CMYK to Pantone converter.",
+      "applicationCategory": "DesignApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is TAC in printing?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Total Area Coverage (TAC) is the total percentage of CMYK ink used in a specific print area. Keeping this within limits prevents ink from smudging and failing to dry on the press."
+        }
+      },{
+        "@type": "Question",
+        "name": "What is a dieline?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A dieline is a vector template that shows the precise cut lines, fold lines, and glue flaps required for packaging production and 3D folding."
+        }
+      },{
+        "@type": "Question",
+        "name": "Why is barcode safe zone important?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It ensures optical and laser scanners can read the barcode correctly without interference from surrounding graphics, preventing retail rejections."
+        }
+      }]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+     "@context": "https://schema.org",
+     "@type": "BreadcrumbList",
+     "itemListElement": [{
+       "@type": "ListItem",
+       "position": 1,
+       "name": "Home",
+       "item": "https://mahadikram.com"
+     },{
+       "@type": "ListItem",
+       "position": 2,
+       "name": "Tools",
+       "item": "https://mahadikram.com/tools.html"
+     }]
+    }
+    </script>
     <script>
         (function() {
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -58,9 +126,11 @@
         
         .hero-badge { display: inline-block; color: var(--accent); font-weight: bold; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; margin-bottom: 1rem; padding: 5px 10px; border: 1px solid var(--accent); border-radius: 4px; background: rgba(212, 255, 0, 0.05); }
         h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); text-transform: uppercase; margin-bottom: 1.5rem; line-height: 1.1; }
-        .h1-seo-sub { display: block; font-size: clamp(1rem, 2vw, 1.5rem); color: var(--sub-text); text-transform: none; font-family: var(--font-body); margin-top: 0.5rem; }
+        .h1-seo-sub { display: block; font-size: clamp(1rem, 2vw, 1.3rem); color: var(--sub-text); text-transform: none; font-family: var(--font-body); margin-top: 0.5rem; }
         
-        p.subtitle { color: var(--sub-text); font-size: 1.2rem; margin-bottom: 2.5rem; max-width: 800px; line-height: 1.6; }
+        p.subtitle { color: var(--sub-text); font-size: 1.2rem; margin-bottom: 1.5rem; max-width: 800px; line-height: 1.6; }
+        .trust-signal { display: inline-flex; align-items: center; gap: 8px; color: var(--sub-text); font-weight: bold; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3rem; }
+        .trust-signal svg { color: var(--accent); }
 
         .cta-btn { display: inline-flex; align-items: center; justify-content: center; padding: 1rem 2rem; background: var(--accent); color: #000; font-weight: bold; text-transform: uppercase; text-decoration: none; border-radius: 6px; margin-bottom: 5rem; transition: transform 0.3s, box-shadow 0.3s; font-size: 0.95rem; letter-spacing: 1px; }
         .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(212, 255, 0, 0.2); }
@@ -136,9 +206,15 @@
 
     <main>
         <span class="hero-badge">6+ Professional Tools for Packaging Designers</span>
-        <h1>Free Prepress & Packaging Tools <span class="h1-seo-sub">(TAC Calculator, Dieline Generator, Barcode Checker & More)</span></h1>
+        <h1>Free TAC Calculator, Dieline Generator & Packaging Tools <br><span class="h1-seo-sub">Barcode Checker, CMYK to Pantone Converter & More for Print Professionals</span></h1>
         
-        <p class="subtitle">A complete suite of free online tools for packaging designers and print professionals. Calculate TAC, generate dielines, validate barcodes, and ensure 100% compliance with industry standards.</p>
+        <p class="subtitle">A complete suite of free online prepress tools including a TAC calculator, dieline generator, barcode safe zone checker, CMYK to Pantone converter, and nutrition label formatter. Built for packaging designers and print professionals.</p>
+        
+        <div class="trust-signal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            Used by print and packaging professionals worldwide
+        </div>
+        <br>
         
         <a href="#tool-grid" class="cta-btn">Explore Tools ↓</a>
 
@@ -149,7 +225,7 @@
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
                 </div>
                 <h2 class="tool-title">CMYK to Pantone Converter</h2>
-                <p class="tool-desc">Convert CMYK to Pantone (PMS) with exact match accuracy. Simulate physical board absorption and calculate visual ΔE shifts for flawless brand color reproduction.</p>
+                <p class="tool-desc">Convert CMYK to Pantone (PMS) with exact match accuracy. Simulate physical board absorption and calculate visual ΔE shifts for flawless brand color reproduction.<br><span class="seo-internal-link">Learn about color profiles →</span></p>
                 <div class="tool-btn">Launch Tool ↗</div>
             </a>
 
@@ -158,7 +234,7 @@
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                 </div>
                 <h2 class="tool-title">Auto-Dieline Generator</h2>
-                <p class="tool-desc">Generate accurate packaging dielines with cut lines, fold lines, and glue areas. Ideal for box design, packaging production, and print-ready templates.</p>
+                <p class="tool-desc">Generate accurate packaging dielines online with perfect cut lines, fold lines, and glue areas. Ideal for box design, production, and print-ready templates.<br><span class="seo-internal-link">Read our prepress guide →</span></p>
                 <div class="tool-btn">Launch Tool ↗</div>
             </a>
 
@@ -167,7 +243,7 @@
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5v14"></path><path d="M8 5v14"></path><path d="M12 5v14"></path><path d="M17 5v14"></path><path d="M21 5v14"></path></svg>
                 </div>
                 <h2 class="tool-title">Barcode Safe Zone Checker</h2>
-                <p class="tool-desc">Ensure 100% GS1 scanning compliance. Calculate barcode quiet zones, check safe area limits, and download vector barcodes to prevent retail scanning failures.</p>
+                <p class="tool-desc">Ensure 100% GS1 scanning compliance. Calculate barcode quiet zones, check safe area limits, and download vector barcodes to prevent retail scanning failures.<br><span class="seo-internal-link">Guide to GS1 Barcodes →</span></p>
                 <div class="tool-btn">Launch Tool ↗</div>
             </a>
 
@@ -176,7 +252,7 @@
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
                 </div>
                 <h2 class="tool-title">Nutrition Label Formatter</h2>
-                <p class="tool-desc">Auto-calculate % Daily Values and generate pixel-perfect, FDA & EU typography-compliant nutrition panels for FMCG food and beverage packaging.</p>
+                <p class="tool-desc">Auto-calculate % Daily Values and generate pixel-perfect, FDA & EU typography-compliant nutrition panels for FMCG food and beverage packaging.<br><span class="seo-internal-link">Learn about packaging strategy →</span></p>
                 <div class="tool-btn">Launch Tool ↗</div>
             </a>
 
@@ -194,23 +270,27 @@
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"></path></svg>
                 </div>
                 <h2 class="tool-title">Shrink Sleeve Distortion</h2>
-                <p class="tool-desc">Calculate exact anamorphic distortion ratios. Prevent warped packaging graphics, logos, and barcodes on curved bottles and energy drink cans.</p>
+                <p class="tool-desc">Calculate exact anamorphic distortion ratios. Prevent warped packaging graphics, logos, and barcodes on curved bottles and energy drink cans.<br><span class="seo-internal-link">Explore FMCG production →</span></p>
                 <div class="tool-btn">Launch Tool ↗</div>
             </a>
 
         </div>
 
         <div class="seo-content">
-            <h2>What Are Prepress & Packaging Tools?</h2>
-            <p>Prepress and packaging tools help designers prepare files for professional printing. These tools ensure accurate colour reproduction, proper ink coverage (TAC), barcode scannability, and packaging structure compliance with global industry standards.</p>
-            <p>Tools like TAC calculators prevent ink overload, dieline generators create perfect structural packaging layouts, and barcode safe zone checkers ensure reliable and fast scanning in retail environments.</p>
+            
+            <h2>Our Free Print & Packaging Tools</h2>
+            <p>These free packaging tools help optimise print files for production by ensuring correct ink limits (TAC), accurate dieline structures, barcode compliance, and precise colour matching. Whether you are working in offset, flexo, or digital printing, these tools reduce costly production errors.</p>
+            <p>Our comprehensive digital platform includes a TAC calculator, dieline generator, barcode safe zone checker, CMYK to Pantone converter, and nutrition label generator. These tools are meticulously designed to help graphic designers, prepress operators, and print professionals optimise their packaging artwork for flawless physical production.</p>
+
+            <h2>Why Prepress Accuracy Matters in Packaging</h2>
+            <p>In the highly competitive world of FMCG packaging design, small errors in color separation, structural dimensions, or barcode placement can lead to catastrophic and costly production issues on the printing press. Utilizing specialized tools like TAC calculators, dieline generators, and barcode validators helps ensure print accuracy, drastically reduces paperboard waste, and maintains absolute brand quality across thousands of retail units.</p>
 
             <h2>Why Use Our Prepress Tools?</h2>
             <ul>
-                <li>Built for real-world packaging and print production</li>
-                <li>Accurate calculations based on strict industry standards</li>
-                <li>Completely free to use with no signup required</li>
-                <li>Designed specifically for designers, print houses, and FMCG brands</li>
+                <li>Built for real-world packaging and offset print production environments.</li>
+                <li>Accurate mathematical calculations based on strict global industry standards.</li>
+                <li>Completely free to use online with no signup required.</li>
+                <li>Designed specifically for packaging designers, commercial print houses, and FMCG brands.</li>
             </ul>
 
             <h3>Prepress Tool Comparison</h3>
@@ -253,17 +333,17 @@
             
             <div class="faq-box">
                 <h4>What is TAC in printing?</h4>
-                <p>Total Area Coverage (TAC) is the total percentage of CMYK ink used in a specific print area. Keeping this within limits prevents ink from smudging and failing to dry on the press.</p>
+                <p>Total Area Coverage (TAC) is the total percentage of CMYK ink used in a specific print area. Keeping this within limits prevents ink from smudging, pooling, and failing to dry on the high-speed printing press.</p>
             </div>
             
             <div class="faq-box">
                 <h4>What is a dieline?</h4>
-                <p>A dieline is a vector template that shows the precise cut lines, fold lines, and glue flaps required for packaging production and 3D folding.</p>
+                <p>A dieline is a flat vector template that shows the precise cut lines, fold lines, and glue flaps required for packaging production, die-cutting, and 3D box folding.</p>
             </div>
             
             <div class="faq-box">
                 <h4>Why is barcode safe zone important?</h4>
-                <p>It ensures optical and laser scanners can read the barcode correctly without interference from surrounding graphics, preventing retail rejections.</p>
+                <p>A barcode safe zone ensures that optical and laser scanners can read the barcode correctly without interference from surrounding packaging graphics, thereby preventing massive retail product scanning rejections.</p>
             </div>
 
         </div>
