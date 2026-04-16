@@ -128,7 +128,7 @@
         h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); text-transform: uppercase; margin-bottom: 1.5rem; line-height: 1.1; }
         .h1-seo-sub { display: block; font-size: clamp(1rem, 2vw, 1.3rem); color: var(--sub-text); text-transform: none; font-family: var(--font-body); margin-top: 0.5rem; }
         
-        p.subtitle { color: var(--sub-text); font-size: 1.2rem; margin-bottom: 1.5rem; max-width: 800px; line-height: 1.6; }
+        p.subtitle { color: var(--sub-text); font-size: 1.1rem; margin-bottom: 1.5rem; max-width: 800px; line-height: 1.6; }
         .trust-signal { display: inline-flex; align-items: center; gap: 8px; color: var(--sub-text); font-weight: bold; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3rem; }
         .trust-signal svg { color: var(--accent); }
 
@@ -137,8 +137,8 @@
 
         .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
         
-        .tool-card { background: var(--card-bg); padding: 3rem 2rem; border-radius: 12px; border: 1px solid var(--card-border); text-decoration: none; display: flex; flex-direction: column; gap: 1rem; transition: all 0.4s ease; position: relative; overflow: hidden; }
-        .tool-card:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .tool-card { background: var(--card-bg); padding: 3rem 2rem; border-radius: 12px; border: 1px solid var(--card-border); text-decoration: none; display: flex; flex-direction: column; gap: 1rem; transition: all 0.4s ease; position: relative; overflow: hidden; z-index: 1; }
+        .tool-card:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 20px 40px rgba(0,0,0,0.3); z-index: 2; }
         
         .tool-icon { width: 60px; height: 60px; background: rgba(212, 255, 0, 0.1); color: var(--accent); display: flex; align-items: center; justify-content: center; border-radius: 12px; font-size: 1.5rem; margin-bottom: 1rem; transition: background 0.3s ease; }
         .tool-card:hover .tool-icon { background: var(--accent); color: #000; }
@@ -146,10 +146,10 @@
         .tool-title { font-family: var(--font-display); font-size: 1.5rem; color: var(--text); text-transform: uppercase; line-height: 1.2; margin: 0; }
         .tool-desc { color: var(--sub-text); font-size: 1rem; line-height: 1.6; margin: 0; flex-grow: 1; }
         
-        .seo-internal-link { font-size: 0.85rem; color: var(--accent); text-decoration: none; font-weight: bold; display: inline-block; margin-top: 0.5rem; border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+        .seo-internal-link { font-size: 0.85rem; color: var(--accent); text-decoration: none; font-weight: bold; display: inline-block; margin-top: 0.8rem; border-bottom: 1px solid transparent; transition: border-color 0.3s; position: relative; z-index: 10; }
         .seo-internal-link:hover { border-bottom: 1px solid var(--accent); }
 
-        .tool-btn { color: var(--text); font-weight: bold; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px; margin-top: 1rem; display: flex; align-items: center; gap: 5px; transition: color 0.3s ease; }
+        .tool-btn { color: var(--text); font-weight: bold; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px; margin-top: 1rem; display: flex; align-items: center; gap: 5px; transition: color 0.3s ease; pointer-events: none; }
         .tool-card:hover .tool-btn { color: var(--accent); }
 
         /* --- SEO SECTION & TABLE CSS --- */
@@ -158,6 +158,7 @@
         .seo-content h3 { font-size: 1.4rem; margin-top: 2.5rem; margin-bottom: 1rem; color: var(--text); }
         .seo-content p, .seo-content li { color: var(--sub-text); line-height: 1.8; margin-bottom: 1rem; font-size: 1.1rem; }
         .seo-content ul { padding-left: 2rem; margin-bottom: 2rem; }
+        .seo-content li { color: var(--sub-text); margin-bottom: 0.5rem; }
         .seo-content li::marker { color: var(--accent); }
 
         .faq-box { margin-bottom: 1.5rem; background: var(--card-bg); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--card-border); }
@@ -195,23 +196,26 @@
             <a href="work.html" class="nav-link">Works</a>
             <a href="blog.html" class="nav-link">Blog</a>
             <a href="tools.html" class="nav-link active-link" style="color: var(--accent);">Tools</a>
-            <a href="https://vaguers.com" target="_blank" class="nav-link">Shop ↗</a>
+            <a href="https://vaguers.com" target="_blank" rel="noopener noreferrer" class="nav-link">Shop ↗</a>
             <a href="mailto:Mahadikram@outlook.com" class="nav-link">Contact</a>
-            <button id="theme-toggle" class="theme-toggle-btn">
-                <svg id="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                <svg id="icon-sun" style="display: none;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Dark/Light Mode">
+                <svg id="icon-moon" viewBox="0 0 24 24" aria-label="Moon Icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg id="icon-sun" style="display: none;" viewBox="0 0 24 24" aria-label="Sun Icon"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
             </button>
         </div>
     </nav>
 
     <main>
         <span class="hero-badge">6+ Professional Tools for Packaging Designers</span>
+        
         <h1>Free TAC Calculator, Dieline Generator & Packaging Tools <br><span class="h1-seo-sub">Barcode Checker, CMYK to Pantone Converter & More for Print Professionals</span></h1>
         
         <p class="subtitle">A complete suite of free online prepress tools including a TAC calculator, dieline generator, barcode safe zone checker, CMYK to Pantone converter, and nutrition label formatter. Built for packaging designers and print professionals.</p>
         
+        <p class="subtitle" style="font-size: 1rem;">This platform includes a free TAC calculator, dieline generator, barcode safe zone checker, CMYK to Pantone converter, nutrition label formatter, and shrink sleeve distortion calculator. These prepress tools help packaging designers optimise artwork for offset, flexo, and digital printing.</p>
+        
         <div class="trust-signal">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Checkmark Icon"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
             Used by print and packaging professionals worldwide
         </div>
         <br>
@@ -222,55 +226,61 @@
             
             <a href="color-converter.html" class="tool-card">
                 <div class="tool-icon">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Color Droplet Icon"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
                 </div>
                 <h2 class="tool-title">CMYK to Pantone Converter</h2>
-                <p class="tool-desc">Convert CMYK to Pantone (PMS) with exact match accuracy. Simulate physical board absorption and calculate visual ΔE shifts for flawless brand color reproduction.<br><span class="seo-internal-link">Learn about color profiles →</span></p>
+                <p class="tool-desc">Convert CMYK to Pantone (PMS) with exact match accuracy. Simulate physical board absorption and calculate visual ΔE shifts for flawless brand color reproduction.<br>
+                <object><a href="print-production-hub.html" class="seo-internal-link">Color separation guide →</a></object></p>
                 <div class="tool-btn">Launch Tool ↗</div>
             </a>
 
             <a href="dieline-generator.html" class="tool-card">
                 <div class="tool-icon">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Box Dieline Icon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                 </div>
                 <h2 class="tool-title">Auto-Dieline Generator</h2>
-                <p class="tool-desc">Generate accurate packaging dielines online with perfect cut lines, fold lines, and glue areas. Ideal for box design, production, and print-ready templates.<br><span class="seo-internal-link">Read our prepress guide →</span></p>
+                <p class="tool-desc">Generate accurate packaging dielines online with perfect cut lines, fold lines, and glue areas. Ideal for box design, production, and print-ready templates.<br>
+                <object><a href="print-production-hub.html" class="seo-internal-link">Prepress structural guide →</a></object></p>
                 <div class="tool-btn">Launch Tool ↗</div>
             </a>
 
             <a href="barcode-calculator.html" class="tool-card">
                 <div class="tool-icon">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5v14"></path><path d="M8 5v14"></path><path d="M12 5v14"></path><path d="M17 5v14"></path><path d="M21 5v14"></path></svg>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Barcode Icon"><path d="M3 5v14"></path><path d="M8 5v14"></path><path d="M12 5v14"></path><path d="M17 5v14"></path><path d="M21 5v14"></path></svg>
                 </div>
                 <h2 class="tool-title">Barcode Safe Zone Checker</h2>
-                <p class="tool-desc">Ensure 100% GS1 scanning compliance. Calculate barcode quiet zones, check safe area limits, and download vector barcodes to prevent retail scanning failures.<br><span class="seo-internal-link">Guide to GS1 Barcodes →</span></p>
+                <p class="tool-desc">Ensure 100% GS1 scanning compliance. Calculate barcode quiet zones, check safe area limits, and download vector barcodes to prevent retail scanning failures.<br>
+                <object><a href="print-production-hub.html" class="seo-internal-link">GS1 Barcode standards →</a></object></p>
                 <div class="tool-btn">Launch Tool ↗</div>
             </a>
 
             <a href="nutrition-generator.html" class="tool-card">
                 <div class="tool-icon">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Nutrition Label Icon"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
                 </div>
                 <h2 class="tool-title">Nutrition Label Formatter</h2>
-                <p class="tool-desc">Auto-calculate % Daily Values and generate pixel-perfect, FDA & EU typography-compliant nutrition panels for FMCG food and beverage packaging.<br><span class="seo-internal-link">Learn about packaging strategy →</span></p>
+                <p class="tool-desc">Auto-calculate % Daily Values and generate pixel-perfect, FDA & EU typography-compliant nutrition panels for FMCG food and beverage packaging.<br>
+                <object><a href="brand-strategy-hub.html" class="seo-internal-link">Packaging compliance →</a></object></p>
                 <div class="tool-btn">Launch Tool ↗</div>
             </a>
 
             <a href="tac-calculator.html" class="tool-card">
                 <div class="tool-icon">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="CMYK TAC Icon"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
                 </div>
                 <h2 class="tool-title">TAC Ink Estimator</h2>
-                <p class="tool-desc">Calculate Total Area Coverage (TAC) to ensure your CMYK ink levels stay within safe printing limits. Avoid over-inking, drying issues, and print defects.<br><span class="seo-internal-link">Learn more about TAC limits →</span></p>
+                <p class="tool-desc">Calculate Total Area Coverage (TAC) to ensure your CMYK ink levels stay within safe printing limits. Avoid over-inking, drying issues, and print defects.<br>
+                <object><a href="print-production-hub.html" class="seo-internal-link">Understand TAC limits →</a></object></p>
                 <div class="tool-btn">Launch Tool ↗</div>
             </a>
 
             <a href="shrink-sleeve-calculator.html" class="tool-card">
                 <div class="tool-icon">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"></path></svg>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Shrink Sleeve Distortion Icon"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"></path></svg>
                 </div>
                 <h2 class="tool-title">Shrink Sleeve Distortion</h2>
-                <p class="tool-desc">Calculate exact anamorphic distortion ratios. Prevent warped packaging graphics, logos, and barcodes on curved bottles and energy drink cans.<br><span class="seo-internal-link">Explore FMCG production →</span></p>
+                <p class="tool-desc">Calculate exact anamorphic distortion ratios. Prevent warped packaging graphics, logos, and barcodes on curved bottles and energy drink cans.<br>
+                <object><a href="print-production-hub.html" class="seo-internal-link">FMCG production guide →</a></object></p>
                 <div class="tool-btn">Launch Tool ↗</div>
             </a>
 
@@ -281,6 +291,16 @@
             <h2>Our Free Print & Packaging Tools</h2>
             <p>These free packaging tools help optimise print files for production by ensuring correct ink limits (TAC), accurate dieline structures, barcode compliance, and precise colour matching. Whether you are working in offset, flexo, or digital printing, these tools reduce costly production errors.</p>
             <p>Our comprehensive digital platform includes a TAC calculator, dieline generator, barcode safe zone checker, CMYK to Pantone converter, and nutrition label generator. These tools are meticulously designed to help graphic designers, prepress operators, and print professionals optimise their packaging artwork for flawless physical production.</p>
+            <p style="margin-top:2rem; font-weight:bold; color: var(--accent);">Built using real-world packaging production workflows and strict global industry standards.</p>
+
+            <h2>Common Packaging & Prepress Problems We Solve</h2>
+            <ul>
+              <li>Ink smudging and drying failures due to high TAC values.</li>
+              <li>Incorrect folding structures and dielines causing massive production errors.</li>
+              <li>Barcodes failing to scan at retail stores due to missing quiet zones.</li>
+              <li>Color mismatch between digital CMYK and physical Pantone spot inks.</li>
+              <li>Nutrition labels failing to meet strict typography and FDA/EU compliance.</li>
+            </ul>
 
             <h2>Why Prepress Accuracy Matters in Packaging</h2>
             <p>In the highly competitive world of FMCG packaging design, small errors in color separation, structural dimensions, or barcode placement can lead to catastrophic and costly production issues on the printing press. Utilizing specialized tools like TAC calculators, dieline generators, and barcode validators helps ensure print accuracy, drastically reduces paperboard waste, and maintains absolute brand quality across thousands of retail units.</p>
