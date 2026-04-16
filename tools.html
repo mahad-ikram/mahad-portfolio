@@ -54,8 +54,8 @@
 
         /* --- TOOLS HUB CSS --- */
         main { padding: 4rem 10%; min-height: 100vh; }
-        h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 4.5rem); text-transform: uppercase; margin-bottom: 1rem; line-height: 1; }
-        p.subtitle { color: var(--sub-text); font-size: 1.2rem; margin-bottom: 4rem; max-width: 700px; line-height: 1.6; }
+        h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 4vw, 3.8rem); text-transform: uppercase; margin-bottom: 1.5rem; line-height: 1.1; }
+        p.subtitle { color: var(--sub-text); font-size: 1.2rem; margin-bottom: 4rem; max-width: 800px; line-height: 1.6; }
 
         .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
         
@@ -71,15 +71,34 @@
         .tool-btn { color: var(--text); font-weight: bold; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px; margin-top: 1rem; display: flex; align-items: center; gap: 5px; transition: color 0.3s ease; }
         .tool-card:hover .tool-btn { color: var(--accent); }
 
+        /* --- SEO SECTION & TABLE CSS --- */
+        .seo-content { margin-top: 6rem; padding-top: 4rem; border-top: 1px solid var(--border); max-width: 1000px; margin-left: auto; margin-right: auto; }
+        .seo-content h2 { font-family: var(--font-display); font-size: 2rem; margin-top: 3rem; margin-bottom: 1.5rem; color: var(--text); border-left: 4px solid var(--accent); padding-left: 1rem; text-transform: uppercase; }
+        .seo-content h3 { font-size: 1.4rem; margin-top: 2.5rem; margin-bottom: 1rem; color: var(--text); }
+        .seo-content p, .seo-content li { color: var(--sub-text); line-height: 1.8; margin-bottom: 1rem; font-size: 1.1rem; }
+        .seo-content ul { padding-left: 2rem; margin-bottom: 2rem; }
+        .seo-content li::marker { color: var(--accent); }
+        .seo-content a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--accent); transition: color 0.3s; }
+        .seo-content a:hover { color: var(--accent); }
+
+        .table-wrapper { overflow-x: auto; margin: 2rem 0; border-radius: 8px; border: 1px solid var(--card-border); }
+        .comparison-table { width: 100%; border-collapse: collapse; text-align: left; background: var(--card-bg); }
+        .comparison-table th { background: rgba(212, 255, 0, 0.1); color: var(--accent); padding: 1.2rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; border-bottom: 1px solid var(--card-border); }
+        .comparison-table td { padding: 1.2rem; color: var(--sub-text); border-bottom: 1px solid var(--card-border); }
+        .comparison-table tr:last-child td { border-bottom: none; }
+        .comparison-table tr:hover td { background: rgba(255,255,255,0.02); color: var(--text); }
+
         /* Mobile Adjustments */
         .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; z-index: 1001; }
         .hamburger .line { width: 25px; height: 2px; background-color: var(--text); transition: all 0.3s ease; }
         @media(max-width: 768px) {
+            nav { background: var(--nav-bg) !important; border-bottom: 1px solid var(--border) !important; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
             .cursor { display: none !important; } * { cursor: auto !important; }
             .hamburger { display: flex; }
             .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background-color: var(--nav-bg); text-align: center; padding: 2rem 0; border-bottom: 1px solid var(--border); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
             .nav-links.mobile-active { display: flex; }
             main { padding: 2rem 5%; }
+            .seo-content h2 { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -107,8 +126,8 @@
     </nav>
 
     <main>
-        <h1>Prepress &<br><span style="color: var(--accent);">Packaging SaaS</span></h1>
-        <p class="subtitle">A suite of enterprise-grade calculators and generators built specifically for FMCG packaging designers and prepress operators. Stop guessing. Start calculating.</p>
+        <h1>Free Prepress & Packaging<br><span style="color: var(--accent);">Online Tools</span></h1>
+        <p class="subtitle">A complete suite of free online tools for packaging designers and print professionals. Calculate TAC, generate dielines, validate barcodes, and match Pantone colors—all in one place.</p>
 
         <div class="tools-grid">
             
@@ -116,7 +135,7 @@
                 <div class="tool-icon">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
                 </div>
-                <h3 class="tool-title">Prepress Color Profiler</h3>
+                <h2 class="tool-title">Prepress Color Profiler</h2>
                 <p class="tool-desc">Match CMYK to 1,300+ standard Pantone inks. Simulate physical board absorption and calculate visual ΔE shifts instantly.</p>
                 <div class="tool-btn">Launch Tool ↗</div>
             </a>
@@ -125,7 +144,7 @@
                 <div class="tool-icon">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                 </div>
-                <h3 class="tool-title">Auto-Dieline Generator</h3>
+                <h2 class="tool-title">Auto-Dieline Generator</h2>
                 <p class="tool-desc">Generate mathematically perfect SVG cut and fold lines for Straight Tuck, Reverse Tuck, and Gable Top cartons instantly.</p>
                 <div class="tool-btn">Launch Tool ↗</div>
             </a>
@@ -134,7 +153,7 @@
                 <div class="tool-icon">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5v14"></path><path d="M8 5v14"></path><path d="M12 5v14"></path><path d="M17 5v14"></path><path d="M21 5v14"></path></svg>
                 </div>
-                <h3 class="tool-title">Barcode Safe-Zone Engine</h3>
+                <h2 class="tool-title">Barcode Safe-Zone Engine</h2>
                 <p class="tool-desc">Ensure 100% GS1 scanning compliance. Calculate quiet zones, magnification limits, and download vector barcodes.</p>
                 <div class="tool-btn">Launch Tool ↗</div>
             </a>
@@ -143,7 +162,7 @@
                 <div class="tool-icon">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
                 </div>
-                <h3 class="tool-title">Nutrition Label Formatter</h3>
+                <h2 class="tool-title">Nutrition Label Formatter</h2>
                 <p class="tool-desc">Auto-calculate % Daily Values and generate pixel-perfect, typography-compliant FDA & EU nutrition panels.</p>
                 <div class="tool-btn">Launch Tool ↗</div>
             </a>
@@ -152,7 +171,7 @@
                 <div class="tool-icon">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
                 </div>
-                <h3 class="tool-title">TAC Ink Estimator</h3>
+                <h2 class="tool-title">TAC Ink Estimator</h2>
                 <p class="tool-desc">Calculate Total Area Coverage, convert RGB to CMYK safely, and auto-optimize ink density for high-speed offset printing.</p>
                 <div class="tool-btn">Launch Tool ↗</div>
             </a>
@@ -161,11 +180,68 @@
                 <div class="tool-icon">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"></path></svg>
                 </div>
-                <h3 class="tool-title">Shrink Sleeve Distortion</h3>
+                <h2 class="tool-title">Shrink Sleeve Distortion</h2>
                 <p class="tool-desc">Calculate exact anamorphic distortion ratios to prevent warped logos on curved bottles and energy drink cans.</p>
                 <div class="tool-btn">Launch Tool ↗</div>
             </a>
 
+        </div>
+
+        <div class="seo-content">
+            <h2>Complete Prepress Toolkit for Packaging Designers</h2>
+            <p>Welcome to the ultimate ecosystem for FMCG packaging designers, prepress operators, and print production professionals. Stop guessing and start calculating. Our suite of free online tools ensures your artwork is structurally sound, color-accurate, and 100% compliant with global print manufacturing standards.</p>
+
+            <h3>What Are Prepress & Packaging Tools?</h3>
+            <p>Prepress tools bridge the critical gap between digital graphic design and physical manufacturing. Before a file can go to the printing plate, it must be optimized for ink density limits, scanning safe zones, and structural folding mechanics. Our free online print tools automate these complex mathematical conversions, allowing designers to work faster and with greater confidence.</p>
+
+            <h3>Prepress Tool Comparison</h3>
+            <div class="table-wrapper">
+                <table class="comparison-table">
+                    <tr>
+                        <th>Tool Name</th>
+                        <th>Primary Purpose</th>
+                        <th>Best For</th>
+                    </tr>
+                    <tr>
+                        <td><strong><a href="color-converter.html">Pantone Matcher</a></strong></td>
+                        <td>Convert CMYK to precise Pantone (PMS) spot colors.</td>
+                        <td>Color grading & brand consistency.</td>
+                    </tr>
+                    <tr>
+                        <td><strong><a href="dieline-generator.html">Dieline Generator</a></strong></td>
+                        <td>Create structural packaging cut & fold lines.</td>
+                        <td>Box design (STE, RTE, Gable Top).</td>
+                    </tr>
+                    <tr>
+                        <td><strong><a href="barcode-calculator.html">Barcode Safe Zone</a></strong></td>
+                        <td>Ensure GS1 scannability and magnification limits.</td>
+                        <td>Retail FMCG packaging.</td>
+                    </tr>
+                    <tr>
+                        <td><strong><a href="nutrition-generator.html">Nutrition Formatter</a></strong></td>
+                        <td>Auto-calculate %DV for FDA/EU typography compliance.</td>
+                        <td>Food & Beverage labels.</td>
+                    </tr>
+                    <tr>
+                        <td><strong><a href="tac-calculator.html">TAC Estimator</a></strong></td>
+                        <td>Calculate Total Area Coverage (Ink Density Limits).</td>
+                        <td>High-speed offset printing.</td>
+                    </tr>
+                    <tr>
+                        <td><strong><a href="shrink-sleeve-calculator.html">Shrink Distortion</a></strong></td>
+                        <td>Calculate anamorphic horizontal scaling percentages.</td>
+                        <td>Curved bottles and energy cans.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>Why Use Our Print Production Tools?</h3>
+            <ul>
+                <li><strong>100% Free & No Signup:</strong> Immediate access directly in your browser without restrictive paywalls.</li>
+                <li><strong>Built for Real Production:</strong> Engineered by prepress executives using actual offset printing and GS1 retail standards.</li>
+                <li><strong>Privacy First:</strong> All calculations happen locally on your device. We never upload or store your brand's sensitive data.</li>
+                <li><strong>Industry-Level Accuracy:</strong> Trusted globally by packaging designers to prevent costly press errors and retail rejections.</li>
+            </ul>
         </div>
 
     </main>
