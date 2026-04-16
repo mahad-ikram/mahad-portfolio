@@ -80,6 +80,20 @@
         #y-slider::-webkit-slider-thumb { background: var(--y); }
         #k-slider::-webkit-slider-thumb { background: var(--k); }
 
+        /* --- SEARCHABLE DROPDOWN --- */
+        .searchable-dropdown { position: relative; width: 100%; margin-bottom: 1rem; }
+        .search-input { width: 100%; padding: 0.8rem; background: var(--bg); color: var(--text); border: 1px solid var(--accent); border-radius: 6px; font-size: 1rem; outline: none; font-weight: bold; cursor: text; transition: box-shadow 0.3s; }
+        .search-input:focus { box-shadow: 0 0 10px rgba(212, 255, 0, 0.2); }
+        .dropdown-list { position: absolute; top: 100%; left: 0; width: 100%; max-height: 250px; overflow-y: auto; background: var(--card-bg); border: 1px solid var(--border); border-top: none; border-radius: 0 0 6px 6px; z-index: 100; display: none; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .dropdown-list.active { display: block; }
+        .dropdown-item { padding: 10px 15px; cursor: pointer; border-bottom: 1px solid var(--border); font-family: monospace; display: flex; justify-content: space-between; align-items: center; }
+        .dropdown-item:hover { background: rgba(255,255,255,0.05); color: var(--accent); }
+        .color-dot { width: 15px; height: 15px; border-radius: 50%; display: inline-block; border: 1px solid #fff; }
+        /* Scrollbar for dropdown */
+        .dropdown-list::-webkit-scrollbar { width: 8px; }
+        .dropdown-list::-webkit-scrollbar-track { background: var(--bg); }
+        .dropdown-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
         /* --- VISUAL DISPLAY --- */
         .display-panel { display: flex; flex-direction: column; gap: 1.5rem; }
         
@@ -165,8 +179,11 @@
                     <input type="range" id="k-slider" value="10" min="0" max="100">
                 </div>
 
-                <span class="section-label">Or: Reverse Pantone Lookup</span>
-                <select id="pantone-select"></select>
+                <span class="section-label">Or: Reverse Pantone Search</span>
+                <div class="searchable-dropdown">
+                    <input type="text" id="pantone-search" class="search-input" placeholder="Type a Pantone (e.g., 185)..." autocomplete="off">
+                    <div class="dropdown-list" id="pantone-list"></div>
+                </div>
             </div>
 
             <div class="display-panel">
@@ -240,7 +257,6 @@
         const mVal = document.getElementById('m-val'); const mSlide = document.getElementById('m-slider');
         const yVal = document.getElementById('y-val'); const ySlide = document.getElementById('y-slider');
         const kVal = document.getElementById('k-val'); const kSlide = document.getElementById('k-slider');
-        const pSelect = document.getElementById('pantone-select');
         
         const swatchCmyk = document.getElementById('swatch-cmyk');
         const textCmyk = document.getElementById('text-cmyk');
@@ -300,14 +316,6 @@
             "kraft":   { name: "Brown Kraft Board", rMult: 0.75, gMult: 0.65, bMult: 0.50, noise: 0.25, text: "Heavy Substrate Shift" }
         };
 
-        substrateSelect.addEventListener('change', updateEngine);
-        pSelect.addEventListener('change', () => {
-            if(pSelect.value !== "") {
-                let p = pantoneLibrary[pSelect.value];
-                setCmykValues(p.c, p.m, p.y, p.k);
-                updateEngine(p);
-            }
-        });
 
         // Main Engine
         function updateEngine(forcedPantone = null) {
@@ -334,7 +342,7 @@
             texLeft.style.opacity = sub.noise;
             texRight1.style.opacity = sub.noise; texRight2.style.opacity = sub.noise; texRight3.style.opacity = sub.noise;
 
-            if(!forcedPantone) pSelect.value = ""; 
+            if(!forcedPantone) searchInput.value = "";
 
             let matches = [];
             pantoneLibrary.forEach(pms => {
@@ -412,10 +420,44 @@
             };
         });
 
-        // Initialize UI with the new offline massive library
-        let dropHtml = '<option value="">-- Type or Scroll to Select Pantone --</option>';
-        pantoneLibrary.sort((a,b) => a.name.localeCompare(b.name)).forEach((p, i) => { dropHtml += `<option value="${i}">PANTONE ${p.name}</option>`; });
-        pSelect.innerHTML = dropHtml;
+        // Initialize UI with the new searchable dropdown
+        const searchInput = document.getElementById('pantone-search');
+        const dropdownList = document.getElementById('pantone-list');
+
+        function renderDropdown(filterText = "") {
+            dropdownList.innerHTML = "";
+            let filtered = pantoneLibrary.filter(p => p.name.toLowerCase().includes(filterText.toLowerCase()));
+            
+            // Limit to 50 so it doesn't freeze the browser
+            filtered.slice(0, 50).forEach(p => {
+                let item = document.createElement('div');
+                item.className = 'dropdown-item';
+                item.innerHTML = `<span>PANTONE ${p.name}</span> <span class="color-dot" style="background-color: ${p.hex}"></span>`;
+                item.addEventListener('click', () => {
+                    searchInput.value = `PANTONE ${p.name}`;
+                    dropdownList.classList.remove('active');
+                    setCmykValues(p.c, p.m, p.y, p.k);
+                    updateEngine(p);
+                });
+                dropdownList.appendChild(item);
+            });
+        }
+
+        searchInput.addEventListener('focus', () => {
+            renderDropdown(searchInput.value.replace('PANTONE ', ''));
+            dropdownList.classList.add('active');
+        });
+        
+        searchInput.addEventListener('input', (e) => {
+            renderDropdown(e.target.value.replace('PANTONE ', ''));
+            dropdownList.classList.add('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if(!searchInput.contains(e.target) && !dropdownList.contains(e.target)) {
+                dropdownList.classList.remove('active');
+            }
+        });
         
         setCmykValues(0, 100, 81, 10);
         updateEngine();
