@@ -74,10 +74,10 @@
         }
       },{
         "@type": "Question",
-        "name": "Why do dielines need to be spot colors?",
+        "name": "How do I make a dieline in Illustrator?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Dielines must be set up as a custom Spot Color (not CMYK) and set to 'Overprint.' This ensures the dieline graphic does not physically print on the final artwork, but rather acts as an invisible guide for the mechanical die-cutting machine."
+          "text": "Create a dedicated top layer, draw your cut lines (solid) and fold lines (dashed). Assign them a custom Spot Color and enable 'Overprint Stroke' in the Attributes panel."
         }
       },{
         "@type": "Question",
@@ -151,6 +151,11 @@
         /* Featured Snippet Box */
         .featured-snippet { background: rgba(212, 255, 0, 0.05); border-left: 4px solid var(--accent); padding: 1.5rem; margin-bottom: 3rem; border-radius: 0 8px 8px 0; }
         .featured-snippet p { margin: 0; font-size: 1.2rem; color: var(--text); font-weight: 500; }
+
+        /* Article Images / Screenshots */
+        .article-img-container { margin: 2.5rem 0; text-align: center; }
+        .article-img-container img { width: 100%; max-width: 800px; border-radius: 8px; border: 1px solid var(--card-border); box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: block; margin: 0 auto; }
+        .image-caption { text-align: center; color: var(--sub-text); font-size: 0.95rem; font-style: italic; margin-top: 1rem; margin-bottom: 2.5rem; }
 
         /* Comparison Table */
         .table-wrapper { overflow-x: auto; margin: 2.5rem 0; border-radius: 8px; border: 1px solid var(--card-border); }
@@ -246,38 +251,40 @@
 
             <p>Creating a dieline manually in Adobe Illustrator can be incredibly time-consuming and confusing, especially for beginners. Trying to calculate complex structural geometry, exact glue flap angles, and paperboard thickness compensation often leads to catastrophic—and extremely expensive—printing errors on the press.</p>
             
-            <p>In this definitive guide, you will learn the exact manual method professional prepress engineers use to build structural templates in Adobe Illustrator. <strong>But more importantly, we will show you a faster, automated way to generate print-ready dielines instantly, without drawing a single vector line yourself.</strong></p>
+            <p>In this guide, you will learn the exact step-by-step method professional prepress engineers use to build structural templates in Adobe Illustrator. But more importantly, we will show you how to skip the math entirely. Instead of creating dielines manually, you can also use our <a href="../dieline-generator.html">free dieline generator</a> to build print-ready templates instantly.</p>
 
             <h2>What is a Dieline in Packaging Design?</h2>
             <p>A dieline is a flat, 2-dimensional vector template that acts as a structural blueprint for a 3-dimensional package. It tells the heavy machinery at a commercial printing facility exactly where to cut, crease, perforate, and glue the printed paperboard so it can be assembled into a functional box.</p>
             
-            <p>Dielines are absolutely critical in modern commercial printing. Without a mathematically precise template, your artwork will misalign, the box flaps will crash into each other when folded, and the final product will be rejected by the retail store. Real-world use cases for strict dieline management include:</p>
-            <ul>
-                <li>Corrugated shipper boxes and mailers.</li>
-                <li>Straight Tuck End (STE) and Reverse Tuck End (RTE) retail product boxes.</li>
-                <li>Gable top food and beverage containers.</li>
-                <li>Custom die-cut adhesive labels and shrink sleeves.</li>
-            </ul>
+            <p>Dielines are absolutely critical in modern commercial printing. Without a mathematically precise template, your artwork will misalign, the box flaps will crash into each other when folded, and the final product will be rejected by the retail store.</p>
+
+            <div class="article-img-container">
+                <img src="../images/Flat%20Dieline%20vs%203D%20Box.jpg" alt="Flat 2D Dieline Template vs 3D Folded Box">
+                <div class="image-caption">A flat 2D dieline template compared to the final folded 3D packaging structure.</div>
+            </div>
 
             <h2>The Challenges of Creating Dielines Manually</h2>
-            <p>While drawing a custom structural template from scratch gives you total control, it comes with massive risks. Manual drafting is incredibly time-consuming, highly technical, and completely unforgiving. A designer who forgets to calculate the physical thickness of a 24pt paperboard will accidentally design a box that physically cannot close, as the inner dust flaps will crash into the outer panels.</p>
-
-            <p>Because of this high margin for error, most packaging designers now rely on automated software to build their foundational templates.</p>
+            <p>While drawing a custom structural template from scratch gives you total control, it comes with massive risks. If you are not a trained structural engineer, manual drafting is:</p>
+            <ul>
+                <li><strong>Extremely Time-Consuming:</strong> Mapping out perfectly symmetrical panels takes hours of meticulous vector drafting.</li>
+                <li><strong>Requires Technical Precision:</strong> A beginner designer who forgets to calculate the physical thickness of a 24pt paperboard will accidentally design a box that physically cannot close, as the inner dust flaps will crash into the outer panels.</li>
+                <li><strong>Easy to Make Costly Mistakes:</strong> If your bleed isn't set perfectly against your cut line, the printer will reject the file, causing massive production delays.</li>
+            </ul>
 
             <div class="tool-cta-box">
-                <p class="tool-cta-title">Skip the Math. Generate Dielines Instantly.</p>
+                <p class="tool-cta-title">Use a Dieline Generator (The Faster Method)</p>
                 <p class="tool-cta-desc">Instead of creating complex dielines from scratch and worrying about paper thickness clearances, you can generate a mathematically perfect template instantly. Enter your exact Width, Height, and Depth into our free tool and download a print-ready SVG template in seconds.</p>
                 <a href="../dieline-generator.html" class="tool-cta-btn">Launch Free Dieline Generator ↗</a>
             </div>
 
-            <h2>Manual Method: How to Create a Dieline in Adobe Illustrator</h2>
-            <p>If your project requires a highly bespoke, custom-shaped window or an origami-style folding mechanism, you must build it manually. It is imperative that you follow strict prepress industry standards. Failure to set up your Adobe Illustrator file correctly will result in your dieline physically printing onto the final artwork.</p>
+            <h2>How to Create a Dieline in Illustrator (Manual Method)</h2>
+            <p>If your project requires a highly bespoke, custom-shaped window or an origami-style folding mechanism, you must build it manually. It is imperative that you follow strict prepress industry standards.</p>
 
             <h3>Step 1: Set Up the Document Correctly</h3>
             <p>Begin by creating a new document in Adobe Illustrator. Ensure your Color Mode is strictly set to <strong>CMYK</strong>. You must also define your <strong>Bleed</strong> settings in the document setup. The global industry standard for packaging bleed is 3mm (or 0.125 inches) on all four sides.</p>
 
             <h3>Step 2: Draw the Layout Structure</h3>
-            <p>Using the Rectangle Tool (M), begin drawing the main panels of your box. You must account for the Front, Back, Top, Bottom, and the two Side panels. This requires extreme mathematical precision—if the Front panel is 100mm wide, the Top panel must also be exactly 100mm wide so the box closes perfectly. You must also manually draw the dust flaps and the side glue flap (usually 15mm - 20mm wide).</p>
+            <p>Using the Rectangle Tool (M), begin drawing the main panels of your box. You must account for the Front, Back, Top, Bottom, and the two Side panels. This requires extreme mathematical precision—if the Front panel is 100mm wide, the Top panel must also be exactly 100mm wide so the box closes perfectly. You must also manually draw the dust flaps and the side glue flap.</p>
 
             <h3>Step 3: Apply Technical Line Styles</h3>
             <p>To communicate with the mechanical die-cutting machine, you must differentiate your lines:</p>
@@ -294,16 +301,18 @@
                 <li>Select all your dieline paths, open the Attributes Panel (Window > Attributes), and check <strong>Overprint Stroke</strong>. This renders the dieline invisible to the ink rollers, ensuring it only functions as a mechanical guide.</li>
             </ol>
 
-            <h3>Step 5: Export for Print</h3>
-            <p>Ensure your dieline is on its own dedicated, locked layer at the very top of the layer stack. When exporting, save the file as a High-Quality Print PDF, ensuring that "Use Document Bleed Settings" is checked.</p>
+            <div class="article-img-container">
+                <img src="../images/Illustrator%20Overprint%20Checkbox.jpg" alt="Adobe Illustrator Overprint Stroke Checkbox">
+                <div class="image-caption">Checking "Overprint Stroke" is the most important step in creating a print-ready dieline.</div>
+            </div>
 
-            <h2>Common Dieline Mistakes to Avoid</h2>
-            <p>Commercial printers reject hundreds of designer files a week due to poorly constructed cutter guides. Ensure your file avoids these common prepress disasters:</p>
-
+            <h2>Pro Tips from a Packaging Designer</h2>
+            <p>As a professional prepress executive, I reject dozens of files a week because designers fail to follow standard layer hygiene. To ensure your files are loved by commercial printers, follow these strict rules:</p>
             <ul>
-                <li><strong>Forgetting the Bleed:</strong> If you do not extend your background colors and graphics at least 3mm past the solid cut line, mechanical shifting on the die-cutting press will leave ugly white edges on your final box.</li>
-                <li><strong>Printing Over the Glue Flap:</strong> The glue flap must remain completely unprinted (bare paperboard). If you print ink or a UV varnish over the glue flap, the liquid adhesive will fail, and the box will literally fall apart.</li>
-                <li><strong>Using Raster Graphics for Dielines:</strong> A dieline must be a 100% pure vector path. You cannot draw a dieline in Adobe Photoshop or export it as a flat JPEG. The mechanical laser that cuts the physical wood-and-steel die board relies entirely on mathematical vector coordinates.</li>
+                <li><strong>Always keep your dieline on a separate layer:</strong> Lock the dieline layer at the very top of your document. Never merge it with your artwork graphics.</li>
+                <li><strong>Use 100% Magenta Spot Color:</strong> Make your dieline stroke a visually aggressive color so it stands out against your artwork, making it easy for the plate-maker to identify.</li>
+                <li><strong>Label Folds Clearly:</strong> If your packaging has complex perforations or tear-away strips, use a text callout outside the bleed area to explain the mechanical action to the printer.</li>
+                <li><strong>Watch your TAC limits:</strong> Ensure the rich black backgrounds touching your dieline don't exceed ink density limits. Use a <a href="../tac-calculator.html">TAC Ink Calculator</a> to be safe.</li>
             </ul>
 
             <h2>Frequently Asked Questions</h2>
@@ -314,14 +323,16 @@
             </div>
             
             <div class="faq-box">
-                <h4>Can I create a dieline without Illustrator?</h4>
-                <p>Yes! Instead of drawing vector paths manually in software like Adobe Illustrator or CorelDraw, you can use automated online tools like a Dieline Generator to instantly create mathematically perfect, print-ready SVG templates.</p>
+                <h4>What software is used for dielines?</h4>
+                <p>Adobe Illustrator is the industry standard for creating dielines because it produces the mathematically precise vector paths (SVG, EPS, AI) required by laser die-cutting machines. Photoshop cannot be used.</p>
             </div>
             
             <div class="faq-box">
-                <h4>How much bleed should I add to a dieline?</h4>
-                <p>The global industry standard for packaging bleed is 3mm (or 0.125 inches) extending past all exterior cut lines. This ensures that if the mechanical cutting blade shifts slightly during production, there are no white, unprinted edges on your final box.</p>
+                <h4>What is bleed in packaging?</h4>
+                <p>Bleed is the artwork that extends past the physical cut line of the dieline. You must include 3mm of bleed so that if the mechanical cutting blade shifts slightly, there are no unprinted white edges on your box.</p>
             </div>
+
+            <p style="margin-top: 3rem; font-size: 1.2rem; font-weight: bold; text-align: center;">Ready to skip the manual work? <a href="../dieline-generator.html">Try our free dieline generator</a> to save hours of design time and avoid costly production errors.</p>
 
             <div class="authority-box">
                 <h4>About the Author</h4>
@@ -338,14 +349,8 @@
                 </ul>
             </div>
 
-            <div class="blog-hub-cta">
-                <h3>Want More Technical Prepress Insights?</h3>
-                <p>We publish deep-dive, expert-level articles on packaging compliance, print production workflows, and design automation every single Tuesday and Friday.</p>
-                <a href="../blog.html" class="blog-hub-btn">Explore The Knowledge Hub</a>
-            </div>
-
             <div style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border);">
-                <h3 style="font-family: var(--font-display); text-transform: uppercase; font-size: 1.8rem; margin-bottom: 1rem;">More <span style="color: var(--accent);">Technical Insights</span></h3>
+                <h3 style="font-family: var(--font-display); text-transform: uppercase; font-size: 1.8rem; margin-bottom: 1rem;">Explore More <span style="color: var(--accent);">Print Tools</span></h3>
                 
                 <div class="related-grid" id="dynamic-related-grid">
                     <p style="color: var(--sub-text);">Loading latest insights...</p>
@@ -374,7 +379,6 @@
 
         async function loadLatestArticles() {
             try {
-                // Fetch the 4 latest articles
                 const q = query(collection(db, "blogs"), orderBy("createdAt", "desc"), limit(4));
                 const querySnapshot = await getDocs(q);
                 
@@ -383,8 +387,6 @@
 
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
-                    
-                    // Skip if the title is similar to the current page to avoid redundancy
                     if (data.title.toLowerCase().includes("dieline") || data.title.toLowerCase().includes("illustrator")) return;
                     
                     if (count < 3) {
