@@ -152,11 +152,6 @@
         .featured-snippet { background: rgba(212, 255, 0, 0.05); border-left: 4px solid var(--accent); padding: 1.5rem; margin-bottom: 3rem; border-radius: 0 8px 8px 0; }
         .featured-snippet p { margin: 0; font-size: 1.2rem; color: var(--text); font-weight: 500; }
 
-        /* Article Images / Screenshots */
-        .article-image { margin: 2.5rem 0; text-align: center; }
-        .article-image img { width: 100%; max-width: 800px; border-radius: 8px; border: 1px solid var(--card-border); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .article-image figcaption { color: var(--sub-text); font-size: 0.95rem; margin-top: 0.8rem; font-style: italic; }
-
         /* Comparison Table */
         .table-wrapper { overflow-x: auto; margin: 2.5rem 0; border-radius: 8px; border: 1px solid var(--card-border); }
         .comparison-table { width: 100%; border-collapse: collapse; text-align: left; background: var(--card-bg); }
@@ -246,7 +241,7 @@
         <div class="article-content">
 
             <div class="featured-snippet">
-                <p><strong>What is a dieline?</strong> A packaging dieline is a flat, 2D vector template that outlines the physical structure of a box. It dictates exactly where a commercial printer needs to cut, fold, perforate, and glue the paperboard. To create a dieline, designers must use distinct vector paths (solid lines for cuts, dashed lines for folds) and assign them to a dedicated, overprinting Spot Color in Adobe Illustrator.</p>
+                <p><strong>How to create a dieline:</strong> To create a packaging dieline in Adobe Illustrator, start by creating a dedicated top layer. Draw your outer box dimensions using a solid colored line (for the cut blade), and draw your internal dimensions using dashed lines (for the folds/creases). You must convert your stroke color to a custom Spot Color and enable "Overprint Stroke" so the template does not accidentally print on the final physical product.</p>
             </div>
 
             <p>Creating a dieline manually in Adobe Illustrator can be incredibly time-consuming and confusing, especially for beginners. Trying to calculate complex structural geometry, exact glue flap angles, and paperboard thickness compensation often leads to catastrophic—and extremely expensive—printing errors on the press.</p>
@@ -281,11 +276,6 @@
             <h3>Step 1: Set Up the Document Correctly</h3>
             <p>Begin by creating a new document in Adobe Illustrator. Ensure your Color Mode is strictly set to <strong>CMYK</strong>. You must also define your <strong>Bleed</strong> settings in the document setup. The global industry standard for packaging bleed is 3mm (or 0.125 inches) on all four sides.</p>
 
-            <figure class="article-image">
-                <img src="../images/illustrator-document-setup.jpg" alt="Setting up CMYK and Bleed in Adobe Illustrator" loading="lazy" style="background: #222; display: block; width: 100%; height: 350px; object-fit: cover;">
-                <figcaption>Always ensure your document color mode is set to CMYK and your Bleed is set to 3mm.</figcaption>
-            </figure>
-
             <h3>Step 2: Draw the Layout Structure</h3>
             <p>Using the Rectangle Tool (M), begin drawing the main panels of your box. You must account for the Front, Back, Top, Bottom, and the two Side panels. This requires extreme mathematical precision—if the Front panel is 100mm wide, the Top panel must also be exactly 100mm wide so the box closes perfectly. You must also manually draw the dust flaps and the side glue flap (usually 15mm - 20mm wide).</p>
 
@@ -304,11 +294,6 @@
                 <li>Select all your dieline paths, open the Attributes Panel (Window > Attributes), and check <strong>Overprint Stroke</strong>. This renders the dieline invisible to the ink rollers, ensuring it only functions as a mechanical guide.</li>
             </ol>
 
-            <figure class="article-image">
-                <img src="../images/illustrator-overprint-stroke.jpg" alt="Setting Overprint Stroke in the Attributes Panel" loading="lazy" style="background: #222; display: block; width: 100%; height: 350px; object-fit: cover;">
-                <figcaption>Checking "Overprint Stroke" is the most important step in creating a print-ready dieline.</figcaption>
-            </figure>
-
             <h3>Step 5: Export for Print</h3>
             <p>Ensure your dieline is on its own dedicated, locked layer at the very top of the layer stack. When exporting, save the file as a High-Quality Print PDF, ensuring that "Use Document Bleed Settings" is checked.</p>
 
@@ -317,7 +302,7 @@
 
             <ul>
                 <li><strong>Forgetting the Bleed:</strong> If you do not extend your background colors and graphics at least 3mm past the solid cut line, mechanical shifting on the die-cutting press will leave ugly white edges on your final box.</li>
-                <li><strong>Printing Over the Glue Flap:</strong> To assemble a box, the manufacturer must apply liquid adhesive to a specific flap. If you run your beautiful, glossy graphics or a UV varnish over that glue flap, the adhesive will fail to stick to the paper fibers, and the box will literally fall apart.</li>
+                <li><strong>Printing Over the Glue Flap:</strong> The glue flap must remain completely unprinted (bare paperboard). If you print ink or a UV varnish over the glue flap, the liquid adhesive will fail, and the box will literally fall apart.</li>
                 <li><strong>Using Raster Graphics for Dielines:</strong> A dieline must be a 100% pure vector path. You cannot draw a dieline in Adobe Photoshop or export it as a flat JPEG. The mechanical laser that cuts the physical wood-and-steel die board relies entirely on mathematical vector coordinates.</li>
             </ul>
 
