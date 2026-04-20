@@ -6,8 +6,8 @@
     <meta name="theme-color" content="#050505" id="theme-color-meta">
     
     <title>Nutrition Label Compliance: The Ultimate FDA & EU Design Guide | Mahad Ikram</title>
-    <meta name="description" content="Design FDA and EU-compliant Nutrition panels for packaging. Learn mandatory nutrient orders, typography rules, and see real examples to avoid FDA recalls.">
-    <meta name="keywords" content="nutrition label compliance, FDA packaging design, EU food label rules, nutrition facts typography, FMCG packaging regulations, prepress label design, nutrition label format">
+    <meta name="description" content="Design FDA and EU-compliant Nutrition panels for packaging. Learn mandatory nutrient orders, typography rules, and see real %DV calculation examples to avoid FDA recalls.">
+    <meta name="keywords" content="nutrition label compliance, FDA packaging design, EU food label rules, nutrition facts typography, FMCG packaging regulations, prepress label design, nutrition label format, calculate daily value">
     
     <meta property="og:title" content="Nutrition Label Compliance: The Ultimate FDA & EU Design Guide">
     <meta property="og:description" content="Master the strict typography, layout, and prepress rules for FDA and EU-compliant Nutrition panels.">
@@ -22,7 +22,7 @@
       "@context": "https://schema.org",
       "@type": "BlogPosting",
       "headline": "Nutrition Label Compliance: The Ultimate FDA & EU Packaging Guide",
-      "description": "Design FDA and EU-compliant Nutrition panels for packaging. Learn mandatory nutrient orders, typography rules, and see real examples to avoid FDA recalls.",
+      "description": "Design FDA and EU-compliant Nutrition panels for packaging. Learn mandatory nutrient orders, typography rules, and see real %DV calculation examples to avoid FDA recalls.",
       "author": {
         "@type": "Person",
         "name": "Mahad Ikram",
@@ -152,9 +152,16 @@
         .featured-snippet { background: rgba(212, 255, 0, 0.05); border-left: 4px solid var(--accent); padding: 1.5rem; margin-bottom: 3rem; border-radius: 0 8px 8px 0; }
         .featured-snippet p { margin: 0; font-size: 1.2rem; color: var(--text); font-weight: 500; }
 
-        /* Example Code Block Style */
-        .example-block { background: var(--card-bg); padding: 1.5rem 1.5rem 1.5rem 3rem; border-left: 4px solid var(--accent); border-radius: 4px; margin-top: 1rem; margin-bottom: 2rem; }
-        .example-block li { margin-bottom: 0.5rem; color: var(--text); }
+        /* Highlight Block */
+        .highlight-block { background: var(--card-bg); padding: 1.5rem 2rem; border-left: 4px solid #ff4444; border-radius: 4px; margin-top: 1rem; margin-bottom: 2rem; }
+        .highlight-block p { margin: 0; color: var(--text); }
+
+        /* Label Replica CSS */
+        .label-replica { background: #fff; color: #000; padding: 20px; border: 2px solid #000; max-width: 350px; margin: 2rem auto; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+        .label-replica h4 { font-size: 2rem; font-weight: 900; margin: 0 0 5px 0; border-bottom: 10px solid #000; padding-bottom: 5px; text-transform: none; color: #000; }
+        .label-row { display: flex; justify-content: space-between; border-bottom: 1px solid #000; padding: 4px 0; font-size: 1rem; }
+        .label-row.thick { border-bottom: 4px solid #000; }
+        .label-indent { padding-left: 1.5rem; }
 
         /* Article Images / Screenshots */
         .article-img-container { margin: 2.5rem 0; text-align: center; }
@@ -241,7 +248,7 @@
     </nav>
 
     <main>
-        <div class="article-meta">Packaging Compliance • 15 Min Read</div>
+        <div class="article-meta">Packaging Compliance • 16 Min Read</div>
         <h1>Nutrition Label Compliance: The Ultimate FDA & EU Design Guide</h1>
         
         <div class="article-content">
@@ -254,8 +261,9 @@
             
             <p>A single typo, a font size that is 1pt too small, or a poorly formatted allergen warning can trigger a mandatory FDA product recall. This pulls your product off thousands of retail shelves, destroys brand trust, and costs millions of dollars in damages. In this comprehensive guide, we will break down the exact typographic rules, international regulatory differences, and step-by-step prepress execution requirements you must follow to guarantee 100% legal compliance.</p>
 
-            <h2>Why Nutrition Label Compliance Matters</h2>
-            <p>A nutrition label is a legally binding document between the manufacturer and the consumer. Non-compliant labels can lead to immediate product recalls, severe legal penalties, and permanent rejection by major retailers like Walmart, Tesco, and Carrefour. Adhering to strict FDA (US) and EU (FIC) packaging regulations ensures your product can be legally sold and safely consumed in international markets without the risk of regulatory lawsuits.</p>
+            <div class="highlight-block">
+                <p><strong>Did you know?</strong> In recent years, over 40% of FDA warning letters issued to food manufacturers were directly related to misbranded or non-compliant nutrition labeling and allergen declarations. Compliance is not optional; it is the absolute foundation of packaging design.</p>
+            </div>
 
             <div class="tool-cta-box">
                 <p class="tool-cta-title">Create Compliant Nutrition Labels Instantly</p>
@@ -278,18 +286,44 @@
             </ol>
             <p>In the EU, these values must be displayed strictly per 100g or 100ml, and optionally per serving.</p>
 
-            <h3>Real-World Example (EU 100g Structure)</h3>
-            <p>Below is a simplified text breakdown of how a compliant European nutrition label must be structured mathematically:</p>
-            <ul class="example-block">
-                <li><strong>Typical Values per:</strong> 100g</li>
-                <li><strong>Energy:</strong> 1046 kJ / 250 kcal</li>
-                <li><strong>Fat:</strong> 10g</li>
-                <li><em>of which saturates:</em> 3g</li>
-                <li><strong>Carbohydrates:</strong> 30g</li>
-                <li><em>of which sugars:</em> 15g</li>
-                <li><strong>Protein:</strong> 5g</li>
-                <li><strong>Salt:</strong> 0.8g</li>
-            </ul>
+            <h3>Example of a Compliant EU Nutrition Table</h3>
+            <p>Below is a simplified, compliant structural breakdown of an EU table. Notice the strict hierarchy and indentations for sub-ingredients (like saturates and sugars):</p>
+            
+            <div class="label-replica">
+                <h4>Nutrition</h4>
+                <div class="label-row thick">
+                    <strong>Typical Values</strong>
+                    <strong>Per 100g</strong>
+                </div>
+                <div class="label-row">
+                    <span>Energy</span>
+                    <span>1046 kJ / 250 kcal</span>
+                </div>
+                <div class="label-row">
+                    <span>Fat</span>
+                    <span>10g</span>
+                </div>
+                <div class="label-row label-indent">
+                    <span>of which saturates</span>
+                    <span>3g</span>
+                </div>
+                <div class="label-row">
+                    <span>Carbohydrate</span>
+                    <span>30g</span>
+                </div>
+                <div class="label-row label-indent">
+                    <span>of which sugars</span>
+                    <span>15g</span>
+                </div>
+                <div class="label-row">
+                    <span>Protein</span>
+                    <span>5g</span>
+                </div>
+                <div class="label-row">
+                    <span>Salt</span>
+                    <span>0.8g</span>
+                </div>
+            </div>
 
             <h3>The FDA (US) Nutrition Label Rules:</h3>
             <ol>
@@ -303,34 +337,38 @@
             </ol>
 
             <div class="article-img-container">
-                <img src="https://images.unsplash.com/photo-1584263347416-85a696b4eda7?q=80&w=800&auto=format&fit=crop" alt="Breakdown of an FDA Compliant Nutrition Label">
-                <div class="image-caption">The strict anatomical grid and nutrient order of the modern FDA Nutrition Facts panel.</div>
+                <img src="images/nutrition-label-anatomy.jpg" alt="Breakdown of an FDA Compliant Nutrition Label" onerror="this.style.display='none'">
+                <div class="image-caption" id="anatomy-caption" style="display: none;">The strict anatomical grid and nutrient order of the modern FDA Nutrition Facts panel.</div>
             </div>
+
+            <script>
+                document.querySelector('img[src="images/nutrition-label-anatomy.jpg"]').onload = function() {
+                    document.getElementById('anatomy-caption').style.display = 'block';
+                }
+            </script>
 
             <h2>How to Create a Compliant Nutrition Label (Step-by-Step)</h2>
             <p>If you are building your nutrition label from scratch in Adobe Illustrator, you must execute the process flawlessly to avoid prepress errors.</p>
             <ol>
                 <li><strong>Calculate Nutritional Values:</strong> Determine your exact nutritional profile per 100g/100ml or per standard serving size.</li>
                 <li><strong>Arrange the Nutrient Order:</strong> Follow the strict tabular order mandated by either the FDA or the EU (as listed above).</li>
+                <li><strong>Calculate the % Daily Value (DV):</strong> You cannot just guess these numbers. You must calculate them based on FDA standards. <br>
+                <em>Example: The FDA daily limit for Saturated Fat is 20g. If your serving contains 5g of Saturated Fat, your calculation is: (5g ÷ 20g) × 100 = <strong>25% DV</strong>.</em></li>
                 <li><strong>Apply Proper Typography:</strong> Utilize a clean sans-serif font (like Helvetica) and adhere to the strict minimum font sizes (usually 8pt for standard text, 16pt+ for Calories).</li>
                 <li><strong>Format the Grid:</strong> Apply alternating 0.5pt, 1pt, and 3pt stroke weights to visually separate the core macros from the sub-ingredients.</li>
-                <li><strong>Add Daily Values (%):</strong> Include the correct daily percentage values, aligned strictly to the right side of the tabular grid.</li>
                 <li><strong>Prepress Color Setup:</strong> Set all label typography to 100% K (Black) or a single dark Pantone Spot Color.</li>
             </ol>
 
             <div class="article-img-container">
-                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop" alt="Typography constraints for packaging nutrition labels">
-                <div class="image-caption">Example of specific minimum font sizes and stroke weights required by law.</div>
+                <img src="images/label-typography-rules.jpg" alt="Typography constraints for packaging nutrition labels" onerror="this.style.display='none'">
+                <div class="image-caption" id="typo-caption" style="display: none;">Example of specific minimum font sizes and stroke weights required by law.</div>
             </div>
 
-            <h2>Strict Typography & Formatting Rules</h2>
-            <p>You cannot use your brand's custom script font for the nutrition panel. The law mandates that the label must be <strong>highly legible</strong> and easily readable by the average consumer.</p>
-            
-            <ul>
-                <li><strong>Approved Fonts:</strong> You must use a single, clean, highly legible Sans-Serif font. <strong>Helvetica</strong> and <strong>Arial</strong> are the global industry standards. Decorative or condensed fonts are strictly prohibited.</li>
-                <li><strong>Minimum Font Sizes:</strong> Standard text (Nutrients) requires a minimum 8pt font. The footnote requires a 6pt minimum. The mandatory "Calories" declaration must be at least 16pt (or larger depending on total package size).</li>
-                <li><strong>Stroke Weights:</strong> The horizontal lines separating the nutrients must vary in thickness (0.5pt, 1pt, 3pt) to guide the reader's eye and separate primary macro-categories from sub-ingredients.</li>
-            </ul>
+            <script>
+                document.querySelector('img[src="images/label-typography-rules.jpg"]').onload = function() {
+                    document.getElementById('typo-caption').style.display = 'block';
+                }
+            </script>
 
             <h2>Prepress Color & Contrast Requirements</h2>
             <p>One of the most common mistakes a junior packaging designer makes is formatting the typography of a nutrition label in <strong>Rich Black (CMYK)</strong>. This is a catastrophic prepress error.</p>
@@ -363,12 +401,12 @@
             
             <div class="faq-box">
                 <h4>What happens if a label is not compliant?</h4>
-                <p>Products may face immediate rejection by major retailers, massive government fines, and mandatory public recalls, which can cost brands millions of dollars and permanently damage consumer trust.</p>
+                <p>Products may face immediate rejection by major retailers, massive government fines, and mandatory public FDA recalls, which can cost brands millions of dollars and permanently damage consumer trust.</p>
             </div>
 
             <div class="authority-box">
                 <h4>About the Author</h4>
-                <p><strong>Mahad Ikram</strong> is a Communication Designer with years of dedicated experience in FMCG packaging design, dieline engineering, and prepress workflows. Having structured packaging and compliance labels for international food and beverage brands, he understands the exact regulatory typography and layout structures required for flawless, print-ready production.</p>
+                <p><strong>Mahad Ikram</strong> is a Communication Designer with years of dedicated experience in FMCG packaging design, dieline engineering, and print production workflows. Having structured complex packaging and compliance labels for international food and beverage brands, he understands the exact regulatory typography and layout structures required for flawless, print-ready production.</p>
             </div>
 
             <div class="internal-links-box">
