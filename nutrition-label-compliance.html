@@ -159,8 +159,8 @@
         /* Asset Download Block */
         .asset-block { background: rgba(212, 255, 0, 0.1); padding: 1.5rem 2rem; border: 2px solid var(--accent); border-radius: 8px; margin: 2rem 0; text-align: center; }
         .asset-block p { margin: 0; color: var(--text); font-size: 1.15rem; font-weight: bold; }
-        .asset-block a { display: inline-block; margin-top: 10px; background: var(--accent); color: #000; padding: 10px 20px; border-radius: 4px; text-decoration: none; text-transform: uppercase; font-weight: 900; letter-spacing: 1px; transition: transform 0.2s; border-bottom: none; }
-        .asset-block a:hover { transform: translateY(-3px); }
+        .asset-block a { display: inline-block; margin-top: 10px; background: var(--accent); color: #000 !important; padding: 10px 20px; border-radius: 4px; text-decoration: none; text-transform: uppercase; font-weight: 900; letter-spacing: 1px; transition: transform 0.2s; border-bottom: none; position: relative; z-index: 10; }
+        .asset-block a:hover { transform: translateY(-3px); color: #000 !important; }
 
         /* Label Replica CSS */
         .label-replica { background: #fff; color: #000; padding: 20px; border: 2px solid #000; max-width: 350px; margin: 2rem auto; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
@@ -261,7 +261,7 @@
 
             <div class="asset-block">
                 <p>🎁 Free Prepress Resource</p>
-                <a href="#">Download the 25-Point FDA Compliance Checklist (PDF)</a>
+                <a href="images/fda-checklist.pdf" target="_blank">Download the 25-Point FDA Compliance Checklist (PDF)</a>
             </div>
 
             <div class="featured-snippet">
@@ -396,7 +396,7 @@
             <ul>
                 <li><strong>Incorrect Nutrient Order:</strong> Placing Protein above Carbohydrates, or mixing up the strict tabular order required by the FDA or EU.</li>
                 <li><strong>Missing Allergen Information:</strong> Failing to clearly bold the word "Contains:" followed by major allergens (Milk, Wheat, Soy, Peanuts) directly below the ingredients list.</li>
-                <li><strong>Wrong Font Size or Spacing:</strong> Scaling the entire vector label proportionally to fit a small space, which accidentally shrinks the 8pt text down to an illegal 5pt text.</li>
+                <li><strong>Wrong Font Size or Spacing:</strong> Scaling the entire vector label proportionally to fit a small <a href="how-to-create-dieline.html">packaging dieline</a>, which accidentally shrinks the 8pt text down to an illegal 5pt text.</li>
                 <li><strong>Not Following Regional Regulations:</strong> Using an EU format on a product bound for US shelves (or vice versa). They are not interchangeable.</li>
                 <li><strong>Incorrect % Daily Value Calculations:</strong> Failing to update the daily values when adjusting your serving size.</li>
             </ul>
