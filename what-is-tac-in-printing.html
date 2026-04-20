@@ -148,9 +148,11 @@
         .article-content a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--accent); font-weight: bold; transition: color 0.3s; }
         .article-content a:hover { color: var(--accent); }
 
-        /* Featured Snippet Box */
+        /* Featured Snippet Box / Quick Summary */
         .featured-snippet { background: rgba(212, 255, 0, 0.05); border-left: 4px solid var(--accent); padding: 1.5rem; margin-bottom: 3rem; border-radius: 0 8px 8px 0; }
-        .featured-snippet p { margin: 0; font-size: 1.2rem; color: var(--text); font-weight: 500; }
+        .featured-snippet h3 { margin-top: 0; font-size: 1.3rem; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; }
+        .featured-snippet p { margin: 0; font-size: 1.15rem; color: var(--text); font-weight: 500; }
+        .featured-snippet ul { margin-top: 10px; margin-bottom: 0; }
 
         /* Highlight Block & Pro Tip */
         .highlight-block { background: var(--card-bg); padding: 1.5rem 2rem; border-left: 4px solid #ff4444; border-radius: 4px; margin-top: 1rem; margin-bottom: 2rem; }
@@ -265,13 +267,19 @@
         
         <div class="article-content">
 
+            <div class="featured-snippet">
+                <h3>Quick Summary (TL;DR)</h3>
+                <ul>
+                    <li><strong>TAC Definition:</strong> Total Area Coverage (or Total Ink Coverage). It is the combined percentage of CMYK ink deposited on a single spot.</li>
+                    <li><strong>Max Theoretical Limit:</strong> 400% (100C + 100M + 100Y + 100K). <em>Never use this.</em></li>
+                    <li><strong>Safe Industry Limits:</strong> Uncoated paper (~240%), Coated glossy paper (~300% to 320%).</li>
+                    <li><strong>The Problem:</strong> High TAC causes ink to pool, smear (set-off), and physically ruin the printing press run.</li>
+                </ul>
+            </div>
+
             <div class="asset-block">
                 <p>🎁 Free Prepress Resource</p>
                 <a href="images/tac-limits-cheat-sheet.pdf" target="_blank">Download the Paper TAC Limits Cheat Sheet (PDF)</a>
-            </div>
-
-            <div class="featured-snippet">
-                <p><strong>What is TAC in printing?</strong> TAC stands for Total Area Coverage (also known as Total Ink Coverage). In offset printing, it is the mathematical sum of the Cyan, Magenta, Yellow, and Black (CMYK) ink percentages applied to a single spot on the paper. Exceeding the paper's maximum TAC limit will cause the ink to pool, smear, and fail to dry.</p>
             </div>
 
             <p>Imagine printing a beautiful, pitch-black night sky for a high-end luxury packaging box. You send the file to the press, but when you receive the final product, the black background looks muddy, the paper feels warped, and the ink from the front of one box has smeared onto the back of the next box in the stack.</p>
@@ -280,45 +288,46 @@
 
             <p>Digital screens use light (RGB) to build color, meaning you can blast as much color onto a screen as you want. Printing presses use wet liquid ink (CMYK). If you dump too much liquid onto a piece of paper, physics takes over. The paper can only absorb so much before it floods. In this guide, we will break down the exact mathematics of CMYK ink limits, how to check your files, and how to fix high TAC before you ruin a production run.</p>
 
-            <div class="highlight-block">
-                <p><strong>The Cost of Failure:</strong> If a prepress file exceeds the safe ink limits, the printing press operator may be forced to drastically slow down the machine to allow for longer drying times, or use anti-set-off powder. This increases production costs and often results in rejected, unsellable prints.</p>
-            </div>
-
             <div class="tool-cta-box">
                 <p class="tool-cta-title">Calculate Your Ink Limits Automatically</p>
                 <p class="tool-cta-desc">Stop guessing if your Rich Black is safe for printing. Use our free TAC Ink Density Calculator to instantly verify if your CMYK values will dry safely on coated or uncoated paper.</p>
                 <a href="tac-calculator.html" class="tool-cta-btn">Launch TAC Calculator ↗</a>
             </div>
 
-            <h2>The Math Behind Total Area Coverage (CMYK)</h2>
+            <h2>How to Calculate Total Area Coverage</h2>
             <p>In commercial printing, every color you see is created by layering microscopic dots of Cyan, Magenta, Yellow, and Black (CMYK) ink over each other. The percentage of each ink plate dictates the final color.</p>
             
-            <p>TAC is calculated by simply adding those four percentages together. The theoretical maximum amount of ink you can put on a page is 400%.</p>
+            <p>Calculating your Total Ink Coverage is simple addition. You just sample a dark pixel in your artwork and add the values together.</p>
 
+            <h3>Basic TAC Calculation Example</h3>
             <div class="formula-box">
-                100% C + 100% M + 100% Y + 100% K = 400% TAC (The Forbidden Mix)
+                C: 75% + M: 68% + Y: 67% + K: 90% = <strong>300% TAC</strong>
             </div>
 
-            <p><strong>Never use 400% TAC.</strong> No paper in the world can absorb 400% liquid ink. If you fill a shape in Adobe Illustrator with 100% of all four colors, you are essentially asking the printing press to dump four solid puddles of wet ink on top of each other. The result is a sticky, un-dryable mess.</p>
+            <p>The theoretical maximum amount of ink you can put on a page is 400% (100C, 100M, 100Y, 100K). <strong>Never use 400% TAC.</strong> No paper in the world can absorb 400% liquid ink. If you fill a shape in Adobe Illustrator with 100% of all four colors, you are essentially asking the printing press to dump four solid puddles of wet ink on top of each other. The result is a sticky, un-dryable mess.</p>
 
-            <h2>Why High TAC Ruins Print Jobs</h2>
+            <div class="article-img-container">
+                <img src="https://images.unsplash.com/photo-1562664377-709f2c337eb2?q=80&w=800&auto=format&fit=crop" alt="CMYK dots magnified on an offset printing press sheet">
+                <div class="image-caption">Layering microscopic dots of CMYK ink creates Total Area Coverage. Exceeding paper absorption limits causes dot gain and set-off.</div>
+            </div>
+
+            <h2>Problems Caused by High TAC</h2>
             <p>If you exceed the Total Area Coverage limit defined by your specific paper stock, you will trigger a chain reaction of mechanical failures on the press:</p>
 
             <ul>
-                <li><strong>Set-Off:</strong> Because the ink cannot absorb into the saturated paper, it sits wet on the surface. When the printed sheets are stacked on top of each other at the end of the press, the wet ink from the front of the bottom sheet transfers (sets off) onto the back of the sheet above it, ruining both.</li>
-                <li><strong>Dot Gain & Muddy Details:</strong> When too much wet ink is applied, the dots spread outward before they can dry. This "dot gain" fills in the negative white space, turning crisp, detailed photographs into dark, muddy blobs.</li>
+                <li><strong>Set-Off (Smudging):</strong> Because the ink cannot absorb into the saturated paper, it sits wet on the surface. When the printed sheets are stacked on top of each other at the end of the press, the wet ink from the front of the bottom sheet transfers (sets off) onto the back of the sheet above it.</li>
+                <li><strong>Muddy Details & Dot Gain:</strong> When too much wet ink is applied, the halftone dots spread outward before they can dry. This fills in the negative white space, turning crisp, detailed photographs into dark, muddy blobs.</li>
                 <li><strong>Paper Tearing (Picking):</strong> Wet ink acts like glue between the rubber offset blankets and the paper. If the ink is too thick, the tackiness of the ink will actually rip the fibers right off the surface of the paper as it passes through the machine.</li>
             </ul>
 
-            <div class="article-img-container">
-                <img src="https://images.unsplash.com/photo-1562664377-709f2c337eb2?q=80&w=800&auto=format&fit=crop" alt="Commercial offset printing press rollers">
-                <div class="image-caption">Offset presses layer wet ink. Exceeding TAC limits causes the paper to reject the liquid.</div>
+            <div class="highlight-block">
+                <p><strong>The Cost of Failure:</strong> If a prepress file exceeds the safe ink limits, the printing press operator may be forced to drastically slow down the machine to allow for longer drying times, or dump anti-set-off powder across your print. This destroys the finish and often results in rejected, unsellable prints.</p>
             </div>
 
             <h2>Standard TAC Limits by Paper Type</h2>
             <p>Different substrates (papers) have different absorption rates. Uncoated paper acts like a sponge, meaning ink spreads rapidly, requiring a lower ink limit. Coated, glossy paper has a clay surface that holds ink tightly, allowing for higher ink limits.</p>
             
-            <p>According to <a href="https://fogra.org/en/" target="_blank" rel="noopener noreferrer" style="color: var(--accent); font-weight: bold;">FOGRA</a> and ISO international printing standards, here are the absolute maximum safe TAC limits:</p>
+            <p>According to FOGRA and ISO international printing standards, here are the absolute maximum safe TAC limits:</p>
 
             <div class="table-wrapper">
                 <table class="comparison-table">
@@ -354,19 +363,8 @@
                 <span>✅ <strong>Pro Tip:</strong> When in doubt, ask your specific printer for their ICC color profile. If you convert your images to their specific profile in Photoshop, the software will automatically cap the TAC for you!</span>
             </div>
 
-            <h2>The "Rich Black" Problem (And How to Fix It)</h2>
-            <p>The most common cause of TAC violations is designers trying to create a deeply dark background. A standard 100% K (Black) ink often prints looking a bit gray or washed out. To make it darker, designers use "Rich Black"—adding Cyan, Magenta, and Yellow to "beef up" the darkness.</p>
-            
-            <p>However, if you select the default "Registration Black" in Illustrator, it will apply 100/100/100/100 (400% TAC). To fix this, you must use a standard, industry-safe Rich Black formula.</p>
-
-            <h3>The Safe Rich Black Formula (For Coated Paper)</h3>
-            <div class="formula-box">
-                60% C + 40% M + 40% Y + 100% K = 240% TAC
-            </div>
-            <p>This formula results in a beautiful, deep, cool-toned black that is well under the 300% limit for coated packaging, ensuring rapid drying and zero set-off.</p>
-
-            <h2>How to Check TAC in Adobe Creative Cloud</h2>
-            <p>You must verify your ink levels before sending files to the press. Here is how to do it natively in Adobe software:</p>
+            <h2>How to Check TAC in Your Design Files</h2>
+            <p>You must verify your ink levels before generating your final <a href="how-to-create-dieline.html">packaging dielines</a> and sending files to the press. Here is how to do it natively in Adobe software:</p>
 
             <h3>Checking TAC in Adobe Acrobat Pro:</h3>
             <ol>
@@ -383,15 +381,16 @@
                 <li>Hover your mouse over the darkest areas of your image. The Info panel will give you a live percentage readout of the TAC in that exact spot.</li>
             </ol>
 
-            <div class="article-img-container">
-                <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=800&auto=format&fit=crop" alt="Graphic designer checking CMYK ink limits">
-                <div class="image-caption">Always check the darkest shadows of your photographs using the Info Panel to ensure they do not exceed 300% TIC.</div>
-            </div>
+            <h2>TAC in a Real Print Production Workflow</h2>
+            <p>As a packaging prepress engineer, I can tell you that TAC violations are one of the primary reasons files are rejected by commercial printers. In a real-world workflow, when your PDF is ingested into the printer's RIP (Raster Image Processor) software, it runs a preflight check.</p>
+            <p>If the software detects a 380% TAC limit on a job meant for uncoated kraft paper, the job is immediately flagged and halted. The prepress operator will either kick the file back to the designer or forcibly apply a generic ICC color profile to strip out the excess ink.</p>
+            <p>If a printer forcibly strips ink out of your file using <strong>Under Color Removal (UCR)</strong> or <strong>Gray Component Replacement (GCR)</strong> without your supervision, the contrast and vibrancy of your original design may be compromised. This is especially dangerous for sensitive elements like <a href="nutrition-label-compliance.html">nutrition label compliance</a> text, which can become muddy if printed with heavy CMYK instead of pure 100% K.</p>
 
-            <h2>How Prepress Engineers Fix High TAC (UCR & GCR)</h2>
-            <p>If a photograph has a TAC of 350%, a prepress engineer cannot simply "lighten" the image, as that would ruin the contrast and mood of the photo. Instead, they use math.</p>
-            <p>Using processes called <strong>Under Color Removal (UCR)</strong> or <strong>Gray Component Replacement (GCR)</strong>, the software analyzes the dark, muddy areas created by high levels of Cyan, Magenta, and Yellow overlapping. It mathematically subtracts the CMY values and replaces them with an equivalent amount of Black (K) ink.</p>
-            <p>The visual color remains identical to the human eye, but the total physical volume of ink dumped on the paper is drastically reduced, ensuring a safe, printable file.</p>
+            <h3>The Safe Rich Black Formula</h3>
+            <p>The most common cause of a TAC violation is an improperly constructed "Rich Black." Do not use 100/100/100/100. Instead, use this industry-standard safe formula for coated paper:</p>
+            <div class="formula-box">
+                60% C + 40% M + 40% Y + 100% K = 240% TAC
+            </div>
 
             <h2>Frequently Asked Questions (FAQs)</h2>
             
