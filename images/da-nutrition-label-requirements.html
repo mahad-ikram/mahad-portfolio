@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505" id="theme-color-meta">
+    
+    <title>FDA Nutrition Label Requirements (2026 Guidelines) | Mahad Ikram</title>
+    <meta name="description" content="Master the latest FDA nutrition label requirements for US packaging. Learn mandatory nutrient rules, typography formatting, and strict allergen declarations.">
+    <meta name="keywords" content="FDA nutrition label requirements, US food labeling rules, FDA packaging design, FDA compliance, Daily Value calculation, FDA allergen declaration, prepress label design">
+    <link rel="canonical" href="https://mahadikram.com/fda-nutrition-label-requirements.html">
+
+    <meta property="og:title" content="FDA Nutrition Label Requirements: The Complete Packaging Guide">
+    <meta property="og:description" content="Ensure your US packaging dielines are 100% legal. Master the FDA's strict typography, layout, and nutrient order regulations.">
+    <meta property="og:url" content="https://mahadikram.com/fda-nutrition-label-requirements.html">
+    <meta property="og:type" content="article">
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "FDA Nutrition Label Requirements: The Complete Packaging Guide",
+      "description": "Master the latest FDA nutrition label requirements for US packaging. Learn mandatory nutrient rules, typography formatting, and strict allergen declarations.",
+      "author": {
+        "@type": "Person",
+        "name": "Mahad Ikram",
+        "jobTitle": "Communication Designer & Prepress Professional",
+        "url": "https://mahadikram.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Mahad Ikram Prepress",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://mahadikram.com/favicon.png"
+        }
+      },
+      "datePublished": "2026-04-22"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+     "@context": "https://schema.org",
+     "@type": "BreadcrumbList",
+     "itemListElement": [{
+       "@type": "ListItem",
+       "position": 1,
+       "name": "Home",
+       "item": "https://mahadikram.com"
+     },{
+       "@type": "ListItem",
+       "position": 2,
+       "name": "Blog",
+       "item": "https://mahadikram.com/blog.html"
+     },{
+       "@type": "ListItem",
+       "position": 3,
+       "name": "FDA Nutrition Label Requirements"
+     }]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What are the mandatory nutrients on an FDA label?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The FDA mandates the declaration of Total Fat, Saturated Fat, Trans Fat, Cholesterol, Sodium, Total Carbohydrate, Dietary Fiber, Total Sugars, Added Sugars, Protein, Vitamin D, Calcium, Iron, and Potassium."
+        }
+      },{
+        "@type": "Question",
+        "name": "What are the FDA allergen declaration rules?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Under FALCPA and the FASTER Act, packaging must clearly state if a product contains any of the 9 major allergens (including Sesame) using a bold 'Contains:' statement immediately following the ingredients list."
+        }
+      },{
+        "@type": "Question",
+        "name": "What is the minimum font size for an FDA nutrition label?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The standard minimum font size is 8pt for core nutrients, 6pt for the bottom footnote, and at least 16pt for the mandatory 'Calories' declaration, ensuring high consumer legibility."
+        }
+      }]
+    }
+    </script>
+    <script>
+        (function() {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const currentTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+            if (currentTheme === 'light') { document.documentElement.setAttribute('data-theme', 'light'); }
+        })();
+    </script>
+
+    <style>
+        /* --- CORE THEME --- */
+        :root {
+            --bg: #050505; --card-bg: #111111; --text: #ffffff; --sub-text: #888888;
+            --accent: #d4ff00; --border: #1a1a1a; --card-border: #222222;
+            --nav-bg: rgba(5, 5, 5, 0.95); 
+            --font-display: 'Arial Black', sans-serif; --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        [data-theme="light"] {
+            --bg: #f7f7f7; --card-bg: #ffffff; --text: #050505; --sub-text: #555555;
+            --accent: #9abd00; --border: #e0e0e0; --card-border: #d5d5d5;
+            --nav-bg: rgba(247, 247, 247, 0.95); 
+        }
+
+        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; transition: background-color 0.4s ease, color 0.4s ease; padding-top: 100px; cursor: none; }
+        a, button { cursor: none; }
+
+        /* --- CURSOR & NAV --- */
+        .cursor { position: fixed; top: 0; left: 0; width: 20px; height: 20px; background: white; border-radius: 50%; pointer-events: none; mix-blend-mode: difference; z-index: 9999999; transition: width 0.3s, height 0.3s, background 0.3s, opacity 0.2s; opacity: 0; will-change: transform; }
+        .cursor.hovered { width: 80px; height: 80px; opacity: 0.15; background: var(--accent); mix-blend-mode: normal; }
+        .cursor.hidden { opacity: 0 !important; width: 0; height: 0; }
+
+        nav { position: fixed; top: 0; left: 0; width: 100%; padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: transparent; border-bottom: 1px solid transparent; transition: background 0.4s ease, backdrop-filter 0.4s ease, border-bottom 0.4s ease; }
+        nav.scrolled { background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); } 
+        
+        .nav-links { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-link { color: var(--text); text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; transition: color 0.4s ease, border-color 0.3s ease; border-bottom: 1px solid transparent; padding-bottom: 2px; }
+        .nav-link:hover, .nav-link.active-link { border-bottom: 1px solid var(--accent); color: var(--accent); }
+        .theme-toggle-btn { background: none; border: none; outline: none; color: var(--text); display: inline-flex; align-items: center; justify-content: center; width: 35px; height: 35px; border-radius: 50%; transition: 0.3s ease; }
+        .theme-toggle-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+        /* --- ARTICLE CSS --- */
+        main { padding: 4rem 2rem; min-height: 100vh; max-width: 1000px; margin: 0 auto; text-align: left; }
+        
+        .article-meta { color: var(--accent); font-weight: bold; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem; margin-bottom: 1.5rem; display: block; }
+        h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); text-transform: uppercase; margin-bottom: 2rem; line-height: 1.1; color: var(--text); text-align: left; }
+        
+        .article-content { color: var(--sub-text); font-size: 1.15rem; line-height: 1.8; text-align: left; }
+        .article-content p { margin-bottom: 1.5rem; }
+        .article-content h2 { font-family: var(--font-display); font-size: 2rem; color: var(--text); margin-top: 3.5rem; margin-bottom: 1.2rem; text-transform: uppercase; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        .article-content h3 { font-size: 1.5rem; color: var(--text); margin-top: 2.5rem; margin-bottom: 1rem; }
+        .article-content strong { color: var(--text); }
+        .article-content ul, .article-content ol { padding-left: 2rem; margin-bottom: 2rem; }
+        .article-content li { margin-bottom: 0.8rem; }
+        .article-content li::marker { color: var(--accent); font-weight: bold; }
+        .article-content a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--accent); font-weight: bold; transition: color 0.3s; }
+        .article-content a:hover { color: var(--accent); }
+
+        /* Featured Snippet Box / Quick Summary */
+        .featured-snippet { background: rgba(212, 255, 0, 0.05); border-left: 4px solid var(--accent); padding: 1.5rem; margin-bottom: 3rem; border-radius: 0 8px 8px 0; }
+        .featured-snippet h3 { margin-top: 0; font-size: 1.3rem; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; }
+        .featured-snippet p { margin: 0; font-size: 1.15rem; color: var(--text); font-weight: 500; }
+        .featured-snippet ul { margin-top: 10px; margin-bottom: 0; }
+
+        /* Highlight Block & Pro Tip */
+        .highlight-block { background: var(--card-bg); padding: 1.5rem 2rem; border-left: 4px solid #ff4444; border-radius: 4px; margin-top: 1rem; margin-bottom: 2rem; }
+        .highlight-block p { margin: 0; color: var(--text); }
+        
+        .pro-tip-block { background: rgba(212, 255, 0, 0.05); border-left: 4px solid var(--accent); padding: 1rem 1.5rem; border-radius: 4px; margin: 1.5rem 0; font-weight: 500; color: var(--text); display: flex; align-items: center; gap: 10px; }
+
+        /* Asset Download Block */
+        .asset-block { background: rgba(212, 255, 0, 0.1); padding: 2rem; border: 2px dashed var(--accent); border-radius: 8px; margin: 2rem 0; text-align: center; }
+        .asset-block p { margin: 0; color: var(--text); font-size: 1.2rem; font-weight: bold; }
+        .asset-block a { display: inline-block; margin-top: 15px; background: var(--accent); color: #000 !important; padding: 12px 24px; border-radius: 4px; text-decoration: none; text-transform: uppercase; font-weight: 900; letter-spacing: 1px; transition: transform 0.2s; border-bottom: none; position: relative; z-index: 10; }
+        .asset-block a:hover { transform: translateY(-3px); color: #000 !important; background: #b8e600; }
+
+        /* Comparison Table */
+        .table-wrapper { overflow-x: auto; margin: 2.5rem 0; border-radius: 8px; border: 1px solid var(--card-border); }
+        .comparison-table { width: 100%; border-collapse: collapse; text-align: left; background: var(--card-bg); }
+        .comparison-table th { background: rgba(212, 255, 0, 0.1); color: var(--accent); padding: 1.2rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; font-size: 1rem; border-bottom: 1px solid var(--card-border); }
+        .comparison-table td { padding: 1.2rem; color: var(--sub-text); border-bottom: 1px solid var(--card-border); font-size: 1.05rem; }
+        .comparison-table tr:last-child td { border-bottom: none; }
+        .comparison-table tr:hover td { background: rgba(255,255,255,0.02); color: var(--text); }
+        
+        /* Authority & Internal Linking Blocks */
+        .authority-box { margin-top: 3rem; padding: 2rem; background: var(--card-bg); border-radius: 8px; border: 1px solid var(--card-border); display: flex; flex-direction: column; gap: 0.5rem; }
+        .authority-box h4 { font-family: var(--font-display); font-size: 1.3rem; color: var(--text); text-transform: uppercase; margin: 0; }
+        .authority-box p { font-size: 1rem; margin: 0; }
+        
+        .internal-links-box { margin-top: 2rem; padding: 2rem; background: var(--card-bg); border-radius: 8px; border: 1px solid var(--card-border); border-top: 4px solid var(--accent); }
+        .internal-links-box h4 { font-family: var(--font-display); font-size: 1.3rem; color: var(--text); text-transform: uppercase; margin-bottom: 1rem; }
+        .internal-links-box ul { list-style: none; padding: 0; margin: 0; }
+        .internal-links-box li { margin-bottom: 0.8rem; }
+        .internal-links-box a { color: var(--text); text-decoration: none; font-size: 1.05rem; transition: color 0.3s; border-bottom: 1px solid transparent; }
+        .internal-links-box a:hover { color: var(--accent); border-bottom: 1px solid var(--accent); }
+
+        /* Inline Tool CTA */
+        .tool-cta-box { background: var(--card-bg); border: 1px solid var(--card-border); padding: 2.5rem; border-radius: 8px; margin: 4rem 0; display: flex; flex-direction: column; gap: 1rem; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border-left: 4px solid var(--accent); }
+        .tool-cta-title { font-family: var(--font-display); font-size: 1.6rem; color: var(--text); text-transform: uppercase; margin: 0; }
+        .tool-cta-desc { font-size: 1.15rem; margin: 0; color: var(--sub-text); line-height: 1.6; }
+        .tool-cta-btn { display: inline-flex; width: fit-content; align-items: center; justify-content: center; padding: 1rem 2rem; background: var(--accent); color: #000 !important; font-weight: bold; text-transform: uppercase; text-decoration: none !important; border-radius: 4px; transition: transform 0.3s, background 0.3s; font-size: 0.95rem; letter-spacing: 1px; border: none; margin-top: 10px; z-index: 10; position: relative; }
+        .tool-cta-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 20px rgba(212, 255, 0, 0.3); color: #000 !important; background: #b8e600; }
+
+        /* FAQs */
+        .faq-box { margin-bottom: 1.5rem; background: var(--card-bg); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--card-border); }
+        .faq-box h4 { margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--text); font-weight: bold; }
+        .faq-box p { margin-bottom: 0; font-size: 1rem; }
+
+        /* Dynamic Blog CTA */
+        .blog-hub-cta { margin-top: 4rem; padding: 3rem; background: rgba(212, 255, 0, 0.03); border: 1px solid var(--card-border); border-radius: 12px; text-align: center; }
+        .blog-hub-cta h3 { font-family: var(--font-display); font-size: 2rem; color: var(--text); text-transform: uppercase; margin-bottom: 1rem; }
+        .blog-hub-cta p { color: var(--sub-text); font-size: 1.1rem; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+        .blog-hub-btn { display: inline-block; padding: 1rem 2.5rem; background: transparent; color: var(--text); border: 2px solid var(--accent); border-radius: 50px; font-weight: bold; text-transform: uppercase; text-decoration: none; transition: 0.3s; letter-spacing: 1px; position: relative; z-index: 10;}
+        .blog-hub-btn:hover { background: var(--accent); color: #000 !important; transform: translateY(-3px); }
+
+        @media(max-width: 768px) {
+            nav { background: var(--nav-bg) !important; border-bottom: 1px solid var(--border) !important; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+            .cursor { display: none !important; } * { cursor: auto !important; }
+            .hamburger { display: flex; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background-color: var(--nav-bg); text-align: center; padding: 2rem 0; border-bottom: 1px solid var(--border); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+            .nav-links.mobile-active { display: flex; }
+            main { padding: 2rem 1.5rem; }
+            h1 { font-size: 2rem; margin-bottom: 1.5rem; }
+            .article-content { font-size: 1.05rem; line-height: 1.6; }
+            .article-content h2 { font-size: 1.6rem; margin-top: 2.5rem; }
+            .article-content h3 { font-size: 1.3rem; margin-top: 2rem; }
+            .tool-cta-box { padding: 1.5rem; }
+            .blog-hub-cta { padding: 2rem 1.5rem; }
+            .blog-hub-cta h3 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor"></div>
+
+    <nav id="main-nav">
+        <div style="font-weight: bold; font-size: 1.2rem; color: var(--text); z-index: 1002;">
+            <a href="index.html" style="color: inherit; text-decoration: none;"><span style="color: var(--accent);">M</span>I.</a>
+        </div>
+        <div class="hamburger" id="hamburger-icon"><span class="line"></span><span class="line"></span><span class="line"></span></div>
+        <div class="nav-links" id="nav-links">
+            <a href="about.html" class="nav-link">About</a>
+            <a href="work.html" class="nav-link">Works</a>
+            <a href="blog.html" class="nav-link active-link" style="color: var(--accent);">Blog</a>
+            <a href="tools.html" class="nav-link">Tools</a>
+            <a href="https://vaguers.com" target="_blank" rel="noopener noreferrer" class="nav-link">Shop ↗</a>
+            <a href="mailto:Mahadikram@outlook.com" class="nav-link">Contact</a>
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Dark/Light Mode">
+                <svg id="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg id="icon-sun" style="display: none;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <div class="article-meta">Packaging Compliance • 12 Min Read</div>
+        <h1>FDA Nutrition Label Requirements: The Complete Packaging Guide</h1>
+        
+        <div class="article-content">
+
+            <div class="featured-snippet">
+                <h3>Quick Summary (TL;DR)</h3>
+                <ul>
+                    <li><strong>The Core Mandate:</strong> The FDA requires all packaged foods sold in the US to bear a compliant Nutrition Facts label, displaying accurate % Daily Values based on a 2,000-calorie diet.</li>
+                    <li><strong>Typography Constraints:</strong> Calories must be bold and highly prominent. The standard minimum font size is 8pt, and fonts must be highly legible sans-serifs (like Helvetica).</li>
+                    <li><strong>Allergen Updates:</strong> Under the FASTER Act, <strong>Sesame</strong> is now legally recognized as the 9th major food allergen and must be explicitly declared.</li>
+                </ul>
+            </div>
+
+            <div class="asset-block">
+                <p>🎁 Free Prepress Resource</p>
+                <a href="images/fda-checklist.pdf" target="_blank">Download the 25-Point FDA Compliance Checklist (PDF)</a>
+            </div>
+
+            <p>If you are designing packaging for the United States market, your design must survive the strict scrutiny of the U.S. Food and Drug Administration. The FDA does not view the <strong>Nutrition Facts label</strong> as a design element; they view it as a highly regulated legal document. A single missing nutrient or an improperly formatted allergen warning can trigger a mandatory, multi-million dollar product recall.</p>
+
+            <p>In this guide, we break down the exact structural, typographic, and prepress rules you need to follow to guarantee your packaging dielines meet the latest <strong>FDA nutrition label requirements</strong>.</p>
+
+            <div class="highlight-block">
+                <p><strong>Official Resource:</strong> While this guide serves as a practical blueprint for designers and prepress operators, you should always verify the latest legal thresholds directly via the <a href="https://www.fda.gov/food/food-labeling-nutrition" target="_blank" rel="noopener noreferrer" style="color: var(--text); text-decoration: underline;">U.S. Food and Drug Administration (FDA)</a> official website.</p>
+            </div>
+
+            <div class="tool-cta-box">
+                <p class="tool-cta-title">Generate FDA-Compliant Labels Instantly</p>
+                <p class="tool-cta-desc">Stop drawing grid lines and calculating % Daily Values manually. Use our automated Formatter to instantly generate pixel-perfect, prepress-ready FDA Nutrition panels.</p>
+                <a href="nutrition-generator.html" class="tool-cta-btn">Launch Nutrition Label Tool ↗</a>
+            </div>
+
+            <h2>The Anatomy of the Modern FDA Label</h2>
+            <p>In 2016, the FDA overhauled the visual structure of the Nutrition Facts label for the first time in over 20 years to better reflect modern eating habits and scientific research. As a designer, you must strictly adhere to this "new" format.</p>
+
+            <div class="table-wrapper">
+                <table class="comparison-table">
+                    <tr>
+                        <th>Structural Update</th>
+                        <th>Design Requirement</th>
+                        <th>Why It Changed</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Calories</strong></td>
+                        <td>Must be the largest type size on the label and heavily bolded (Minimum 16pt).</td>
+                        <td>To immediately highlight the energy value of the product for consumers.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Serving Sizes</strong></td>
+                        <td>Must be bolded and reflect realistic consumption amounts (e.g., a 20oz soda is now 1 serving, not 2.5).</td>
+                        <td>To stop misleading portion-size mathematics.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Added Sugars</strong></td>
+                        <td>Must be indented directly under Total Carbohydrates in both grams and % Daily Value.</td>
+                        <td>To differentiate naturally occurring sugars (like in fruit) from processed sweeteners.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vitamins & Minerals</strong></td>
+                        <td>Vitamin D and Potassium are now mandatory. Vitamins A and C are voluntary.</td>
+                        <td>Reflects current American dietary deficiencies.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h2>Mandatory vs. Voluntary Nutrients</h2>
+            <p>You cannot simply pick and choose which nutrients look best on your packaging. The FDA dictates a strict tabular order.</p>
+
+            <p><strong>Mandatory Nutrients (Must appear in this exact order):</strong></p>
+            <ol>
+                <li>Total Fat</li>
+                <li>Saturated Fat</li>
+                <li><em>Trans</em> Fat</li>
+                <li>Cholesterol</li>
+                <li>Sodium</li>
+                <li>Total Carbohydrate</li>
+                <li>Dietary Fiber</li>
+                <li>Total Sugars</li>
+                <li>Added Sugars</li>
+                <li>Protein</li>
+                <li>Vitamin D</li>
+                <li>Calcium</li>
+                <li>Iron</li>
+                <li>Potassium</li>
+            </ol>
+
+            <p><em>Note: If a nutrient is zero, it can generally be omitted and listed in a simplified statement at the bottom reading "Not a significant source of..."</em></p>
+
+            <h2>Allergen Declaration Rules (FALCPA & FASTER Act)</h2>
+            <p>Food allergy warnings are the most critical safety element on your packaging. The Food Allergen Labeling and Consumer Protection Act (FALCPA) mandates that labels must clearly identify the food source names of major food allergens.</p>
+
+            <p>Recently, the <strong>FASTER Act</strong> officially recognized <strong>Sesame</strong> as the 9th major food allergen. The 9 major allergens are:</p>
+            <ul>
+                <li>Milk</li>
+                <li>Eggs</li>
+                <li>Fish (e.g., bass, flounder, cod)</li>
+                <li>Crustacean shellfish (e.g., crab, lobster, shrimp)</li>
+                <li>Tree nuts (e.g., almonds, walnuts, pecans)</li>
+                <li>Peanuts</li>
+                <li>Wheat</li>
+                <li>Soybeans</li>
+                <li><strong>Sesame</strong> (New)</li>
+            </ul>
+
+            <div class="pro-tip-block">
+                <span>✅ <strong>Prepress Pro Tip:</strong> Always use a bold <strong>"Contains:"</strong> statement immediately following the ingredients list (e.g., <strong>Contains: Wheat, Milk, and Soy.</strong>). Never embed allergens hidden within a dense paragraph of text.</span>
+            </div>
+
+            <h2>Typography & Print Production Rules</h2>
+            <p>From a prepress perspective, the FDA label is notoriously rigid. As highlighted in our broader <a href="nutrition-label-compliance.html">Nutrition Label Compliance Guide</a>, there are strict rules governing how ink hits the paper:</p>
+
+            <ul>
+                <li><strong>Font Selection:</strong> You must use a single, highly legible Sans-Serif font. <strong>Helvetica</strong> and <strong>Arial</strong> are the industry standards. Decorative or condensed fonts are strictly prohibited.</li>
+                <li><strong>Minimum Font Sizes:</strong> Standard text requires a minimum 8pt font. The bottom footnote requires a 6pt minimum.</li>
+                <li><strong>100% K Black Ink:</strong> To avoid <a href="packaging-design-mistakes.html">common packaging design mistakes</a>, never print the tiny 8pt text of your nutrition label using a 4-color Rich Black mix (CMYK). Commercial offset presses vibrate; printing tiny text in 4 colors causes misregistration and blurry text. Always set label typography to <strong>100% K (Black)</strong>.</li>
+            </ul>
+
+            <h2>Dual-Column Labels (The Edge Case)</h2>
+            <p>If your package contains between 200% and 300% of the standard reference amount (e.g., a pint of ice cream or a large bag of chips that could be eaten in one sitting or shared), the FDA requires a <strong>Dual-Column Label</strong>.</p>
+            <p>The left column must show the nutritional data for a single serving, and the right column must show the data for the <em>entire package</em>. This prevents consumers from doing mental math to figure out how many calories are in the whole bag.</p>
+
+            <h2>Frequently Asked Questions (FAQs)</h2>
+            
+            <div class="faq-box">
+                <h4>What are the mandatory nutrients on an FDA label?</h4>
+                <p>The FDA mandates the declaration of Total Fat, Saturated Fat, Trans Fat, Cholesterol, Sodium, Total Carbohydrate, Dietary Fiber, Total Sugars, Added Sugars, Protein, Vitamin D, Calcium, Iron, and Potassium.</p>
+            </div>
+            
+            <div class="faq-box">
+                <h4>What are the FDA allergen declaration rules?</h4>
+                <p>Under FALCPA and the FASTER Act, packaging must clearly state if a product contains any of the 9 major allergens (including Sesame) using a bold "Contains:" statement immediately following the ingredients list.</p>
+            </div>
+            
+            <div class="faq-box">
+                <h4>What is the minimum font size for an FDA nutrition label?</h4>
+                <p>The standard minimum font size is 8pt for core nutrients, 6pt for the bottom footnote, and at least 16pt for the mandatory "Calories" declaration, ensuring high consumer legibility.</p>
+            </div>
+
+            <div class="authority-box">
+                <h4>About the Author</h4>
+                <p><strong>Mahad Ikram</strong> is a working professional Communication Designer and Prepress Executive. He specializes in print production workflows, translating conceptual packaging designs into structurally sound, fully compliant print-ready dielines for the global FMCG market.</p>
+            </div>
+
+            <div class="internal-links-box">
+                <h4>Explore Related Print Production Guides</h4>
+                <ul>
+                    <li><a href="nutrition-label-compliance.html">Global Nutrition Label Compliance Rules</a></li>
+                    <li><a href="packaging-design-mistakes.html">7 Costly Packaging Design Mistakes</a></li>
+                    <li><a href="what-is-tac-in-printing.html">What is TAC in Printing? (Ink Limits)</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // --- THEME & NAV LOGIC ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const iconMoon = document.getElementById('icon-moon'); const iconSun = document.getElementById('icon-sun');
+        const metaThemeColor = document.getElementById('theme-color-meta');
+        themeToggleBtn.addEventListener('click', () => {
+            let newTheme = (document.documentElement.getAttribute('data-theme') || 'dark') === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme); localStorage.setItem('theme', newTheme);
+            if(newTheme === 'light') { iconMoon.style.display = 'none'; iconSun.style.display = 'block'; metaThemeColor.setAttribute('content', '#f7f7f7'); } 
+            else { iconMoon.style.display = 'block'; iconSun.style.display = 'none'; metaThemeColor.setAttribute('content', '#050505'); }
+        });
+        const mainNav = document.getElementById('main-nav'); window.addEventListener('scroll', () => { mainNav.classList.toggle('scrolled', window.scrollY > 50); });
+        const hamburgerIcon = document.getElementById('hamburger-icon'); const navMenu = document.getElementById('nav-links');
+        if(hamburgerIcon) hamburgerIcon.addEventListener('click', () => navMenu.classList.toggle('mobile-active'));
+
+        // --- CURSOR FIX ---
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        if (!isTouchDevice) {
+            const cursor = document.querySelector('.cursor');
+            document.addEventListener('mousemove', (e) => { 
+                if(cursor && !cursor.classList.contains('hidden')) { cursor.style.opacity = '1'; cursor.style.transform = `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0)`; } 
+            });
+            document.querySelectorAll('a, button').forEach(i => { i.addEventListener('mouseenter', () => cursor?.classList.add('hovered')); i.addEventListener('mouseleave', () => cursor?.classList.remove('hovered')); });
+        }
+    </script>
+</body>
+</html>
