@@ -274,100 +274,60 @@
                 <p><strong>Official Resource:</strong> While this guide serves as a practical blueprint for designers and prepress operators, you should always verify the latest legal thresholds directly via the <a href="https://www.fda.gov/food/food-labeling-nutrition" target="_blank" rel="noopener noreferrer" style="color: var(--text); text-decoration: underline;">U.S. Food and Drug Administration (FDA)</a> official website.</p>
             </div>
 
+            <h2>How to Create an FDA-Compliant Nutrition Label</h2>
+            <p>Execution is everything. To build a label that passes regulatory inspection, you must follow these precise steps in order:</p>
+            <ol>
+                <li><strong>Determine Serving Size:</strong> You cannot invent this number. It must be based on the FDA's established Reference Amounts Customarily Consumed (RACC).</li>
+                <li><strong>Calculate Calories and Nutrients:</strong> Determine the exact gram/milligram weight of each nutrient per standard serving size.</li>
+                <li><strong>List Nutrients in the Required Order:</strong> Place them exactly as dictated by the FDA (Total Fat, Saturated Fat, Trans Fat, etc.).</li>
+                <li><strong>Calculate the % Daily Value (%DV):</strong> Divide your serving amount by the FDA's daily limit, then multiply by 100 to get the percentage based on a 2,000-calorie diet.</li>
+                <li><strong>Format the Layout:</strong> Apply the mandatory typographic hierarchy, bolding, and hairline separators.</li>
+            </ol>
+
             <div class="tool-cta-box">
                 <p class="tool-cta-title">Generate FDA-Compliant Labels Instantly</p>
                 <p class="tool-cta-desc">Stop drawing grid lines and calculating % Daily Values manually. Use our automated Formatter to instantly generate pixel-perfect, prepress-ready FDA Nutrition panels.</p>
                 <a href="nutrition-generator.html" class="tool-cta-btn">Launch Nutrition Label Tool ↗</a>
             </div>
 
-            <h2>The Anatomy of the Modern FDA Label</h2>
-            <p>In 2016, the FDA overhauled the visual structure of the Nutrition Facts label for the first time in over 20 years to better reflect modern eating habits and scientific research. As a designer, you must strictly adhere to this "new" format.</p>
+            <h2>FDA Nutrition Label Example Breakdown</h2>
+            <p>In 2016, the FDA overhauled the visual structure of the label. As a designer, you must strictly adhere to this exact typographic hierarchy:</p>
 
-            <div class="table-wrapper">
-                <table class="comparison-table">
-                    <tr>
-                        <th>Structural Update</th>
-                        <th>Design Requirement</th>
-                        <th>Why It Changed</th>
-                    </tr>
-                    <tr>
-                        <td><strong>Calories</strong></td>
-                        <td>Must be the largest type size on the label and heavily bolded (Minimum 16pt).</td>
-                        <td>To immediately highlight the energy value of the product for consumers.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Serving Sizes</strong></td>
-                        <td>Must be bolded and reflect realistic consumption amounts (e.g., a 20oz soda is now 1 serving, not 2.5).</td>
-                        <td>To stop misleading portion-size mathematics.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Added Sugars</strong></td>
-                        <td>Must be indented directly under Total Carbohydrates in both grams and % Daily Value.</td>
-                        <td>To differentiate naturally occurring sugars (like in fruit) from processed sweeteners.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Vitamins & Minerals</strong></td>
-                        <td>Vitamin D and Potassium are now mandatory. Vitamins A and C are voluntary.</td>
-                        <td>Reflects current American dietary deficiencies.</td>
-                    </tr>
-                </table>
-            </div>
+            <ul>
+                <li><strong>Servings Per Container:</strong> Placed at the very top. Type must be large and highly legible.</li>
+                <li><strong>Serving Size:</strong> Directly below servings per container. Must be bolded and reflect realistic consumption amounts.</li>
+                <li><strong>Calories:</strong> Must be the largest type size on the entire label and heavily bolded (Minimum 16pt, but often much larger). This is non-negotiable.</li>
+                <li><strong>The % Daily Value Column:</strong> Right-aligned. This column tells consumers how much a nutrient in a serving contributes to a daily diet.</li>
+                <li><strong>Added Sugars:</strong> Must be indented directly beneath "Total Sugars" in both grams and % Daily Value to differentiate them from naturally occurring sugars.</li>
+                <li><strong>Vitamins & Minerals:</strong> Vitamin D and Potassium are now mandatory at the bottom of the label. Vitamins A and C are voluntary.</li>
+            </ul>
 
-            <h2>Mandatory vs. Voluntary Nutrients</h2>
-            <p>You cannot simply pick and choose which nutrients look best on your packaging. The FDA dictates a strict tabular order.</p>
+            <h2>Common FDA Labeling Mistakes</h2>
+            <p>Avoid these critical errors that trigger immediate rejection by major retailers or FDA warning letters:</p>
+            <ul>
+                <li><strong>Incorrect Serving Sizes:</strong> Using outdated serving sizes (e.g., calling a 20oz soda 2.5 servings instead of 1 serving).</li>
+                <li><strong>Missing Added Sugars:</strong> Failing to indent and declare "Includes Xg Added Sugars."</li>
+                <li><strong>Wrong % Daily Value Calculations:</strong> Guessing percentages instead of using the exact FDA mathematical divisor limits.</li>
+                <li><strong>Improper Label Formatting:</strong> Scaling the entire vector label proportionally to fit a small space, which illegally shrinks the mandatory 8pt text down to 5pt.</li>
+            </ul>
 
-            <p><strong>Mandatory Nutrients (Must appear in this exact order):</strong></p>
-            <ol>
-                <li>Total Fat</li>
-                <li>Saturated Fat</li>
-                <li><em>Trans</em> Fat</li>
-                <li>Cholesterol</li>
-                <li>Sodium</li>
-                <li>Total Carbohydrate</li>
-                <li>Dietary Fiber</li>
-                <li>Total Sugars</li>
-                <li>Added Sugars</li>
-                <li>Protein</li>
-                <li>Vitamin D</li>
-                <li>Calcium</li>
-                <li>Iron</li>
-                <li>Potassium</li>
-            </ol>
-
-            <p><em>Note: If a nutrient is zero, it can generally be omitted and listed in a simplified statement at the bottom reading "Not a significant source of..."</em></p>
+            <h2>From a Packaging Designer’s Perspective</h2>
+            <p>As a prepress engineer, I see perfectly compliant digital FDA labels get ruined on the actual physical printing press every single day. The rules of digital design do not always translate to the physics of liquid ink.</p>
+            
+            <p><strong>Print Layout & Dieline Conflicts:</strong> Never place your nutrition label closer than 3mm to a score line, fold line, or glue flap on your <a href="dieline-generator.html">packaging dieline</a>. When the heavy machinery crushes the cardboard to fold it, the creasing matrix can crack the ink right over your allergen warnings.</p>
+            
+            <p><strong>The CMYK Text Blur:</strong> If you are printing a label on a high-speed flexographic or offset press, never set the tiny 8pt label text using a 4-color Rich Black mix. The vibration of the press will cause the Cyan, Magenta, Yellow, and Black plates to misregister, turning your mandatory legal text into an illegible, blurry smear. <strong>Always set your nutrition text to 100% K (Black).</strong> You can read more about avoiding this in our <a href="packaging-design-mistakes.html">7 Packaging Design Mistakes Guide</a>.</p>
+            
+            <p><strong>TAC Ink Limits:</strong> If you place a white label box over a dark background, ensure the background <a href="what-is-tac-in-printing.html">Total Area Coverage (TAC)</a> does not bleed into your white box. If you fail to trap it correctly, the background colors will flood the label, destroying the contrast and failing legal legibility tests.</p>
 
             <h2>Allergen Declaration Rules (FALCPA & FASTER Act)</h2>
             <p>Food allergy warnings are the most critical safety element on your packaging. The Food Allergen Labeling and Consumer Protection Act (FALCPA) mandates that labels must clearly identify the food source names of major food allergens.</p>
 
-            <p>Recently, the <strong>FASTER Act</strong> officially recognized <strong>Sesame</strong> as the 9th major food allergen. The 9 major allergens are:</p>
-            <ul>
-                <li>Milk</li>
-                <li>Eggs</li>
-                <li>Fish (e.g., bass, flounder, cod)</li>
-                <li>Crustacean shellfish (e.g., crab, lobster, shrimp)</li>
-                <li>Tree nuts (e.g., almonds, walnuts, pecans)</li>
-                <li>Peanuts</li>
-                <li>Wheat</li>
-                <li>Soybeans</li>
-                <li><strong>Sesame</strong> (New)</li>
-            </ul>
+            <p>Recently, the <strong>FASTER Act</strong> officially recognized <strong>Sesame</strong> as the 9th major food allergen. The 9 major allergens are: Milk, Eggs, Fish, Crustacean shellfish, Tree nuts, Peanuts, Wheat, Soybeans, and <strong>Sesame</strong>.</p>
 
             <div class="pro-tip-block">
                 <span>✅ <strong>Prepress Pro Tip:</strong> Always use a bold <strong>"Contains:"</strong> statement immediately following the ingredients list (e.g., <strong>Contains: Wheat, Milk, and Soy.</strong>). Never embed allergens hidden within a dense paragraph of text.</span>
             </div>
-
-            <h2>Typography & Print Production Rules</h2>
-            <p>From a prepress perspective, the FDA label is notoriously rigid. As highlighted in our broader <a href="nutrition-label-compliance.html">Nutrition Label Compliance Guide</a>, there are strict rules governing how ink hits the paper:</p>
-
-            <ul>
-                <li><strong>Font Selection:</strong> You must use a single, highly legible Sans-Serif font. <strong>Helvetica</strong> and <strong>Arial</strong> are the industry standards. Decorative or condensed fonts are strictly prohibited.</li>
-                <li><strong>Minimum Font Sizes:</strong> Standard text requires a minimum 8pt font. The bottom footnote requires a 6pt minimum.</li>
-                <li><strong>100% K Black Ink:</strong> To avoid <a href="packaging-design-mistakes.html">common packaging design mistakes</a>, never print the tiny 8pt text of your nutrition label using a 4-color Rich Black mix (CMYK). Commercial offset presses vibrate; printing tiny text in 4 colors causes misregistration and blurry text. Always set label typography to <strong>100% K (Black)</strong>.</li>
-            </ul>
-
-            <h2>Dual-Column Labels (The Edge Case)</h2>
-            <p>If your package contains between 200% and 300% of the standard reference amount (e.g., a pint of ice cream or a large bag of chips that could be eaten in one sitting or shared), the FDA requires a <strong>Dual-Column Label</strong>.</p>
-            <p>The left column must show the nutritional data for a single serving, and the right column must show the data for the <em>entire package</em>. This prevents consumers from doing mental math to figure out how many calories are in the whole bag.</p>
 
             <h2>Frequently Asked Questions (FAQs)</h2>
             
