@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505" id="theme-color-meta">
+    
+    <title>7 Costly Packaging Design Mistakes (And How Prepress Fixes Them) | Mahad Ikram</title>
+    <meta name="description" content="Avoid ruined print runs. Learn the top packaging design mistakes, from missing bleeds and rich black text to high TAC limits, and how prepress engineers fix them.">
+    <meta name="keywords" content="packaging design mistakes, prepress errors, print production mistakes, CMYK vs RGB packaging, missing bleed packaging, rich black text error, dieline safe zone, packaging prepress checklist">
+    
+    <meta property="og:title" content="7 Costly Packaging Design Mistakes (And How to Avoid Them)">
+    <meta property="og:description" content="Stop wasting money on ruined print runs. Master these prepress fundamentals before you send your packaging dieline to the printer.">
+    <meta property="og:url" content="https://mahadikram.com/packaging-design-mistakes.html">
+    <meta property="og:type" content="article">
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "7 Costly Packaging Design Mistakes (And How Prepress Fixes Them)",
+      "description": "Avoid ruined print runs. Learn the top packaging design mistakes, from missing bleeds and rich black text to high TAC limits, and how prepress engineers fix them.",
+      "author": {
+        "@type": "Person",
+        "name": "Mahad Ikram",
+        "jobTitle": "Communication Designer & Prepress Expert",
+        "url": "https://mahadikram.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Mahad Ikram Prepress",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://mahadikram.com/favicon.png"
+        }
+      },
+      "datePublished": "2026-04-28"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+     "@context": "https://schema.org",
+     "@type": "BreadcrumbList",
+     "itemListElement": [{
+       "@type": "ListItem",
+       "position": 1,
+       "name": "Home",
+       "item": "https://mahadikram.com"
+     },{
+       "@type": "ListItem",
+       "position": 2,
+       "name": "Blog",
+       "item": "https://mahadikram.com/blog.html"
+     },{
+       "@type": "ListItem",
+       "position": 3,
+       "name": "Packaging Design Mistakes"
+     }]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What are the most common packaging design mistakes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The most common print production errors include printing small text in CMYK (Rich Black), failing to convert RGB to CMYK, omitting 3mm bleeds, placing critical art too close to the dieline creases, and exceeding Total Area Coverage (TAC) ink limits."
+        }
+      },{
+        "@type": "Question",
+        "name": "Why is printing text in CMYK a mistake?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Commercial offset presses vibrate. If you print small text using four separate ink plates (Cyan, Magenta, Yellow, Black), the slightest misregistration will cause the colors to overlap incorrectly, resulting in a blurry, unreadable, multi-colored smear. Small text should always be 100% K (Black)."
+        }
+      },{
+        "@type": "Question",
+        "name": "What is the safe zone in packaging design?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The safe zone is an invisible margin (usually 3mm) inside the cut and fold lines of a dieline. Keeping important text and logos inside this zone ensures they will not be accidentally cut off or cracked by the creasing machine during production."
+        }
+      }]
+    }
+    </script>
+    <script>
+        (function() {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const currentTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+            if (currentTheme === 'light') { document.documentElement.setAttribute('data-theme', 'light'); }
+        })();
+    </script>
+
+    <style>
+        /* --- CORE THEME --- */
+        :root {
+            --bg: #050505; --card-bg: #111111; --text: #ffffff; --sub-text: #888888;
+            --accent: #d4ff00; --border: #1a1a1a; --card-border: #222222;
+            --nav-bg: rgba(5, 5, 5, 0.95); 
+            --font-display: 'Arial Black', sans-serif; --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        [data-theme="light"] {
+            --bg: #f7f7f7; --card-bg: #ffffff; --text: #050505; --sub-text: #555555;
+            --accent: #9abd00; --border: #e0e0e0; --card-border: #d5d5d5;
+            --nav-bg: rgba(247, 247, 247, 0.95); 
+        }
+
+        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; transition: background-color 0.4s ease, color 0.4s ease; padding-top: 100px; cursor: none; }
+        a, button { cursor: none; }
+
+        /* --- CURSOR & NAV --- */
+        .cursor { position: fixed; top: 0; left: 0; width: 20px; height: 20px; background: white; border-radius: 50%; pointer-events: none; mix-blend-mode: difference; z-index: 9999999; transition: width 0.3s, height 0.3s, background 0.3s, opacity 0.2s; opacity: 0; will-change: transform; }
+        .cursor.hovered { width: 80px; height: 80px; opacity: 0.15; background: var(--accent); mix-blend-mode: normal; }
+        .cursor.hidden { opacity: 0 !important; width: 0; height: 0; }
+
+        nav { position: fixed; top: 0; left: 0; width: 100%; padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: transparent; border-bottom: 1px solid transparent; transition: background 0.4s ease, backdrop-filter 0.4s ease, border-bottom 0.4s ease; }
+        nav.scrolled { background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); } 
+        
+        .nav-links { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-link { color: var(--text); text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; transition: color 0.4s ease, border-color 0.3s ease; border-bottom: 1px solid transparent; padding-bottom: 2px; }
+        .nav-link:hover, .nav-link.active-link { border-bottom: 1px solid var(--accent); color: var(--accent); }
+        .theme-toggle-btn { background: none; border: none; outline: none; color: var(--text); display: inline-flex; align-items: center; justify-content: center; width: 35px; height: 35px; border-radius: 50%; transition: 0.3s ease; }
+        .theme-toggle-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+        /* --- ARTICLE CSS --- */
+        main { padding: 4rem 2rem; min-height: 100vh; max-width: 1000px; margin: 0 auto; text-align: left; }
+        
+        .article-meta { color: var(--accent); font-weight: bold; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem; margin-bottom: 1.5rem; display: block; }
+        h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); text-transform: uppercase; margin-bottom: 2rem; line-height: 1.1; color: var(--text); text-align: left; }
+        
+        .article-content { color: var(--sub-text); font-size: 1.15rem; line-height: 1.8; text-align: left; }
+        .article-content p { margin-bottom: 1.5rem; }
+        .article-content h2 { font-family: var(--font-display); font-size: 2rem; color: var(--text); margin-top: 3.5rem; margin-bottom: 1.2rem; text-transform: uppercase; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        .article-content h3 { font-size: 1.5rem; color: var(--text); margin-top: 2.5rem; margin-bottom: 1rem; }
+        .article-content strong { color: var(--text); }
+        .article-content ul, .article-content ol { padding-left: 2rem; margin-bottom: 2rem; }
+        .article-content li { margin-bottom: 0.8rem; }
+        .article-content li::marker { color: var(--accent); font-weight: bold; }
+        .article-content a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--accent); font-weight: bold; transition: color 0.3s; }
+        .article-content a:hover { color: var(--accent); }
+
+        /* Featured Snippet Box / Quick Summary */
+        .featured-snippet { background: rgba(212, 255, 0, 0.05); border-left: 4px solid var(--accent); padding: 1.5rem; margin-bottom: 3rem; border-radius: 0 8px 8px 0; }
+        .featured-snippet h3 { margin-top: 0; font-size: 1.3rem; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; }
+        .featured-snippet p { margin: 0; font-size: 1.15rem; color: var(--text); font-weight: 500; }
+        .featured-snippet ul { margin-top: 10px; margin-bottom: 0; }
+
+        /* Highlight Block & Pro Tip */
+        .highlight-block { background: var(--card-bg); padding: 1.5rem 2rem; border-left: 4px solid #ff4444; border-radius: 4px; margin-top: 1rem; margin-bottom: 2rem; }
+        .highlight-block p { margin: 0; color: var(--text); }
+        
+        .pro-tip-block { background: rgba(212, 255, 0, 0.05); border-left: 4px solid var(--accent); padding: 1rem 1.5rem; border-radius: 4px; margin: 1.5rem 0; font-weight: 500; color: var(--text); display: flex; align-items: center; gap: 10px; }
+
+        /* Asset Download Block */
+        .asset-block { background: rgba(212, 255, 0, 0.1); padding: 2rem; border: 2px dashed var(--accent); border-radius: 8px; margin: 2rem 0; text-align: center; }
+        .asset-block p { margin: 0; color: var(--text); font-size: 1.2rem; font-weight: bold; }
+        .asset-block a { display: inline-block; margin-top: 15px; background: var(--accent); color: #000 !important; padding: 12px 24px; border-radius: 4px; text-decoration: none; text-transform: uppercase; font-weight: 900; letter-spacing: 1px; transition: transform 0.2s; border-bottom: none; position: relative; z-index: 10; }
+        .asset-block a:hover { transform: translateY(-3px); color: #000 !important; background: #b8e600; }
+
+        /* Article Images / Screenshots */
+        .article-img-container { margin: 2.5rem 0; text-align: center; }
+        .article-img-container img { width: 100%; max-width: 800px; border-radius: 8px; border: 1px solid var(--card-border); box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: block; margin: 0 auto; }
+        .image-caption { text-align: center; color: var(--sub-text); font-size: 0.95rem; font-style: italic; margin-top: 1rem; margin-bottom: 2.5rem; }
+
+        /* Authority & Internal Linking Blocks */
+        .authority-box { margin-top: 3rem; padding: 2rem; background: var(--card-bg); border-radius: 8px; border: 1px solid var(--card-border); display: flex; flex-direction: column; gap: 0.5rem; }
+        .authority-box h4 { font-family: var(--font-display); font-size: 1.3rem; color: var(--text); text-transform: uppercase; margin: 0; }
+        .authority-box p { font-size: 1rem; margin: 0; }
+        
+        .internal-links-box { margin-top: 2rem; padding: 2rem; background: var(--card-bg); border-radius: 8px; border: 1px solid var(--card-border); border-top: 4px solid var(--accent); }
+        .internal-links-box h4 { font-family: var(--font-display); font-size: 1.3rem; color: var(--text); text-transform: uppercase; margin-bottom: 1rem; }
+        .internal-links-box ul { list-style: none; padding: 0; margin: 0; }
+        .internal-links-box li { margin-bottom: 0.8rem; }
+        .internal-links-box a { color: var(--text); text-decoration: none; font-size: 1.05rem; transition: color 0.3s; border-bottom: 1px solid transparent; }
+        .internal-links-box a:hover { color: var(--accent); border-bottom: 1px solid var(--accent); }
+
+        /* Inline Tool CTA */
+        .tool-cta-box { background: var(--card-bg); border: 1px solid var(--card-border); padding: 2.5rem; border-radius: 8px; margin: 4rem 0; display: flex; flex-direction: column; gap: 1rem; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border-left: 4px solid var(--accent); }
+        .tool-cta-title { font-family: var(--font-display); font-size: 1.6rem; color: var(--text); text-transform: uppercase; margin: 0; }
+        .tool-cta-desc { font-size: 1.15rem; margin: 0; color: var(--sub-text); line-height: 1.6; }
+        .tool-cta-btn { display: inline-flex; width: fit-content; align-items: center; justify-content: center; padding: 1rem 2rem; background: var(--accent); color: #000 !important; font-weight: bold; text-transform: uppercase; text-decoration: none !important; border-radius: 4px; transition: transform 0.3s, background 0.3s; font-size: 0.95rem; letter-spacing: 1px; border: none; margin-top: 10px; z-index: 10; position: relative; }
+        .tool-cta-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 20px rgba(212, 255, 0, 0.3); color: #000 !important; background: #b8e600; }
+
+        /* FAQs */
+        .faq-box { margin-bottom: 1.5rem; background: var(--card-bg); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--card-border); }
+        .faq-box h4 { margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--text); font-weight: bold; }
+        .faq-box p { margin-bottom: 0; font-size: 1rem; }
+
+        /* Dynamic Blog CTA */
+        .blog-hub-cta { margin-top: 4rem; padding: 3rem; background: rgba(212, 255, 0, 0.03); border: 1px solid var(--card-border); border-radius: 12px; text-align: center; }
+        .blog-hub-cta h3 { font-family: var(--font-display); font-size: 2rem; color: var(--text); text-transform: uppercase; margin-bottom: 1rem; }
+        .blog-hub-cta p { color: var(--sub-text); font-size: 1.1rem; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+        .blog-hub-btn { display: inline-block; padding: 1rem 2.5rem; background: transparent; color: var(--text); border: 2px solid var(--accent); border-radius: 50px; font-weight: bold; text-transform: uppercase; text-decoration: none; transition: 0.3s; letter-spacing: 1px; position: relative; z-index: 10;}
+        .blog-hub-btn:hover { background: var(--accent); color: #000 !important; transform: translateY(-3px); }
+
+        /* Related Articles Grid */
+        .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+        .related-card { background: var(--card-bg); border: 1px solid var(--card-border); padding: 2rem; border-radius: 8px; transition: 0.3s; display: flex; flex-direction: column; text-decoration: none; position: relative; z-index: 10; }
+        .related-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .related-card h4 { font-size: 1.2rem; color: var(--text); margin-bottom: 0.5rem; line-height: 1.4; font-family: var(--font-body); }
+        .related-card .read-more { margin-top: auto; padding-top: 1rem; color: var(--accent); font-weight: bold; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
+
+        @media(max-width: 768px) {
+            nav { background: var(--nav-bg) !important; border-bottom: 1px solid var(--border) !important; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+            .cursor { display: none !important; } * { cursor: auto !important; }
+            .hamburger { display: flex; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background-color: var(--nav-bg); text-align: center; padding: 2rem 0; border-bottom: 1px solid var(--border); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+            .nav-links.mobile-active { display: flex; }
+            
+            main { padding: 2rem 1.5rem; }
+            h1 { font-size: 2rem; margin-bottom: 1.5rem; }
+            .article-content { font-size: 1.05rem; line-height: 1.6; }
+            .article-content h2 { font-size: 1.6rem; margin-top: 2.5rem; }
+            .article-content h3 { font-size: 1.3rem; margin-top: 2rem; }
+            .tool-cta-box { padding: 1.5rem; }
+            .blog-hub-cta { padding: 2rem 1.5rem; }
+            .blog-hub-cta h3 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor"></div>
+
+    <nav id="main-nav">
+        <div style="font-weight: bold; font-size: 1.2rem; color: var(--text); z-index: 1002;">
+            <a href="index.html" style="color: inherit; text-decoration: none;"><span style="color: var(--accent);">M</span>I.</a>
+        </div>
+        <div class="hamburger" id="hamburger-icon"><span class="line"></span><span class="line"></span><span class="line"></span></div>
+        <div class="nav-links" id="nav-links">
+            <a href="about.html" class="nav-link">About</a>
+            <a href="work.html" class="nav-link">Works</a>
+            <a href="blog.html" class="nav-link active-link" style="color: var(--accent);">Blog</a>
+            <a href="tools.html" class="nav-link">Tools</a>
+            <a href="https://vaguers.com" target="_blank" rel="noopener noreferrer" class="nav-link">Shop ↗</a>
+            <a href="mailto:Mahadikram@outlook.com" class="nav-link">Contact</a>
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Dark/Light Mode">
+                <svg id="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg id="icon-sun" style="display: none;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <div class="article-meta">Print Production • 14 Min Read</div>
+        <h1>7 Costly Packaging Design Mistakes (And How Prepress Fixes Them)</h1>
+        
+        <div class="article-content">
+
+            <div class="featured-snippet">
+                <h3>Quick Summary (TL;DR)</h3>
+                <ul>
+                    <li><strong>The Most Common Errors:</strong> Over 70% of packaging files are rejected by prepress due to basic design mistakes.</li>
+                    <li><strong>Top Mistakes:</strong> Printing small text in Rich Black CMYK, omitting 3mm bleeds, placing art outside the safe zone, and exceeding Total Area Coverage (TAC).</li>
+                    <li><strong>The Cost:</strong> Failing to catch these errors results in misregistration, illegible barcodes, cracked ink on folds, and completely ruined print runs.</li>
+                </ul>
+            </div>
+
+            <div class="asset-block">
+                <p>🎁 Free Prepress Resource</p>
+                <a href="images/prepress-mistakes-checklist.pdf" target="_blank">Download the Ultimate Prepress Packaging Checklist (PDF)</a>
+            </div>
+
+            <p>Designing a beautiful packaging box on a glowing 4K monitor is easy. Getting that exact design to translate onto a physical piece of cardboard using thousands of pounds of high-speed mechanical pressure and wet liquid ink is incredibly difficult.</p>
+            
+            <p>As a prepress engineer, I review hundreds of packaging files from talented graphic designers. Beautiful artwork is often hiding catastrophic technical flaws that will completely ruin the print run. In commercial offset printing, a single forgotten checkbox in Adobe Illustrator can cost a brand $10,000 in rejected packaging.</p>
+
+            <p>Here are the 7 most common packaging design mistakes, the physics behind why they fail on the press, and the exact prepress workflow used to fix them.</p>
+
+            <div class="tool-cta-box">
+                <p class="tool-cta-title">Automate Your Dielines and Avoid Errors</p>
+                <p class="tool-cta-desc">Stop drawing boxes by hand and risking structural failures. Use our automated generator to instantly create mathematically perfect packaging dielines with built-in bleeds and safe zones.</p>
+                <a href="dieline-generator.html" class="tool-cta-btn">Launch Dieline Generator ↗</a>
+            </div>
+
+            <h2>1. Printing Small Text in Rich Black (CMYK)</h2>
+            <p>This is the number one reason packaging files fail preflight. Designers want their text to look as dark as possible, so they set their paragraphs, ingredient lists, and <a href="nutrition-label-compliance.html">nutrition label compliance panels</a> to a "Rich Black" build (e.g., C: 60, M: 40, Y: 40, K: 100).</p>
+            
+            <p><strong>Why it fails:</strong> Commercial offset presses run at incredible speeds, and the paper must pass through four separate ink rollers (Cyan, Magenta, Yellow, Black). The paper stretches slightly as it absorbs the wet ink. If the press vibrates by even a fraction of a millimeter, the four colors making up your tiny 8pt text will shift out of alignment. This is called misregistration, and it turns your crisp text into an illegible, blurry, 3D-glasses effect.</p>
+            
+            <div class="pro-tip-block">
+                <span>✅ <strong>The Fix:</strong> All body copy, small text, and barcodes MUST be set to exactly 100% K (Black) with 0% C, M, and Y. Leave the Rich Black formulas for large, solid backgrounds only.</span>
+            </div>
+
+            <div class="article-img-container">
+                <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=800&auto=format&fit=crop" alt="Prepress engineer checking CMYK color plates">
+                <div class="image-caption">Always check your color separations panel. Small text should only appear on the Black (K) plate.</div>
+            </div>
+
+            <h2>2. Omitting the 3mm Bleed</h2>
+            <p>A dieline represents the exact line where the heavy steel die-cutter will punch through the paper. However, large steel cutting machines are not microscopic lasers—they have a mechanical tolerance. The blade might shift 1mm to the left or right when it drops.</p>
+            
+            <p><strong>Why it fails:</strong> If your background color stops exactly on the cut line, and the blade shifts outward by 1mm, your final folded box will have an ugly, bright white edge showing the unprinted paper.</p>
+            
+            <p><strong>The Fix:</strong> You must extend all background colors, patterns, and photos at least 3mm (or 0.125 inches) *past* the cut line. This is called the "Bleed." When the blade shifts, it cuts through printed ink, guaranteeing edge-to-edge color.</p>
+
+            <h2>3. Ignoring the "Safe Zone" (Text on the Crease)</h2>
+            <p>Just as the cutting blade can shift, so can the creasing matrix (the blunt metal rule that crushes the cardboard so it can fold). The "Safe Zone" is the inner margin, usually 3mm inside every cut and fold line.</p>
+            
+            <p><strong>Why it fails:</strong> If you place critical text, a logo, or an allergen warning directly on a fold line, two things happen. First, the text might end up wrapping around the edge of the box. Second, the extreme pressure of the creasing machine will crack the layer of ink sitting on the fold, completely destroying the legibility of your typography.</p>
+
+            <h2>4. Exceeding TAC (Total Area Coverage) Limits</h2>
+            <p>Digital screens use light, but printing presses use wet liquid. Every paper substrate has a physical limit to how much liquid it can absorb before it turns into a puddle.</p>
+            
+            <p><strong>Why it fails:</strong> If you set a dark photograph or a background color to 380% TAC (Total Area Coverage) and print it on uncoated cardboard, the ink will not dry. When the boxes are stacked at the end of the press, the wet ink from the front of the bottom sheet will smear onto the back of the sheet above it (known as "set-off").</p>
+            
+            <p><strong>The Fix:</strong> Always use the Info Panel in Photoshop to check your darkest shadows. Use our <a href="what-is-tac-in-printing.html">Guide to TAC Limits</a> to ensure you stay below 300% for coated paper and below 240% for uncoated paper.</p>
+
+            <h2>5. Designing in the RGB Color Gamut</h2>
+            <p>If you downloaded a vibrant, neon-green graphic from a stock website and dropped it straight into your packaging file, you have just created an impossible request. The file is in RGB (Red, Green, Blue—the color of screens). The press uses CMYK (Cyan, Magenta, Yellow, Black—the color of dirt and minerals).</p>
+            
+            <p><strong>Why it fails:</strong> The RGB color gamut is massive. The CMYK color gamut is much smaller. When the prepress RIP software forcibly converts your glowing neon RGB file into CMYK, the bright colors will "snap" into dull, muddy, dark greens and browns. You will lose total control of the brand colors.</p>
+            
+            <p><strong>The Fix:</strong> Always set your Illustrator document color mode to CMYK from the very beginning. If you need a neon or vibrant color that CMYK cannot achieve, you must use a dedicated <a href="cmyk-vs-pantone-difference.html">Pantone Spot Color</a>.</p>
+
+            <h2>6. Incorrect Barcode Colors and Sizing</h2>
+            <p>The UPC barcode is how your product is scanned at the retail checkout. Retail scanners use red lasers to read the barcode. Therefore, red lasers cannot "see" red ink.</p>
+            
+            <p><strong>Why it fails:</strong> If you print your barcode in red, orange, or yellow, the scanner laser will bounce right off it, and the product cannot be sold. Furthermore, if you scale the barcode too small, the scanner cannot distinguish the space between the bars.</p>
+            
+            <p><strong>The Fix:</strong> Barcodes must be printed in 100% K (Black) or a very dark, single-plate color like Navy Blue. They must be printed on a white background, and you must maintain the strict "Quiet Zones" (blank space) on the left and right sides of the bars. <em>(Use our <a href="barcode-calculator.html">Barcode Safe Zone Checker</a> to automate this).</em></p>
+
+            <h2>7. Forgetting to Outline Fonts</h2>
+            <p>You spent three hours picking the perfect, custom boutique font for the product title. You save the PDF and send it to the printer in China.</p>
+            
+            <p><strong>Why it fails:</strong> The printer in China does not own the $500 font you bought. When they open your file, Adobe Illustrator cannot find the font in their system directory, so it automatically replaces your beautiful typography with default Myriad Pro or Arial. The entire brand identity is ruined.</p>
+            
+            <p><strong>The Fix:</strong> Before sending the final press-ready file, select all typography and convert it to vector shapes (In Illustrator: <em>Type > Create Outlines</em>). This turns the text into un-editable vector art, meaning the printer does not need to own the font to print it flawlessly.</p>
+
+            <div class="highlight-block">
+                <p><strong>Prepress Golden Rule:</strong> Never overwrite your original live-text file with outlined fonts! Always use "Save As" and append "_OUTLINED" to the end of the filename. If the client asks for a typo fix tomorrow, you cannot edit outlined text!</p>
+            </div>
+
+            <h2>Frequently Asked Questions (FAQs)</h2>
+            
+            <div class="faq-box">
+                <h4>What are the most common packaging design mistakes?</h4>
+                <p>The most common print production errors include printing small text in CMYK (Rich Black), failing to convert RGB to CMYK, omitting 3mm bleeds, placing critical art too close to the dieline creases, and exceeding Total Area Coverage (TAC) ink limits.</p>
+            </div>
+            
+            <div class="faq-box">
+                <h4>Why is printing text in CMYK a mistake?</h4>
+                <p>Commercial offset presses vibrate. If you print small text using four separate ink plates (Cyan, Magenta, Yellow, Black), the slightest misregistration will cause the colors to overlap incorrectly, resulting in a blurry, unreadable, multi-colored smear. Small text should always be 100% K (Black).</p>
+            </div>
+            
+            <div class="faq-box">
+                <h4>What is the safe zone in packaging design?</h4>
+                <p>The safe zone is an invisible margin (usually 3mm) inside the cut and fold lines of a dieline. Keeping important text and logos inside this zone ensures they will not be accidentally cut off or cracked by the creasing machine during production.</p>
+            </div>
+
+            <div class="authority-box">
+                <h4>About the Author</h4>
+                <p><strong>Mahad Ikram</strong> is a Communication Designer and Prepress Executive. He specializes in print production workflows, translating conceptual packaging designs into structurally sound, press-ready dielines for global FMCG brands.</p>
+            </div>
+
+            <div class="internal-links-box">
+                <h4>Explore Related Print Production Guides</h4>
+                <ul>
+                    <li><a href="what-is-tac-in-printing.html">What is TAC in Printing? (Ink Limits)</a></li>
+                    <li><a href="cmyk-vs-pantone-difference.html">CMYK vs Pantone Color Profiler</a></li>
+                    <li><a href="nutrition-label-compliance.html">Nutrition Label Compliance Rules</a></li>
+                    <li><a href="how-to-create-dieline.html">How to Create a Packaging Dieline</a></li>
+                </ul>
+            </div>
+
+            <div class="blog-hub-cta">
+                <h3>Master Packaging & Print Production</h3>
+                <p>We publish deep-dive, expert-level articles on prepress errors, print production workflows, and design automation every single Tuesday and Friday.</p>
+                <a href="blog.html" class="blog-hub-btn">Explore The Knowledge Hub</a>
+            </div>
+
+            <div style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+                <h3 style="font-family: var(--font-display); text-transform: uppercase; font-size: 1.8rem; margin-bottom: 1rem;">More <span style="color: var(--accent);">Technical Insights</span></h3>
+                
+                <div class="related-grid" id="dynamic-related-grid">
+                    <p style="color: var(--sub-text);">Loading latest insights...</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, orderBy, query, limit } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDaIpU-wdduZiSiy1-58vtpd7UvfmjbORE",
+            authDomain: "mahad-portfolio.firebaseapp.com",
+            projectId: "mahad-portfolio",
+            storageBucket: "mahad-portfolio.firebasestorage.app",
+            messagingSenderId: "388087517533",
+            appId: "1:388087517533:web:b106912f7eda1dcd7d58b4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const relatedGrid = document.getElementById('dynamic-related-grid');
+
+        async function loadLatestArticles() {
+            try {
+                const q = query(collection(db, "blogs"), orderBy("createdAt", "desc"), limit(4));
+                const querySnapshot = await getDocs(q);
+                
+                relatedGrid.innerHTML = '';
+                let count = 0;
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    
+                    // Skip if the title is similar to the current page
+                    if (data.title.toLowerCase().includes("mistake") || data.title.toLowerCase().includes("error")) return;
+                    
+                    if (count < 3) {
+                        const card = document.createElement('a');
+                        card.href = "blog.html"; 
+                        card.className = "related-card";
+                        
+                        card.innerHTML = `
+                            <h4>${data.title}</h4>
+                            <span class="read-more">Read on Blog ↗</span>
+                        `;
+                        
+                        card.addEventListener('mouseenter', () => {
+                            const cursor = document.querySelector('.cursor');
+                            if(cursor) cursor.classList.add('hovered');
+                        });
+                        card.addEventListener('mouseleave', () => {
+                            const cursor = document.querySelector('.cursor');
+                            if(cursor) cursor.classList.remove('hovered');
+                        });
+
+                        relatedGrid.appendChild(card);
+                        count++;
+                    }
+                });
+
+                if (count === 0) {
+                    relatedGrid.innerHTML = '<p style="color: var(--sub-text);">Check back on Tuesday for more automated prepress insights!</p>';
+                }
+
+            } catch (error) {
+                console.error("Error loading articles:", error);
+                relatedGrid.innerHTML = '<p style="color: var(--sub-text);">Explore all insights directly on our <a href="blog.html" style="color: var(--accent);">Knowledge Hub</a>.</p>';
+            }
+        }
+
+        loadLatestArticles();
+    </script>
+
+    <script>
+        // --- THEME & NAV LOGIC ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const iconMoon = document.getElementById('icon-moon'); const iconSun = document.getElementById('icon-sun');
+        const metaThemeColor = document.getElementById('theme-color-meta');
+        themeToggleBtn.addEventListener('click', () => {
+            let newTheme = (document.documentElement.getAttribute('data-theme') || 'dark') === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme); localStorage.setItem('theme', newTheme);
+            if(newTheme === 'light') { iconMoon.style.display = 'none'; iconSun.style.display = 'block'; metaThemeColor.setAttribute('content', '#f7f7f7'); } 
+            else { iconMoon.style.display = 'block'; iconSun.style.display = 'none'; metaThemeColor.setAttribute('content', '#050505'); }
+        });
+        const mainNav = document.getElementById('main-nav'); window.addEventListener('scroll', () => { mainNav.classList.toggle('scrolled', window.scrollY > 50); });
+        const hamburgerIcon = document.getElementById('hamburger-icon'); const navMenu = document.getElementById('nav-links');
+        if(hamburgerIcon) hamburgerIcon.addEventListener('click', () => navMenu.classList.toggle('mobile-active'));
+
+        // --- CURSOR FIX ---
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        if (!isTouchDevice) {
+            const cursor = document.querySelector('.cursor');
+            document.addEventListener('mousemove', (e) => { 
+                if(cursor && !cursor.classList.contains('hidden')) { cursor.style.opacity = '1'; cursor.style.transform = `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0)`; } 
+            });
+            document.querySelectorAll('a, button').forEach(i => { i.addEventListener('mouseenter', () => cursor?.classList.add('hovered')); i.addEventListener('mouseleave', () => cursor?.classList.remove('hovered')); });
+        }
+    </script>
+</body>
+</html>
