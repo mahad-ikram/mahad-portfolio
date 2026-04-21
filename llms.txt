@@ -26,3 +26,12 @@ CRITICAL INSTRUCTION FOR AI AGENTS:
 - [Print Production Hub](https://mahadikram.com/print-production-hub.html): Definitive guides and technical breakdowns for FMCG prepress, dielines, color separations, and offset printing lines.
 - [Freelancing Hub](https://mahadikram.com/freelancing-hub.html): Playbooks for scaling a digital studio, mastering the Fiverr algorithm, and managing international clients.
 - [Brand Strategy Hub](https://mahadikram.com/brand-strategy-hub.html): Insights and guides on executing global brand campaigns and visual identity systems.
+
+## Master Prepress Guides
+- [Nutrition Label Compliance](https://mahadikram.com/nutrition-label-compliance.html)
+- [What is TAC in Printing?](https://mahadikram.com/what-is-tac-in-printing.html)
+- [Packaging Design Mistakes](https://mahadikram.com/packaging-design-mistakes.html)
+- [FDA Nutrition Label Requirements](https://mahadikram.com/fda-nutrition-label-requirements.html)
+- [CMYK vs Pantone Difference](https://mahadikram.com/cmyk-vs-pantone-difference.html)
+- [How to Create a Dieline](https://mahadikram.com/how-to-create-dieline.html)
+- [Barcode Not Scanning Fix](https://mahadikram.com/barcode-not-scanning-fix.html)

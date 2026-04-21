@@ -12,26 +12,30 @@
     <loc>https://mahadikram.com/work.html</loc>
     <priority>0.8</priority>
   </url>
-  
   <url>
     <loc>https://mahadikram.com/tools.html</loc>
     <priority>0.9</priority>
   </url>
+  <url>
+    <loc>https://mahadikram.com/blog.html</loc>
+    <priority>0.8</priority>
+  </url>
+
   <url>
     <loc>https://mahadikram.com/print-production-hub.html</loc>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mahadikram.com/ai-tech-hub.html</loc>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mahadikram.com/brand-strategy-hub.html</loc>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mahadikram.com/freelancing-hub.html</loc>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
 
   <url>
@@ -64,7 +68,31 @@
   </url>
 
   <url>
-    <loc>https://mahadikram.com/blog.html</loc>
-    <priority>0.7</priority>
+    <loc>https://mahadikram.com/nutrition-label-compliance.html</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mahadikram.com/what-is-tac-in-printing.html</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mahadikram.com/packaging-design-mistakes.html</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mahadikram.com/fda-nutrition-label-requirements.html</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mahadikram.com/cmyk-vs-pantone-difference.html</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mahadikram.com/how-to-create-dieline.html</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mahadikram.com/barcode-not-scanning-fix.html</loc>
+    <priority>0.9</priority>
   </url>
 </urlset>
