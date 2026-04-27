@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#050505" id="theme-color-meta">
     
-    <meta name="description" content="A free, fast, and accurate FDA & EU nutrition label maker for packaging designers. Generate print-ready nutrition fact panels instantly with no sign-up required.">
-    <title>Free FDA Nutrition Label Maker & Generator | Mahad Ikram</title>
+    <meta name="description" content="Free online nutrition label generator. Create FDA and EU compliant nutrition facts panels with automatic % Daily Value calculations. Export as print-ready PNG.">
+    <title>Free Nutrition Label Maker & Generator | FDA & EU | Mahad Ikram</title>
 
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="icon" type="image/png" href="favicon.png">
@@ -57,7 +57,9 @@
 
         /* --- TOOL CSS --- */
         main { padding: 4rem 10%; min-height: 100vh; }
-        h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); text-transform: uppercase; margin-bottom: 1rem; }
+        
+        /* NOTE: Removed text-transform uppercase to ensure the new longer H1 remains readable */
+        h1 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem); margin-bottom: 1rem; line-height: 1.1; }
         p.subtitle { color: var(--sub-text); font-size: 1.2rem; margin-bottom: 3rem; max-width: 700px; line-height: 1.6; }
 
         .tool-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; }
@@ -156,7 +158,7 @@
     </nav>
 
     <main>
-        <h1>Nutrition Panel Formatter</h1>
+        <h1>Free Nutrition Label Maker (FDA & EU Compliant)</h1>
         <p class="subtitle">Ensure FMCG compliance. Auto-calculate % Daily Values and generate pixel-perfect, typography-compliant FDA & EU nutrition labels for print.</p>
 
         <div class="tool-grid">
